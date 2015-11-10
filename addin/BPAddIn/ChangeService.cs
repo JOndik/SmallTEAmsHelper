@@ -70,16 +70,16 @@ namespace BPAddIn
 
             using (WebClient webClient = new WebClient())
             {
-                webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
-
                 string result = "";
                 string data = "";
                 DTOWrapper dtoWrapper = new DTOWrapper();
 
                 foreach (ModelChange change in modelChanges)
                 {
+                    webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
                     dtoWrapper.modelChange = change;
-                    data = Encoding.UTF8.GetString(Encoding.Unicode.GetBytes(dtoWrapper.serialize()));
+                    //data = Encoding.UTF8.GetString(Encoding.Unicode.GetBytes(dtoWrapper.serialize()));
+                    data = EncodeNonAsciiCharacters(dtoWrapper.serialize());
                     result = webClient.UploadString(serviceAddress + "/changes", data);
 
                     if (result == "")
@@ -97,6 +97,25 @@ namespace BPAddIn
             }
 
             uploadChanges();
+        }
+
+        static string EncodeNonAsciiCharacters(string value)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (char c in value)
+            {
+                if (c > 127)
+                {
+                    string encodedValue = "\\u" + ((int)c).ToString("x4");
+                    sb.Append(encodedValue);
+                }
+                else
+                {
+                    sb.Append(c);
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }

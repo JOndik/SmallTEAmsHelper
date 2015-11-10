@@ -17,7 +17,7 @@ namespace BPAddIn
             string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
             string path = (System.IO.Path.GetDirectoryName(executable));
             AppDomain.CurrentDomain.SetData("DataDirectory", path);
-            var connection = new SQLiteConnection("Data Source=|DataDirectory|db.sqlite;Version=3;");
+            var connection = new SQLiteConnection("Data Source=|DataDirectory|db.sqlite;Version=3;UTF8Encoding=True;");
             optionsBuilder.UseSqlite(connection);
         }
     }
