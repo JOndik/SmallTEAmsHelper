@@ -1,14 +1,10 @@
 CREATE TABLE model_changes(
-   id INTEGER PRIMARY KEY AUTOINCREMENT,
-   timestamp TEXT,
-   userGUID TEXT
+   timestamp varchar(255)
 );
 
 CREATE TABLE property_changes(
-   id INTEGER PRIMARY KEY AUTOINCREMENT,
-   timestamp TEXT,
-   userGUID TEXT,
-   elementGUID TEXT,
-   propertyBody TEXT,
-   propertyType INTEGER
+   timestamp varchar(255),
+   elementGUID varchar(255),
+   propertyBody varchar(255),
+   propertyType int
 );

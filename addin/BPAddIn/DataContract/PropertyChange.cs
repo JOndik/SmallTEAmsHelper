@@ -12,8 +12,10 @@ namespace BPAddIn.DataContract
     {
         public string elementGUID { get; set; }
         public int propertyType { get; set; }
-        public string propertyBody { get; set; }
-
-        public PropertyChange() : base() { }
+        public string propertyBody { get; set; } 
+           
+        public PropertyChange() : base() {
+            base.classType = "PropertyChange";
+        }
     }
 }

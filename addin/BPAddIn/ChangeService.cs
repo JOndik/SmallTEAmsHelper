@@ -1,9 +1,12 @@
 ﻿using BPAddIn.DataContract;
+using Microsoft.Data.Entity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -11,26 +14,89 @@ namespace BPAddIn
 {
     public class ChangeService
     {
-        public void saveAndSendChange(ModelChange change)
-        {
-            string jsonChange = serializeChange(change);
+        private const string serviceAddress = "http://localhost:8080";
 
-            MessageBox.Show(jsonChange);
-            using (LocalDBContext context = new LocalDBContext())
+        public void saveChange(ModelChange change)
+        {
+            lock (LocalDBContext.Lock)
             {
-                context.modelChanges.Add(change);
-                context.SaveChanges();
+                using (LocalDBContext context = new LocalDBContext())
+                {
+                    context.modelChanges.Add(change);
+                    context.SaveChanges();
+                }
             }
         }
 
-        public string serializeChange(ModelChange change)
+        public void startActivityDispatcher()
         {
-            var settings = new JsonSerializerSettings()
-            {
-                TypeNameHandling = TypeNameHandling.Objects
-            };
+            int sleepTime = 5 * 60 * 1000; // 5 min
 
-            return JsonConvert.SerializeObject(change, settings);
+            try
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    using (var stream = webClient.OpenRead(serviceAddress))
+                    {
+                        this.uploadChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("error");
+                Thread.Sleep(sleepTime);
+            }
+        }
+
+        public void uploadChanges()
+        {
+            List<ModelChange> modelChanges;
+
+            lock (LocalDBContext.Lock)
+            {
+                using (LocalDBContext context = new LocalDBContext())
+                {
+                    modelChanges = context.modelChanges.ToList();
+                    modelChanges.AddRange(context.Set<PropertyChange>().ToList());
+                }
+            }
+
+            if (modelChanges.Count == 0)
+            {
+                Thread.Sleep(15 * 1000);
+                uploadChanges();
+            }
+
+            using (WebClient webClient = new WebClient())
+            {
+                webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
+
+                string result = "";
+                string data = "";
+                DTOWrapper dtoWrapper = new DTOWrapper();
+
+                foreach (ModelChange change in modelChanges)
+                {
+                    dtoWrapper.modelChange = change;
+                    data = Encoding.UTF8.GetString(Encoding.Unicode.GetBytes(dtoWrapper.serialize()));
+                    result = webClient.UploadString(serviceAddress + "/changes", data);
+
+                    if (result == "")
+                    {
+                        lock (LocalDBContext.Lock)
+                        {
+                            using (LocalDBContext context = new LocalDBContext())
+                            {
+                                context.Remove(change);
+                                context.SaveChanges();
+                            }
+                        }
+                    }
+                }
+            }
+
+            uploadChanges();
         }
     }
 }

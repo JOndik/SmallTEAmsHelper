@@ -13,16 +13,13 @@ namespace BPAddIn.DataContract
     public class ModelChange
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long id { get; set; }
-        //public string classType { get; set; }
         public string timestamp { get; set; }
-        public string userGUID { get; set; }
+        [NotMapped]
+        public string classType { get; set; }
 
         public ModelChange()
         {
             this.timestamp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
-            this.userGUID = "0000-0000-0001";
         }
     }
 }

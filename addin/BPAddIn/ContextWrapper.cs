@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BPAddIn.DataContract;
 using Wrapper = TSF.UmlToolingFramework.Wrappers.EA;
 using EA;
+using System.Threading;
 
 namespace BPAddIn
 {
@@ -16,15 +17,16 @@ namespace BPAddIn
         public Wrapper.Element currentItem { get; set; }
         public Wrapper.Diagram currentDiagram { get; set; }
         public Wrapper.ConnectorWrapper currentConnector { get; set; }
-
         private ChangeService changeService;
-
         private bool changed = false;
+        private Thread dispatcherThread;
 
         public ContextWrapper(EA.Repository repository)
         {
             this.model = new Wrapper.Model(repository);
             this.changeService = new ChangeService();
+            dispatcherThread = new Thread(new ThreadStart(this.changeService.startActivityDispatcher));
+            dispatcherThread.Start();
         }
 
         public void handleDblClick(string GUID, ObjectType ot)
@@ -56,7 +58,7 @@ namespace BPAddIn
 
         public void handleChange(string GUID)
         {
-            if (currentItem != null && changed == false)
+            if (changed == false && currentItem != null)
             {
                 handleElementChange(GUID);
                 this.changed = true;
@@ -74,7 +76,7 @@ namespace BPAddIn
                 propertyChange.propertyType = 0;
                 propertyChange.propertyBody = changedElement.name;
 
-                changeService.saveAndSendChange(propertyChange);
+                changeService.saveChange(propertyChange); 
             }
         }
 

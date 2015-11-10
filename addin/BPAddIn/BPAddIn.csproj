@@ -176,6 +176,7 @@
     <Compile Include="ChangeService.cs" />
     <Compile Include="ContextWrapper.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="DataContract\DTOWrapper.cs" />
     <Compile Include="DataContract\PropertyChange.cs" />
     <Compile Include="Dictionary.cs" />
     <Compile Include="DataContract\ModelChange.cs" />

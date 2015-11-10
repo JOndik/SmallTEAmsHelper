@@ -7,9 +7,9 @@ namespace BPAddIn
 {
     public class LocalDBContext : DbContext
     {
+        public static object Lock = new object();
         public DbSet<Word> dictionary { get; set; }
         public DbSet<ModelChange> modelChanges { get; set; }
-
         public DbSet<PropertyChange> propertyChanges { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
