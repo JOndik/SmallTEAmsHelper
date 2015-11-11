@@ -20,7 +20,7 @@ namespace BPAddIn.DataContract
 
         public ModelChange()
         {
-            this.timestamp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+            this.timestamp = ((long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds * 1000).ToString();
         }
     }
 }

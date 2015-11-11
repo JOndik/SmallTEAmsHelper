@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @Service
 @Transactional
@@ -21,5 +22,9 @@ public class ModelChangeService {
 
     public void saveChange(ModelChange newChange) {
         modelChangeRepository.save(newChange);
+    }
+
+    public List<ModelChange> fetchAllChanges() {
+        return modelChangeRepository.findAll();
     }
 }

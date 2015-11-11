@@ -1,6 +1,7 @@
 package com.sthService.controller;
 
 import com.sthService.dataContract.DTOWrapper;
+import com.sthService.dataContract.ModelChange;
 import com.sthService.service.ModelChangeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/changes", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -29,5 +31,10 @@ public class ChangesController {
         modelChangeService.saveChange(newChange.getModelChange());
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<ModelChange> fetchAllChange() {
+        return modelChangeService.fetchAllChanges();
     }
 }
