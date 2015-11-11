@@ -72,7 +72,7 @@ namespace BPAddIn
             if (currentItem.name != changedElement.name)
             {
                 PropertyChange propertyChange = new PropertyChange();
-                propertyChange.elementGUID = GUID;
+                propertyChange.itemGUID = GUID;
                 propertyChange.propertyType = 0;
                 propertyChange.propertyBody = changedElement.name;
 

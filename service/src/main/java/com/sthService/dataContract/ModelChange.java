@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="model_changes")
+@Table(name = "model_changes")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -28,6 +28,9 @@ public class ModelChange {
     @NotNull
     private String timestamp;
 
+    @NotNull
+    private String itemGUID;
+
     public Long getId() {
         return id;
     }
@@ -42,5 +45,13 @@ public class ModelChange {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getItemGUID() {
+        return itemGUID;
+    }
+
+    public void setItemGUID(String itemGUID) {
+        this.itemGUID = itemGUID;
     }
 }

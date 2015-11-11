@@ -1,7 +1,6 @@
 package com.sthService.controller;
 
 import com.sthService.dataContract.DTOWrapper;
-import com.sthService.dataContract.PropertyChange;
 import com.sthService.service.ModelChangeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +25,8 @@ public class ChangesController {
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> logChange(@RequestBody DTOWrapper newChange) {
+        log.info(newChange.getModelChange().getItemGUID());
         modelChangeService.saveChange(newChange.getModelChange());
-
-        log.info(((PropertyChange)newChange.getModelChange()).getPropertyBody());
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

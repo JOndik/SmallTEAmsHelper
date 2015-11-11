@@ -20,7 +20,6 @@ public class ModelChangeService {
     private final Logger log = LoggerFactory.getLogger(ModelChangeService.class);
 
     public void saveChange(ModelChange newChange) {
-        log.warn(newChange.getTimestamp());
         modelChangeRepository.save(newChange);
     }
 }

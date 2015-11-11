@@ -1,29 +1,20 @@
 package com.sthService.dataContract;
 
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="property_changes")
+@Table(name= "property_changes")
+@PrimaryKeyJoinColumn(name = "model_changes_id", referencedColumnName = "id")
 public class PropertyChange extends ModelChange {
-
-    @NotNull
-    private String elementGUID;
 
     @NotNull
     private int propertyType;
 
     @NotNull
     private String propertyBody;
-
-    public String getElementGUID() {
-        return elementGUID;
-    }
-
-    public void setElementGUID(String elementGUID) {
-        this.elementGUID = elementGUID;
-    }
 
     public int getPropertyType() {
         return propertyType;

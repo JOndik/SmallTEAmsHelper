@@ -10,7 +10,6 @@ namespace BPAddIn.DataContract
     [Table("property_changes")]
     public class PropertyChange : ModelChange
     {
-        public string elementGUID { get; set; }
         public int propertyType { get; set; }
         public string propertyBody { get; set; } 
            

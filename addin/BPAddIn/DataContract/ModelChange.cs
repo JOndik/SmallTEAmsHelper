@@ -14,6 +14,7 @@ namespace BPAddIn.DataContract
     {
         [Key]
         public string timestamp { get; set; }
+        public string itemGUID { get; set; }
         [NotMapped]
         public string classType { get; set; }
 
