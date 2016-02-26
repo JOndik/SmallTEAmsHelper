@@ -1,13 +1,10 @@
 package com.sthService.dataContract;
 
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name= "property_changes")
-@PrimaryKeyJoinColumn(name = "model_changes_id", referencedColumnName = "id")
+@Document
 public class PropertyChange extends ModelChange {
 
     @NotNull
