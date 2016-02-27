@@ -13,15 +13,15 @@ public class AISMailService {
     @Inject
     private MailSender mailSender;
 
-    @Value("$(addin.aisMail.from)")
+    @Value("${addin.aisMail.from}")
     private String sender;
 
-    @Value("$(addin.aisMail.subject)")
+    @Value("${addin.aisMail.subject}")
     private String subject;
 
     public void sendPairRequestEmail(String username, String token) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(username + "@is.stuba.sk");
+        message.setTo(username + "@stuba.sk");
         message.setFrom(this.sender);
         message.setSubject(this.subject);
         message.setText("https://ichiban.fiit.stuba.sk:8443/auth/pair/" + token);

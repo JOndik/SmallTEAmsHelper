@@ -3,6 +3,8 @@ package com.sthService.controller;
 import com.sthService.service.UpdateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,5 +27,16 @@ public class UpdateController {
         String value = String.valueOf(version);
 
         return new ResponseEntity<>(value, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/currentVersion", method = RequestMethod.GET)
+    public ResponseEntity<?> getCurrentVersion(@Value("${addin.currentVersion}") String curVersion) {
+        String fileName = "update" + curVersion + ".zip";
+        return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/updates/" + fileName).build();
+    }
+
+    @RequestMapping(value = "/installer", method = RequestMethod.GET)
+    public ResponseEntity<?> getInstaller(@Value("${addin.currentVersion}") String curVersion) {
+        return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/updates/sthAddin.msi").build();
     }
 }

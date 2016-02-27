@@ -25,7 +25,7 @@ public class PairRequestService {
         log.info("IDEM ULOZIT\n");
         pairRequestRepository.save(request);
         log.info("IDEM POSLAT MAIL\n");
-        //aisMailService.sendPairRequestEmail(request.getMemberName(), request.getToken());
+        aisMailService.sendPairRequestEmail(request.getMemberName(), request.getToken());
     }
 
     public TeamPairRequest getPairRequest(String pairToken) {
