@@ -12,29 +12,50 @@ namespace BPAddIn
     public class BPAddIn : EAAddinFramework.EAAddinBase
     {
         // define menu constants
-        const string menuName = "-&MyAddin";
-        const string menuHello = "&Say Hello";
-        const string menuGoodbye = "&Say Goodbye";
+        const string menuName = "-&SmallTEAmsHelper";
+        const string menuLoginWindow = "Prihlásenie";
         const string menuDbTest = "&SQLite test";
-        const string menuClassNamesValidation = "&Validacia tried";
+        const string menuClassNamesValidation = "&Validácia tried";
+        const string menuJoining = "Spojenie";
+        const string menuUpdate = "Aktualizácia";
         const string menuOpenProperties = "&Open Properties";
-        Dictionary dict;
 
-        // remember if we have to say hello or goodbye
-        private bool shouldWeSayHello = true;
+       
+        /*const string menuPridajDiagram = "&Pridaj diagram";
+        const string menuPresunDiagram = "&Presun diagram";
+        const string menuZmenDiagram = "&Zmen diagram";
+        const string menuZmazDiagram = "&Zmaz diagram";
+        //const string menuNajdiMeno = "&Najdi meno";
+        const string menuPridajElement = "&Pridaj element";
+        const string menuPridajSpojenie = "&Pridaj spojenie";
+        const string menuPridajBalik = "&Pridaj balik";
+        const string menuZmenBalik = "&Zmen balik";
+        const string menuPresunBalik = "&Presun balik";
+        const string menuZmazBalik = "&Zmaz balik";
+        const string menuRefresh = "&Refresh";       
+        const string menuPridajTriedu = "&Pridaj triedu";
+        const string menuZmazDiagram = "&Zmaz diagram";*/
+        
+        Dictionary dict;
 
         // the control to add to the add-in window
         //private MyEAControl eaControl;
 
         ContextWrapper contextWrapper;
+        Synchronization synchronization;
+        UpdateService updateService;
 
         /// <summary>
         /// constructor where we set the menuheader and menuOptions
         /// </summary>
         public BPAddIn() : base()
-        {
+        {                                                   
             this.menuHeader = menuName;
-            this.menuOptions = new string[] { menuHello, menuGoodbye, menuDbTest, menuClassNamesValidation, menuOpenProperties };
+            this.menuOptions = new string[] { menuLoginWindow, menuJoining, menuDbTest, menuClassNamesValidation, menuUpdate, menuOpenProperties };
+                //menuPridajElement, menuPridajSpojenie,
+                //menuPridajBalik, menuZmenBalik, menuPresunBalik, menuZmazBalik, 
+                //menuPridajDiagram, menuZmenDiagram, menuPresunDiagram, menuZmazDiagram, menuRefresh, 
+
             this.dict = new Dictionary();
         }
         /// <summary>
@@ -52,7 +73,10 @@ namespace BPAddIn
         {
             //this.eaControl = Repository.AddWindow("My Control", "MyAddin.MyEAControl") as MyEAControl;
             //Database.openConnection();
+
             this.contextWrapper = new ContextWrapper(Repository);
+            this.synchronization = new Synchronization();
+            this.updateService = new UpdateService();
 
             return base.EA_Connect(Repository);
         }
@@ -64,21 +88,21 @@ namespace BPAddIn
         /// <param name="MenuName">the name of the menu</param>
         /// <param name="ItemName">the name of the menu item</param>
         /// <param name="IsEnabled">boolean indicating whethe the menu item is enabled</param>
-        /// <param name="IsChecked">boolean indicating whether the menu is checked</param>
+        /// <param name="IsChecked">boolean indicating whether the menu is checked</param>       
         public override void EA_GetMenuState(EA.Repository Repository, string Location, string MenuName, string ItemName, ref bool IsEnabled, ref bool IsChecked)
         {
             if (IsProjectOpen(Repository))
             {
                 switch (ItemName)
                 {
-                    // define the state of the hello menu option
-                    case menuHello:
+                    // define the state of the hello menu option                                  
+                    /*case menuHello:
                         IsEnabled = shouldWeSayHello;
                         break;
                     // define the state of the goodbye menu option
                     case menuGoodbye:
                         IsEnabled = !shouldWeSayHello;
-                        break;
+                        break;*/
                     case menuOpenProperties:
                         IsEnabled = true;
                         break;
@@ -88,6 +112,54 @@ namespace BPAddIn
                     case menuClassNamesValidation:
                         IsEnabled = true;
                         break;
+                    case menuLoginWindow:
+                        IsEnabled = true;
+                        break;
+                    case menuUpdate:
+                        IsEnabled = true;
+                        break;
+                    case menuJoining:
+                        IsEnabled = true;
+                        break; 
+                    /*case menuPridajBalik:
+                        IsEnabled = true;
+                        break;
+                    case menuPridajDiagram:
+                        IsEnabled = true;
+                        break;
+                    case menuZmenDiagram:
+                        IsEnabled = true;
+                        break;
+                    case menuZmazDiagram:
+                        IsEnabled = true;
+                        break;
+                    case menuPresunDiagram:
+                        IsEnabled = true;
+                        break;
+                    case menuZmenBalik:
+                        IsEnabled = true;
+                        break;
+                    case menuPresunBalik:
+                        IsEnabled = true;
+                        break;
+                    case menuZmazBalik:
+                        IsEnabled = true;
+                        break;
+                    case menuRefresh:
+                        IsEnabled = true;
+                        break;
+                     case menuPridajElement:
+                        IsEnabled = true;
+                        break;
+                    case menuPridajSpojenie:
+                        IsEnabled = true;
+                        break;*/                                    
+                    /*case menuPridajTriedu:
+                        IsEnabled = true;
+                        break;
+                    case menuZmazDiagram:
+                        IsEnabled = true;
+                        break;*/
                     // there shouldn't be any other, but just in case disable it.
                     default:
                         IsEnabled = false;
@@ -114,13 +186,10 @@ namespace BPAddIn
             switch (ItemName)
             {
                 // user has clicked the menuHello menu option
-                case menuHello:
-                    this.sayHello();
-                    break;
-                // user has clicked the menuGoodbye menu option
-                case menuGoodbye:
-                    this.sayGoodbye();
-                    break;
+                
+                case menuJoining:
+                    this.showJoinWindow();
+                    break;                
                 case menuOpenProperties:
                     this.testPropertiesDialog(Repository);
                     break;
@@ -131,8 +200,73 @@ namespace BPAddIn
                     MessageBox.Show(Location);
                     traverseModel(Repository);
                     break;
+                case menuLoginWindow:
+                    showLoginWindow();
+                    break;                               
+                case menuUpdate:
+                    updateService.isConnected();
+                    break;
+
+                /*case menuPridajBalik:
+                    synchronization.pridajBalik(Repository, 1);
+                    break;
+                case menuPresunBalik:
+                    synchronization.presunBalik(Repository, 15, 2);
+                    break;
+                case menuZmazBalik:
+                    synchronization.zmazBalik(Repository, 14);
+                    break;
+                case menuZmenBalik:
+                    synchronization.zmenBalik(Repository, 3);
+                    break;
+                case menuPridajDiagram:
+                    synchronization.pridajDiagram(Repository, 23);
+                    break;
+                case menuPresunDiagram:
+                    synchronization.presunDiagram(Repository, 3, 7);
+                    break;
+                case menuZmazDiagram:
+                    synchronization.zmazDiagram(Repository, 7);
+                    break;
+                case menuZmenDiagram:
+                    synchronization.zmenDiagram(Repository, 4);
+                    break;                
+                case menuRefresh:
+                    synchronization.refresh(Repository);                   
+                    break;
+                case menuNajdiMeno:
+                    this.najdiMenoPodlaID(Repository);
+                    break;
+                case menuPridajElement:
+                    synchronization.pridajElement(Repository, 1);
+                    break;   
+                case menuPridajSpojenie:
+                    synchronization.pridajSpojenie(Repository, 113, 117);
+                    break;
+                case menuZmen:
+                    this.zmen(Repository, 8);
+                    break;
+                case menuPridajTriedu:
+                    this.pridajTriedu(Repository, 6);
+                    break;
+                case menuZmazDiagram:
+                    this.zmazDiagram(Repository, 22);
+                    break;*/
             }
         }
+
+        public void showLoginWindow()
+        {
+            LogInWindow login = new LogInWindow();
+            login.ShowDialog();
+        }
+
+        public void showJoinWindow()
+        {
+            JoinWindow join = new JoinWindow();
+            join.ShowDialog();
+        }
+        
         /// <summary>
         /// Called when EA start model validation. Just shows a message box
         /// </summary>
@@ -179,24 +313,6 @@ namespace BPAddIn
         {
             GC.Collect();
             GC.WaitForPendingFinalizers();
-        }
-
-        /// <summary>
-        /// Say Hello to the world
-        /// </summary>
-        private void sayHello()
-        {
-            MessageBox.Show("Hello World");
-            this.shouldWeSayHello = false;
-        }
-
-        /// <summary>
-        /// Say Goodbye to the world
-        /// </summary>
-        private void sayGoodbye()
-        {
-            MessageBox.Show("Goodbye World");
-            this.shouldWeSayHello = true;
         }
 
         public void testPropertiesDialog(EA.Repository repository)

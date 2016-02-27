@@ -12,6 +12,10 @@ namespace BPAddIn
         public DbSet<ModelChange> modelChanges { get; set; }
         public DbSet<PropertyChange> propertyChanges { get; set; }
 
+        public DbSet<User> user { get; set; }
+
+        public DbSet<Version> version { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;

@@ -14,7 +14,9 @@ namespace BPAddIn
 {
     public class ChangeService
     {
-        private const string serviceAddress = "http://localhost:8080";
+        //private const string serviceAddress = "http://localhost:8080";
+        //private const string serviceAddress = "http://192.168.1.138:8080";
+        private const string serviceAddress = "https://ichiban.fiit.stuba.sk:8443";
 
         public void saveChange(ModelChange change)
         {
@@ -38,6 +40,7 @@ namespace BPAddIn
                 {
                     using (var stream = webClient.OpenRead(serviceAddress))
                     {
+                        stream.Close();
                         this.uploadChanges();
                     }
                 }
@@ -81,7 +84,7 @@ namespace BPAddIn
                     //data = Encoding.UTF8.GetString(Encoding.Unicode.GetBytes(dtoWrapper.serialize()));
                     data = EncodeNonAsciiCharacters(dtoWrapper.serialize());
                     result = webClient.UploadString(serviceAddress + "/changes", data);
-
+                    
                     if (result == "")
                     {
                         lock (LocalDBContext.Lock)
@@ -99,7 +102,7 @@ namespace BPAddIn
             uploadChanges();
         }
 
-        static string EncodeNonAsciiCharacters(string value)
+        public static string EncodeNonAsciiCharacters(string value)
         {
             StringBuilder sb = new StringBuilder();
             foreach (char c in value)
