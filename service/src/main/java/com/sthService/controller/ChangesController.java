@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -32,6 +29,14 @@ public class ChangesController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    //@RequestMapping(value = "", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/{timestamp}", method = RequestMethod.GET)           // v browseri 8080/changes/12345
+    public List<ModelChange> fetchAllChange(@PathVariable String timestamp) {
+        log.warn(timestamp);                                                        //napise warn 12345
+        return modelChangeService.fetchAllChanges();
+
+    }*/
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<ModelChange> fetchAllChange() {

@@ -12,7 +12,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-            .formLogin()
+            /*.formLogin()
                 .loginProcessingUrl("/login")
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")
@@ -22,10 +22,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .deleteCookies("JSESSIONID")
                 .permitAll()
-            .and()
+            .and()*/
                 .authorizeRequests()
                 .anyRequest().permitAll()
-            .and()
-                .httpBasic();
+            /*.and()
+                .httpBasic()*/;
     }
 }

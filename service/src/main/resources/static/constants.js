@@ -5,4 +5,4 @@
 
 angular
     .module('app.constants')
-    .constant('API', 'http://localhost:8080/')
+    .constant('API', 'http://192.168.1.138:8080/')
