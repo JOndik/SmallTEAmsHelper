@@ -17,8 +17,9 @@ namespace BPAddIn
 {
     class UpdateService
     {
-        private const string serviceAddress = "http://192.168.137.89:8080";
+        //private const string serviceAddress = "http://192.168.137.89:8080";
         //private const string serviceAddress = "http://147.175.180.200:8080";
+        private const string serviceAddress = "https://ichiban.fiit.stuba.sk:8443";
 
         public void isConnected()
         {
@@ -61,16 +62,11 @@ namespace BPAddIn
                                 "Update rozšírenia", MessageBoxButtons.YesNo);
                                 if (dialogResult == DialogResult.Yes)
                                 {
-                                    // MessageBox.Show(AppDomain.CurrentDomain.BaseDirectory);
-
                                     string addInPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                                    string zipPath = @"" + Path.GetTempPath() + "peace.zip";
-                                    string extractPath = @"" + Path.GetTempPath() + "BPAddIn";
+                                    string zipPath = @"" + Path.GetTempPath() + "sthAddIn-update.zip";
+                                    string extractPath = @"" + Path.GetTempPath() + "sthAddIn";
 
-                                    //webClient.DownloadFile("http://fda7ed3288f75266dcf2-c3155e3c451bb708de9594bb4903715e.r46.cf2.rackcdn.com/dff85982a0404df86574dc5c8dd5a087.jpg",
-                                    //@""+ Path.GetTempPath() + "logo.png");
-
-                                    webClient.DownloadFile("http://www.colorado.edu/conflict/peace/download/peace_essay.ZIP", zipPath);
+                                    webClient.DownloadFile("https://ichiban.fiit.stuba.sk:8443/update/currentVersion", zipPath);
 
                                     if (!(Directory.Exists(extractPath)))
                                     {
@@ -88,14 +84,17 @@ namespace BPAddIn
                                         {                    
                                             entry.ExtractToFile(Path.Combine(extractPath, entry.FullName));
                                         }
-                                    } 
+                                    }
 
-                                    Process proc = new Process();
-                                    proc.StartInfo.WorkingDirectory = string.Format(@"D:\");
-                                    proc.StartInfo.FileName = "file.bat";
+                                    string arguments = string.Format("\"{0}\"", addInPath);
+                                    //Process proc = new Process();
+                                    /*proc.StartInfo.WorkingDirectory = string.Format(extractPath);
+                                    proc.StartInfo.FileName = "update.bat";
                                     proc.StartInfo.CreateNoWindow = false;
-                                    proc.StartInfo.Arguments = string.Format("{0}", addInPath);
-                                    proc.Start();
+                                    //proc.StartInfo.Arguments = string.Format("\"{0}\"\\", addInPath);
+                                    proc.StartInfo.UseShellExecute = true;
+                                    proc.StartInfo.Verb = "runas";*/
+                                    Process.Start(string.Format(extractPath) + "\\update.bat", arguments);
 
                                     Process.GetProcessesByName("EA")[0].CloseMainWindow();
                                 }
@@ -157,6 +156,44 @@ namespace BPAddIn
             var identity = WindowsIdentity.GetCurrent();
             var principal = new WindowsPrincipal(identity);
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
+        public void compareVersions()
+        {
+            string addInPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string number;
+
+            try
+            {
+                number = File.ReadAllLines(addInPath + "\\version.txt").First();
+
+                double actualVersion = double.Parse(number, System.Globalization.CultureInfo.InvariantCulture);
+
+                if (actualVersion > this.findVersion())
+                {
+                    this.editVersion(actualVersion);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void editVersion(double actualVersion)
+        {
+            List<Version> versions;
+
+            lock (LocalDBContext.Lock)
+            {
+                using (LocalDBContext context = new LocalDBContext())
+                {
+                    versions = context.version.ToList();
+                    Version version = versions.First();
+                    version.number = actualVersion;
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }

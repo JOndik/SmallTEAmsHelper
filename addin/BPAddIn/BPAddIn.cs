@@ -78,6 +78,8 @@ namespace BPAddIn
             this.synchronization = new Synchronization();
             this.updateService = new UpdateService();
 
+            updateService.compareVersions();
+
             return base.EA_Connect(Repository);
         }
         /// <summary>
