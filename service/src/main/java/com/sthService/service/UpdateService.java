@@ -42,5 +42,7 @@ public class UpdateService {
 
         updateRepository.deleteAll();
         updateRepository.save(version);
+
+        log.info("version was updated");
     }
 }

@@ -50,6 +50,7 @@ public class AuthorizationService {
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         } catch (GeneralSecurityException e) {
+            log.error("SSLContext was not created successfully: " + e.toString());
             return "error";
         }
         // Now you can access an https URL without having the certificate in the truststore
@@ -91,34 +92,42 @@ public class AuthorizationService {
                 log.info(response.toString());
                 if (("true").equals(response.toString())) {
 
+                    log.info("AIS data of user " + user.getName() + " are correct");
+
                     User foundUserByName = authorizationRepository.findByName(user.getName());
                     String token = generateToken();
 
+                    log.info("Token " + token + " was generated");
+
                     if (foundUserByName == null){
-                        log.info("nie je v DB");
+                        log.info("User " + user.getName() + " is not in database");
 
                         user.setToken(token);
-
                         authorizationRepository.save(user);
 
+                        log.info("User " + user.getName() + " was inserted to database");
+
                     } else {
-                        log.info("je v DB");
+                        log.info("User " + user.getName() + " is in database");
 
                         foundUserByName.setToken(token);
-
                         authorizationRepository.save(foundUserByName);
+
+                        log.info("Token of user " + user.getName() + " was changed to " + token);
                     }
 
                     return token;
 
                 } else {
+                    log.info("AIS data of user " + user.getName() + " are incorrect");
                     return "false";
                 }
             } else {
-                //log.info("chyba post requestu");
+                log.error("RespondeCode does not equal HTTP_OK, responseCode: " + responseCode);
                 return "error";
             }
         } catch (Exception e) {
+            log.error("HttpsURLConnection was not created successfully: " + e.toString());
             return "error";
         }
     }
