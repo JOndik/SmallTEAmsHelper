@@ -12,7 +12,7 @@ namespace BPAddIn
     {
         //private const string serviceAddress = "http://192.168.137.89:8080";
         //private const string serviceAddress = "http://147.175.180.200:8080";
-        private const string serviceAddress = "https://ichiban.fiit.stuba.sk:8443";
+        private const string serviceAddress = "https://ichiban.fiit.stuba.sk:8443/testing";
 
         public void isConnected(TeamPairDTO teamPair, JoinWindow joinWindow)
         {

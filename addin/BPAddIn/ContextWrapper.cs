@@ -8,6 +8,7 @@ using BPAddIn.DataContract;
 using Wrapper = TSF.UmlToolingFramework.Wrappers.EA;
 using EA;
 using System.Threading;
+using BPAddInTry;
 
 namespace BPAddIn
 {
@@ -18,6 +19,7 @@ namespace BPAddIn
         public Wrapper.Diagram currentDiagram { get; set; }
         public Wrapper.ConnectorWrapper currentConnector { get; set; }
         private ChangeService changeService;
+        private RuleService ruleService;
         private bool changed = false;
         private Thread dispatcherThread;
 
@@ -25,6 +27,7 @@ namespace BPAddIn
         {
             this.model = new Wrapper.Model(repository);
             this.changeService = new ChangeService();
+            this.ruleService = new RuleService();
             dispatcherThread = new Thread(new ThreadStart(this.changeService.startActivityDispatcher));
             dispatcherThread.Start();
         }
@@ -37,20 +40,20 @@ namespace BPAddIn
                     this.currentItem = (Wrapper.Element)model.selectedElement;
                     this.currentConnector = null;
                     this.currentDiagram = null;
-                    MessageBox.Show(this.printCurrentItem());
+                    //MessageBox.Show(this.printCurrentItem());
                     changed = false;
                     break;
                 case ObjectType.otPackage:
                     this.currentItem = (Wrapper.Element)model.selectedElement;
-                    MessageBox.Show(this.printCurrentItem());
+                    //MessageBox.Show(this.printCurrentItem());
                     break;
                 case ObjectType.otConnector:
                     this.currentConnector = (Wrapper.ConnectorWrapper)model.getRelationByGUID(GUID);
-                    MessageBox.Show(this.printCurrentConnector());
+                    //MessageBox.Show(this.printCurrentConnector());
                     break;
                 case ObjectType.otDiagram:
                     this.currentDiagram = (Wrapper.Diagram)model.selectedDiagram;
-                    MessageBox.Show(this.printCurrentDiagram());
+                    //MessageBox.Show(this.printCurrentDiagram());
                     break;
             }
 
@@ -78,6 +81,16 @@ namespace BPAddIn
 
                 changeService.saveChange(propertyChange); 
             }
+        }
+
+        public void broadcastEvent(EA.Repository Repository, string GUID, EA.ObjectType ot)
+        {
+            ruleService.broadcastEvent(model, Repository, GUID, ot);
+        }
+
+        public void broadcastEvent(EA.Repository Repository, long ID)
+        {
+            ruleService.broadcastEvent(model, Repository, ID);
         }
 
         public string printCurrentItem()

@@ -31,7 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RegisterForComInterop>false</RegisterForComInterop>
+    <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -175,6 +175,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content.cs" />
+    <Compile Include="DefectsWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DefectsWindow.Designer.cs">
+      <DependentUpon>DefectsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Element.cs" />
     <Compile Include="JoinService.cs" />
     <Compile Include="JoinWindow.cs">
       <SubType>Form</SubType>
@@ -182,7 +190,16 @@
     <Compile Include="JoinWindow.Designer.cs">
       <DependentUpon>JoinWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListBoxObject.cs" />
+    <Compile Include="Rule.cs" />
+    <Compile Include="RuleService.cs" />
     <Compile Include="TeamPair.cs" />
+    <Compile Include="UpdateWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateWindow.Designer.cs">
+      <DependentUpon>UpdateWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Version.cs" />
     <Compile Include="UpdateService.cs" />
     <Compile Include="BPAddIn.cs" />
@@ -245,11 +262,17 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DefectsWindow.resx">
+      <DependentUpon>DefectsWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="JoinWindow.resx">
       <DependentUpon>JoinWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogInWindow.resx">
       <DependentUpon>LogInWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateWindow.resx">
+      <DependentUpon>UpdateWindow.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

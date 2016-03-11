@@ -36,7 +36,7 @@ public class UpdateController {
     }
 
     @RequestMapping(value = "/installer", method = RequestMethod.GET)
-    public ResponseEntity<?> getInstaller(@Value("${addin.currentVersion}") String curVersion) {
-        return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/updates/sthAddin.msi").build();
+    public ResponseEntity<?> getInstaller() {
+        return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/updates/SmallTEAmsHelper.msi").build();
     }
 }

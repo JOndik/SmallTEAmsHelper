@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using TSF.UmlToolingFramework.Wrappers.EA;
 using EA;
+using BPAddInTry;
 
 namespace BPAddIn
 {
@@ -14,7 +15,7 @@ namespace BPAddIn
         // define menu constants
         const string menuName = "-&SmallTEAmsHelper";
         const string menuLoginWindow = "Prihlásenie";
-        const string menuDbTest = "&SQLite test";
+        const string menuDbTest = "&Zobraz okno s detekciou chýb";
         const string menuClassNamesValidation = "&Validácia tried";
         const string menuJoining = "Spojenie";
         const string menuUpdate = "Aktualizácia";
@@ -44,6 +45,7 @@ namespace BPAddIn
         ContextWrapper contextWrapper;
         Synchronization synchronization;
         UpdateService updateService;
+        public static DefectsWindow defectsWindow = null;
 
         /// <summary>
         /// constructor where we set the menuheader and menuOptions
@@ -51,12 +53,13 @@ namespace BPAddIn
         public BPAddIn() : base()
         {                                                   
             this.menuHeader = menuName;
-            this.menuOptions = new string[] { menuLoginWindow, menuJoining, menuDbTest, menuClassNamesValidation, menuUpdate, menuOpenProperties };
+            this.menuOptions = new string[] { menuLoginWindow, menuJoining, menuDbTest, /*menuClassNamesValidation,*/ menuUpdate, /*menuOpenProperties*/ };
                 //menuPridajElement, menuPridajSpojenie,
                 //menuPridajBalik, menuZmenBalik, menuPresunBalik, menuZmazBalik, 
                 //menuPridajDiagram, menuZmenDiagram, menuPresunDiagram, menuZmazDiagram, menuRefresh, 
 
             this.dict = new Dictionary();
+            //this.defectsWindow = new DefectsWindow();
         }
         /// <summary>
         /// EA_Connect events enable Add-Ins to identify their type and to respond to Enterprise Architect start up.
@@ -71,7 +74,6 @@ namespace BPAddIn
         /// - "" : None-specialized Add-In.</returns>
         public override string EA_Connect(EA.Repository Repository)
         {
-            //this.eaControl = Repository.AddWindow("My Control", "MyAddin.MyEAControl") as MyEAControl;
             //Database.openConnection();
 
             this.contextWrapper = new ContextWrapper(Repository);
@@ -105,15 +107,15 @@ namespace BPAddIn
                     case menuGoodbye:
                         IsEnabled = !shouldWeSayHello;
                         break;*/
-                    case menuOpenProperties:
+                    /*case menuOpenProperties:
                         IsEnabled = true;
-                        break;
+                        break;*/
                     case menuDbTest:
                         IsEnabled = true;
                         break;
-                    case menuClassNamesValidation:
+                    /*case menuClassNamesValidation:
                         IsEnabled = true;
-                        break;
+                        break;*/
                     case menuLoginWindow:
                         IsEnabled = true;
                         break;
@@ -191,17 +193,22 @@ namespace BPAddIn
                 
                 case menuJoining:
                     this.showJoinWindow();
-                    break;                
-                case menuOpenProperties:
+                    break;         
+                /*case menuOpenProperties:
                     this.testPropertiesDialog(Repository);
-                    break;
+                    break;*/
                 case menuDbTest:
-                    MessageBox.Show(dict.testSelect());
+                    //MessageBox.Show(dict.testSelect());
+                    if (defectsWindow == null)
+                    {
+                        defectsWindow = Repository.AddWindow("Detekované chyby", "BPAddIn.DefectsWindow") as DefectsWindow;
+                    }
+                    Repository.ShowAddinWindow("Detekované chyby");
                     break;
-                case menuClassNamesValidation:
-                    MessageBox.Show(Location);
+                /*case menuClassNamesValidation:
+                    //MessageBox.Show(Location);
                     traverseModel(Repository);
-                    break;
+                    break;*/
                 case menuLoginWindow:
                     showLoginWindow();
                     break;                               
@@ -303,13 +310,27 @@ namespace BPAddIn
         }
         public override bool EA_OnContextItemDoubleClicked(Repository Repository, string GUID, ObjectType ot)
         {
-            contextWrapper.handleDblClick(GUID, ot);
+            //contextWrapper.handleDblClick(GUID, ot);
             return base.EA_OnContextItemDoubleClicked(Repository, GUID, ot);
         }
         public override void EA_OnNotifyContextItemModified(EA.Repository Repository, string GUID, EA.ObjectType ot)
         {
-            //MessageBox.Show(GUID + " " + Repository.GetElementByGuid(GUID).Type);
-            contextWrapper.handleChange(GUID);
+            try {
+                //MessageBox.Show(GUID + " " + Repository.GetElementByGuid(GUID).Type);
+                //contextWrapper.handleChange(GUID);
+                contextWrapper.broadcastEvent(Repository, GUID, ot);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+        }
+        public override bool EA_OnPostNewConnector(Repository Repository, EventProperties Info)
+        {
+            EventProperty connectorID = Info.Get("ConnectorID");
+
+            //contextWrapper.broadcastEvent(Repository, Convert.ToInt64(connectorID.Value.ToString()));
+            return base.EA_OnPostNewConnector(Repository, Info);
         }
         public override void EA_Disconnect()
         {

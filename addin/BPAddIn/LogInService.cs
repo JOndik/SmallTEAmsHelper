@@ -35,7 +35,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
                 return "noconnection";
             }           
         }

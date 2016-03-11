@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BPAddInTry;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -35,7 +36,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Vyskytol sa problém. Skontrolujte internetové pripojenie.");
             }
         }
 
@@ -77,7 +78,7 @@ namespace BPAddIn
                                         Directory.Delete(extractPath, true);
                                         Directory.CreateDirectory(extractPath);
                                     }
-                                    
+
                                     using (ZipArchive archive = ZipFile.OpenRead(zipPath))
                                     {
                                         foreach (ZipArchiveEntry entry in archive.Entries)
@@ -97,6 +98,10 @@ namespace BPAddIn
                                     Process.Start(string.Format(extractPath) + "\\update.bat", arguments);
 
                                     Process.GetProcessesByName("EA")[0].CloseMainWindow();
+
+                                    /*UpdateWindow updateWindow = new UpdateWindow();
+                                    updateWindow.Show();
+                                    updateWindow.startDownload();*/
                                 }
                                 else
 	                            {
@@ -109,11 +114,13 @@ namespace BPAddIn
                     }
                     else 
                     {
+                        MessageBox.Show("Používate aktuálnu verziu rozšírenia.");
                     }           
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    //MessageBox.Show("Vyskytol sa problém. Skontrolujte internetové pripojenie.");
+                    //MessageBox.Show(ex.ToString());
                 }                             
             }
         }
@@ -176,7 +183,7 @@ namespace BPAddIn
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
