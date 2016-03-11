@@ -14,9 +14,9 @@ namespace BPAddInTry
 {
     class Rule
     {
-        public string name { get; }
-        public Element element { get; }
-        public Content content { get; }
+        public string name { get; set; }
+        public Element element { get; set; }
+        public Content content { get; set; }
         public string defectDescription;
         private ConnectorWrapper connectorWrapper;
         private Model model;
