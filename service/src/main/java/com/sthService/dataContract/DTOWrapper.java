@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class DTOWrapper {
 
     private ModelChange modelChange;
-    private String userGUID;
+    private String userToken;
 
     public ModelChange getModelChange() {
         return modelChange;
@@ -16,11 +16,11 @@ public class DTOWrapper {
         this.modelChange = modelChange;
     }
 
-    public String getUserGUID() {
-        return userGUID;
+    public String getUserToken() {
+        return userToken;
     }
 
-    public void setUserGUID(String userGUID) {
-        this.userGUID = userGUID;
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
     }
 }

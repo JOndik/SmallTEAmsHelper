@@ -10,15 +10,16 @@ namespace BPAddIn.DataContract
     class DTOWrapper
     {
         public ModelChange modelChange { get; set; }
-        public string userGUID { get; set; }
+        public string userToken { get; set; }
         public DTOWrapper()
         {
-            this.userGUID = "0000-0000-0001";
+            this.userToken = ChangeService.userToken;
         }
 
         public string serialize()
         {
             return JsonConvert.SerializeObject(this);
         }
+
     }
 }

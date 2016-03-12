@@ -13,6 +13,9 @@ public class PropertyChange extends ModelChange {
     @NotNull
     private String propertyBody;
 
+    @NotNull
+    private String oldPropertyBody;
+
     public int getPropertyType() {
         return propertyType;
     }
@@ -27,5 +30,13 @@ public class PropertyChange extends ModelChange {
 
     public void setPropertyBody(String propertyBody) {
         this.propertyBody = propertyBody;
+    }
+
+    public String getOldPropertyBody() {
+        return oldPropertyBody;
+    }
+
+    public void setOldPropertyBody(String oldPropertyBody) {
+        this.oldPropertyBody = oldPropertyBody;
     }
 }

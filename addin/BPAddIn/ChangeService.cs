@@ -14,24 +14,53 @@ namespace BPAddIn
 {
     public class ChangeService
     {
-        //private const string serviceAddress = "http://localhost:8080";
+        private const string serviceAddress = "http://localhost:8080";
         //private const string serviceAddress = "http://192.168.1.138:8080";
-        private const string serviceAddress = "https://ichiban.fiit.stuba.sk:8443";
+        //private const string serviceAddress = "https://ichiban.fiit.stuba.sk:8443";
+        public static string userToken = "";
 
         public void saveChange(ModelChange change)
         {
-            lock (LocalDBContext.Lock)
+            try
             {
-                using (LocalDBContext context = new LocalDBContext())
+                lock (LocalDBContext.Lock)
                 {
-                    context.modelChanges.Add(change);
-                    context.SaveChanges();
+                    using (LocalDBContext context = new LocalDBContext())
+                    {
+                        context.modelChanges.Add(change);
+                        context.SaveChanges();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
 
         public void startActivityDispatcher()
         {
+
+            lock (LocalDBContext.Lock)
+            {
+                using (LocalDBContext context = new LocalDBContext())
+                {
+                    List<User> users = context.user.ToList();
+                    if (users.Count > 0)
+                    {
+                        User user = users.First();
+                        if (user != null)
+                        {
+                            userToken = user.token;
+                        }
+                        else
+                        {
+                            userToken = "123456";
+                        }
+                    }
+                }
+            }
+
             int sleepTime = 5 * 60 * 1000; // 5 min
 
             try
@@ -47,7 +76,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                //MessageBox.Show("error");
+                MessageBox.Show(ex.ToString());
                 Thread.Sleep(sleepTime);
             }
         }
@@ -62,6 +91,7 @@ namespace BPAddIn
                 {
                     modelChanges = context.modelChanges.ToList();
                     modelChanges.AddRange(context.Set<PropertyChange>().ToList());
+                    modelChanges.AddRange(context.Set<ItemCreation>().ToList());
                 }
             }
 
@@ -76,6 +106,7 @@ namespace BPAddIn
                 string result = "";
                 string data = "";
                 DTOWrapper dtoWrapper = new DTOWrapper();
+                dtoWrapper.userToken = userToken;
 
                 foreach (ModelChange change in modelChanges)
                 {

@@ -11,6 +11,7 @@ namespace BPAddIn
         public DbSet<Word> dictionary { get; set; }
         public DbSet<ModelChange> modelChanges { get; set; }
         public DbSet<PropertyChange> propertyChanges { get; set; }
+        public DbSet<ItemCreation> itemCreations { get; set; }
 
         public DbSet<User> user { get; set; }
 
@@ -23,7 +24,7 @@ namespace BPAddIn
             string programData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             AppDomain.CurrentDomain.SetData("DataDirectory", path);
             var connection = new SQLiteConnection("Data Source=" + programData + "\\sthAddIn\\db.sqlite;Version=3;UTF8Encoding=True;");
-            optionsBuilder.UseSqlite(connection);
+            optionsBuilder.UseSqlite(connection);            
         }
     }
 }

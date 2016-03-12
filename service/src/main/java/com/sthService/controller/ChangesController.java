@@ -2,6 +2,8 @@ package com.sthService.controller;
 
 import com.sthService.dataContract.DTOWrapper;
 import com.sthService.dataContract.ModelChange;
+import com.sthService.dataContract.User;
+import com.sthService.service.AuthorizationService;
 import com.sthService.service.ModelChangeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +22,21 @@ public class ChangesController {
     @Inject
     private ModelChangeService modelChangeService;
 
+    @Inject
+    private AuthorizationService authorizationService;
+
     private final Logger log = LoggerFactory.getLogger(ChangesController.class);
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> logChange(@RequestBody DTOWrapper newChange) {
         log.info(newChange.getModelChange().getItemGUID());
-        modelChangeService.saveChange(newChange.getModelChange());
+
+        User user = authorizationService.getUser(newChange.getUserToken());
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        modelChangeService.saveChange(user.getName(), newChange.getModelChange());
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

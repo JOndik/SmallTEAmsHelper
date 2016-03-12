@@ -303,21 +303,25 @@ namespace BPAddIn
         /// <param name="ot">the object type of the selected item</param>
         public override void EA_OnContextItemChanged(EA.Repository Repository, string GUID, EA.ObjectType ot)
         {
-            /*if (this.eaControl == null)
-                this.eaControl = Repository.AddWindow("My Control", "MyAddin.MyEAControl") as MyEAControl;
-            if (this.eaControl != null)
-                this.eaControl.setNameLabel(GUID);*/
+            if (Repository == null || GUID == null || ot.Equals(null))
+            {
+                return;
+            }
+
+            if (ot == ObjectType.otElement || ot == ObjectType.otDiagram || ot == ObjectType.otPackage || ot == ObjectType.otConnector) {
+                contextWrapper.handleContextItemChange(Repository, GUID, ot);
+            }
         }
         public override bool EA_OnContextItemDoubleClicked(Repository Repository, string GUID, ObjectType ot)
         {
-            //contextWrapper.handleDblClick(GUID, ot);
+            contextWrapper.handleContextItemChange(Repository, GUID, ot);
             return base.EA_OnContextItemDoubleClicked(Repository, GUID, ot);
         }
         public override void EA_OnNotifyContextItemModified(EA.Repository Repository, string GUID, EA.ObjectType ot)
         {
             try {
                 //MessageBox.Show(GUID + " " + Repository.GetElementByGuid(GUID).Type);
-                //contextWrapper.handleChange(GUID);
+                contextWrapper.handleChange(GUID, ot);
                 contextWrapper.broadcastEvent(Repository, GUID, ot);
             }
             catch (Exception ex)
@@ -328,9 +332,26 @@ namespace BPAddIn
         public override bool EA_OnPostNewConnector(Repository Repository, EventProperties Info)
         {
             EventProperty connectorID = Info.Get("ConnectorID");
-
-            //contextWrapper.broadcastEvent(Repository, Convert.ToInt64(connectorID.Value.ToString()));
+            contextWrapper.handleConnectorCreation(Repository, Convert.ToInt32(connectorID.Value.ToString()));
             return base.EA_OnPostNewConnector(Repository, Info);
+        }
+        public override bool EA_OnPostNewElement(Repository Repository, EventProperties Info)
+        {
+            EventProperty elementID = Info.Get("ElementID");
+            contextWrapper.handleElementCreation(Repository, Convert.ToInt32(elementID.Value.ToString()));
+            return base.EA_OnPostNewElement(Repository, Info);
+        }
+        public override bool EA_OnPostNewDiagram(Repository Repository, EventProperties Info)
+        {
+            EventProperty diagramID = Info.Get("DiagramID");
+            contextWrapper.handleDiagramCreation(Repository, Convert.ToInt32(diagramID.Value.ToString()));
+            return base.EA_OnPostNewDiagram(Repository, Info);
+        }
+        public override bool EA_OnPostNewPackage(Repository Repository, EventProperties Info)
+        {
+            EventProperty packageID = Info.Get("PackageID");
+            contextWrapper.handlePackageCreation(Repository, Convert.ToInt32(packageID.Value.ToString()));
+            return base.EA_OnPostNewPackage(Repository, Info);
         }
         public override void EA_Disconnect()
         {

@@ -7,7 +7,7 @@
     <ProjectGuid>{8D75FACC-4A5A-4054-B0EC-1F88FF20909F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BPAddInTry</RootNamespace>
+    <RootNamespace>BPAddIn</RootNamespace>
     <AssemblyName>BPAddIn</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -176,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Content.cs" />
+    <Compile Include="DataContract\ItemCreation.cs" />
     <Compile Include="DefectsWindow.cs">
       <SubType>UserControl</SubType>
     </Compile>

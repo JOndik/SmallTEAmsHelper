@@ -11,8 +11,9 @@ namespace BPAddIn.DataContract
     public class PropertyChange : ModelChange
     {
         public int propertyType { get; set; }
-        public string propertyBody { get; set; } 
-           
+        public string propertyBody { get; set; }
+        public string oldPropertyBody { get; set; }
+
         public PropertyChange() : base() {
             base.classType = "PropertyChange";
         }
