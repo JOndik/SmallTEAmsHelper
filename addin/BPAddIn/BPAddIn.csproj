@@ -177,6 +177,8 @@
   <ItemGroup>
     <Compile Include="Content.cs" />
     <Compile Include="DataContract\ItemCreation.cs" />
+    <Compile Include="DataContract\ScenarioChange.cs" />
+    <Compile Include="DataContract\StepChange.cs" />
     <Compile Include="DefectsWindow.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -184,6 +186,8 @@
       <DependentUpon>DefectsWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Element.cs" />
+    <Compile Include="ElementWrappers\ConstraintWrapper.cs" />
+    <Compile Include="ElementWrappers\ScenarioWrapper.cs" />
     <Compile Include="JoinService.cs" />
     <Compile Include="JoinWindow.cs">
       <SubType>Form</SubType>

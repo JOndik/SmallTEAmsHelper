@@ -308,9 +308,9 @@ namespace BPAddIn
                 return;
             }
 
-            if (ot == ObjectType.otElement || ot == ObjectType.otDiagram || ot == ObjectType.otPackage || ot == ObjectType.otConnector) {
+            //if (ot == ObjectType.otElement || ot == ObjectType.otDiagram || ot == ObjectType.otPackage || ot == ObjectType.otConnector) {
                 contextWrapper.handleContextItemChange(Repository, GUID, ot);
-            }
+            //}
         }
         public override bool EA_OnContextItemDoubleClicked(Repository Repository, string GUID, ObjectType ot)
         {
@@ -321,6 +321,8 @@ namespace BPAddIn
         {
             try {
                 //MessageBox.Show(GUID + " " + Repository.GetElementByGuid(GUID).Type);
+
+                //MessageBox.Show(ot.ToString());
                 contextWrapper.handleChange(GUID, ot);
                 contextWrapper.broadcastEvent(Repository, GUID, ot);
             }

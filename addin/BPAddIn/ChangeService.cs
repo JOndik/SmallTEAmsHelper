@@ -85,52 +85,60 @@ namespace BPAddIn
         {
             List<ModelChange> modelChanges;
 
-            lock (LocalDBContext.Lock)
-            {
-                using (LocalDBContext context = new LocalDBContext())
+            try {
+                lock (LocalDBContext.Lock)
                 {
-                    modelChanges = context.modelChanges.ToList();
-                    modelChanges.AddRange(context.Set<PropertyChange>().ToList());
-                    modelChanges.AddRange(context.Set<ItemCreation>().ToList());
-                }
-            }
-
-            if (modelChanges.Count == 0)
-            {
-                Thread.Sleep(15 * 1000);
-                uploadChanges();
-            }
-
-            using (WebClient webClient = new WebClient())
-            {
-                string result = "";
-                string data = "";
-                DTOWrapper dtoWrapper = new DTOWrapper();
-                dtoWrapper.userToken = userToken;
-
-                foreach (ModelChange change in modelChanges)
-                {
-                    webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
-                    dtoWrapper.modelChange = change;
-                    //data = Encoding.UTF8.GetString(Encoding.Unicode.GetBytes(dtoWrapper.serialize()));
-                    data = EncodeNonAsciiCharacters(dtoWrapper.serialize());
-                    result = webClient.UploadString(serviceAddress + "/changes", data);
-                    
-                    if (result == "")
+                    using (LocalDBContext context = new LocalDBContext())
                     {
-                        lock (LocalDBContext.Lock)
+                        modelChanges = context.modelChanges.ToList();
+                        modelChanges.AddRange(context.Set<PropertyChange>().ToList());
+                        modelChanges.AddRange(context.Set<ItemCreation>().ToList());
+                        modelChanges.AddRange(context.Set<ScenarioChange>().ToList());
+                        modelChanges.AddRange(context.Set<StepChange>().ToList());
+                    }
+                }
+
+                if (modelChanges.Count == 0)
+                {
+                    Thread.Sleep(15 * 1000);
+                    uploadChanges();
+                }
+
+                using (WebClient webClient = new WebClient())
+                {
+                    string result = "";
+                    string data = "";
+                    DTOWrapper dtoWrapper = new DTOWrapper();
+                    dtoWrapper.userToken = userToken;
+
+                    foreach (ModelChange change in modelChanges)
+                    {
+                        webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
+                        dtoWrapper.modelChange = change;
+                        //data = Encoding.UTF8.GetString(Encoding.Unicode.GetBytes(dtoWrapper.serialize()));
+                        data = EncodeNonAsciiCharacters(dtoWrapper.serialize());
+                        result = webClient.UploadString(serviceAddress + "/changes", data);
+
+                        if (result == "")
                         {
-                            using (LocalDBContext context = new LocalDBContext())
+                            lock (LocalDBContext.Lock)
                             {
-                                context.Remove(change);
-                                context.SaveChanges();
+                                using (LocalDBContext context = new LocalDBContext())
+                                {
+                                    context.Remove(change);
+                                    context.SaveChanges();
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            uploadChanges();
+                uploadChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         public static string EncodeNonAsciiCharacters(string value)

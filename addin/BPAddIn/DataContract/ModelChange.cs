@@ -11,6 +11,8 @@ namespace BPAddIn.DataContract
     [Table("model_changes")]
     [Mapping.InheritanceMapping(Code = "P", Type = typeof(PropertyChange))]
     [Mapping.InheritanceMapping(Code = "I", Type = typeof(ItemCreation))]
+    [Mapping.InheritanceMapping(Code = "S", Type = typeof(ScenarioChange))]
+    [Mapping.InheritanceMapping(Code = "T", Type = typeof(StepChange))]
     public class ModelChange
     {
         [Key]

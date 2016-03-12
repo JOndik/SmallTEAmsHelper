@@ -12,6 +12,8 @@ namespace BPAddIn
         public DbSet<ModelChange> modelChanges { get; set; }
         public DbSet<PropertyChange> propertyChanges { get; set; }
         public DbSet<ItemCreation> itemCreations { get; set; }
+        public DbSet<ScenarioChange> scenarioChanges { get; set; }
+        public DbSet<StepChange> stepChanges { get; set; }
 
         public DbSet<User> user { get; set; }
 

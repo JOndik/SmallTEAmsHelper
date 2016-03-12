@@ -19,7 +19,9 @@ import javax.validation.constraints.NotNull;
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = PropertyChange.class, name = "PropertyChange"),
-        @JsonSubTypes.Type(value = ItemCreation.class, name = "ItemCreation")
+        @JsonSubTypes.Type(value = ItemCreation.class, name = "ItemCreation"),
+        @JsonSubTypes.Type(value = ScenarioChange.class, name = "ScenarioChange"),
+        @JsonSubTypes.Type(value = StepChange.class, name = "StepChange")
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ModelChange {
