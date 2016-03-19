@@ -1,8 +1,6 @@
 package com.sthService.service;
 
-import com.sthService.dataContract.DTOWrapper;
 import com.sthService.dataContract.ModelChange;
-import com.sthService.dataContract.PropertyChange;
 import com.sthService.repository.ModelChangeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +22,7 @@ public class ModelChangeService {
     public void saveChange(String username, ModelChange newChange) {
         //log.info(((PropertyChange)newChange).getPropertyBody());
 
-        newChange.setUsername(username);
+        newChange.setUserName(username);
         modelChangeRepository.save(newChange);
     }
 

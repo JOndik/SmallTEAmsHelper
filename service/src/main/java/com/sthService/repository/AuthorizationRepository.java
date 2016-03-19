@@ -11,6 +11,8 @@ public interface AuthorizationRepository extends MongoRepository<User, String> {
 
     User findByToken(String token);
 
+    User findById(String id);
+
     //List<ModelChange> findByTimestampGreaterThan(String time);
 }
 

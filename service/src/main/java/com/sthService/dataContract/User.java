@@ -22,6 +22,15 @@ public class User {
     @NotNull
     private String token;
 
+    @NotNull
+    private String lastSynchronizationTime;
+
+    @NotNull
+    private String modelGUID;
+
+    @NotNull
+    private boolean allModelData;
+
     public String getName() {
         return name;
     }
@@ -52,5 +61,29 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getLastSynchronizationTime() {
+        return lastSynchronizationTime;
+    }
+
+    public void setLastSynchronizationTime(String lastSynchronizationTime) {
+        this.lastSynchronizationTime = lastSynchronizationTime;
+    }
+
+    public String getModelGUID() {
+        return modelGUID;
+    }
+
+    public void setModelGUID(String modelGUID) {
+        this.modelGUID = modelGUID;
+    }
+
+    public boolean isAllModelData() {
+        return allModelData;
+    }
+
+    public void setAllModelData(boolean allModelData) {
+        this.allModelData = allModelData;
     }
 }

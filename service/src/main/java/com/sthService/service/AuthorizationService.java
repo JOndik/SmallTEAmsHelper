@@ -103,6 +103,9 @@ public class AuthorizationService {
                         log.info("User " + user.getName() + " is not in database");
 
                         user.setToken(token);
+                        user.setAllModelData(false);
+                        user.setLastSynchronizationTime("0");
+                        user.setModelGUID("");
                         authorizationRepository.save(user);
 
                         log.info("User " + user.getName() + " was inserted to database");
@@ -150,5 +153,9 @@ public class AuthorizationService {
 
     public User getUserByName(String name) {
         return authorizationRepository.findByName(name);
+    }
+
+    public User getUserById(String id){
+        return authorizationRepository.findById(id);
     }
 }

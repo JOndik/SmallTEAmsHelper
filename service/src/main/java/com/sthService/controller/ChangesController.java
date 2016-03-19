@@ -3,8 +3,10 @@ package com.sthService.controller;
 import com.sthService.dataContract.DTOWrapper;
 import com.sthService.dataContract.ModelChange;
 import com.sthService.dataContract.User;
+import com.sthService.repository.AuthorizationRepository;
 import com.sthService.service.AuthorizationService;
 import com.sthService.service.ModelChangeService;
+import com.sthService.service.SynchronizationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,12 @@ public class ChangesController {
     @Inject
     private AuthorizationService authorizationService;
 
+    @Inject
+    private AuthorizationRepository authorizationRepository;
+
+    @Inject
+    private SynchronizationService synchronizationService;
+
     private final Logger log = LoggerFactory.getLogger(ChangesController.class);
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -36,7 +44,14 @@ public class ChangesController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        modelChangeService.saveChange(user.getName(), newChange.getModelChange());
+        if (newChange.getModelChange().getElementType() != 777) {                           //koncova sprava pri posielani celeho modelu ma elementType 777
+            modelChangeService.saveChange(user.getName(), newChange.getModelChange());
+        } else {
+            //user.setAllModelData(true);
+            user.setModelGUID(newChange.getModelChange().getModelGUID());
+            authorizationRepository.save(user);
+            synchronizationService.checkOtherTeamMembers(user);
+        }
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

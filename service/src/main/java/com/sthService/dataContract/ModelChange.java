@@ -1,14 +1,9 @@
 package com.sthService.dataContract;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.sun.mail.imap.protocol.Item;
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Document
@@ -42,8 +37,11 @@ public class ModelChange {
     @NotNull
     private int elementType;
 
+    @NotNull
+    private int elementDeleted;
+
     @JsonIgnore
-    private String username;
+    private String userName;
 
     public String getId() {
         return id;
@@ -77,12 +75,12 @@ public class ModelChange {
         this.modelGUID = modelGUID;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public int getElementType() {
@@ -91,5 +89,13 @@ public class ModelChange {
 
     public void setElementType(int elementType) {
         this.elementType = elementType;
+    }
+
+    public int getElementDeleted() {
+        return elementDeleted;
+    }
+
+    public void setElementDeleted(int elementDeleted) {
+        this.elementDeleted = elementDeleted;
     }
 }
