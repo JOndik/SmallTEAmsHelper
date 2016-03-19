@@ -21,6 +21,8 @@ namespace BPAddIn.DataContract
         public string itemGUID { get; set; }
         public string modelGUID { get; set; }
         public int elementType { get; set; }
+        
+        public int elementDeleted { get; set; }
         [NotMapped]
         public string classType { get; set; }
 

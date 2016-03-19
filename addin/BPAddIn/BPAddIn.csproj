@@ -198,6 +198,7 @@
     <Compile Include="ListBoxObject.cs" />
     <Compile Include="Rule.cs" />
     <Compile Include="RuleService.cs" />
+    <Compile Include="SynchronizationService.cs" />
     <Compile Include="TeamPair.cs" />
     <Compile Include="UpdateWindow.cs">
       <SubType>Form</SubType>

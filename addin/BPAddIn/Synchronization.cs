@@ -16,8 +16,24 @@ namespace BPAddIn
             //najdiChybu2(Repository);
             //strukturnaZmena(Repository);
             //zistiGUID(Repository);
-            zistiInfoSpojenie(Repository);
+            //zistiInfoSpojenie(Repository);
             //zistiInfoElement(Repository);
+            //MessageBox.Show(Repository.GetPackageByID(1).PackageGUID);
+            //MessageBox.Show(changeModelGUID(Repository));
+            //this.pridajBalik(Repository, changeModelGUID(Repository));
+        }
+
+        public string changeModelGUID(EA.Repository Repository)
+        {
+            String guid = "{" + Guid.NewGuid().ToString().ToUpper() + "}";
+            for (short i = 0; i < Repository.Models.Count; i++)
+            {
+                EA.Package pack = (EA.Package)Repository.Models.GetAt(i);
+                pack.PackageGUID = guid;
+                pack.Update();
+                Repository.Models.Refresh();
+            }
+            return guid;
         }
 
         public void zistiInfoSpojenie(EA.Repository Repository)
@@ -323,9 +339,9 @@ namespace BPAddIn
             element.Update();
         }
 
-        public void pridajBalik(EA.Repository Repository, int packageID)
+        public void pridajBalik(EA.Repository Repository, string packageGUID)
         {
-            EA.Collection packages = (EA.Collection)Repository.GetPackageByID(1).Packages;
+            EA.Collection packages = (EA.Collection)Repository.GetPackageByGuid(packageGUID).Packages;
             EA.Package newPackage = (EA.Package)packages.AddNew("Balik", "Nothing");
             newPackage.Notes = "Notes of package";
             newPackage.Update();

@@ -8,7 +8,7 @@ namespace BPAddInTry
 {
     class Element
     {
-        public string type { get; }
-        public string stereotype { get; }
+        public string type { get; set; }
+        public string stereotype { get; set;}
     }
 }

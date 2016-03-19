@@ -8,9 +8,9 @@ namespace BPAddInTry
 {
     class Content
     {
-        public string valid { get; }
-        public string correct { get; }
-        public string cond { get; }
-        public string hint { get; }
+        public string valid { get; set; }
+        public string correct { get; set; }
+        public string cond { get; set; }
+        public string hint { get; set; }
     }
 }

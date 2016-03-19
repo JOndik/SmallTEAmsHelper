@@ -20,7 +20,7 @@ namespace BPAddIn
         const string menuJoining = "Spojenie";
         const string menuUpdate = "Aktualizácia";
         const string menuOpenProperties = "&Open Properties";
-
+        //const string menuSynchronization = "Synchronizácia";
        
         /*const string menuPridajDiagram = "&Pridaj diagram";
         const string menuPresunDiagram = "&Presun diagram";
@@ -32,9 +32,9 @@ namespace BPAddIn
         const string menuPridajBalik = "&Pridaj balik";
         const string menuZmenBalik = "&Zmen balik";
         const string menuPresunBalik = "&Presun balik";
-        const string menuZmazBalik = "&Zmaz balik";
-        const string menuRefresh = "&Refresh";       
-        const string menuPridajTriedu = "&Pridaj triedu";
+        const string menuZmazBalik = "&Zmaz balik";*/
+        //const string menuRefresh = "&Refresh";       
+        /*const string menuPridajTriedu = "&Pridaj triedu";
         const string menuZmazDiagram = "&Zmaz diagram";*/
         
         Dictionary dict;
@@ -45,6 +45,7 @@ namespace BPAddIn
         ContextWrapper contextWrapper;
         Synchronization synchronization;
         UpdateService updateService;
+        SynchronizationService synchronizationService;
         public static DefectsWindow defectsWindow = null;
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace BPAddIn
         public BPAddIn() : base()
         {                                                   
             this.menuHeader = menuName;
-            this.menuOptions = new string[] { menuLoginWindow, menuJoining, menuDbTest, /*menuClassNamesValidation,*/ menuUpdate, /*menuOpenProperties*/ };
+            this.menuOptions = new string[] { /*menuRefresh, menuSynchronization,*/ menuLoginWindow, menuJoining, menuDbTest, /*menuClassNamesValidation,*/ menuUpdate, /*menuOpenProperties*/ };
                 //menuPridajElement, menuPridajSpojenie,
                 //menuPridajBalik, menuZmenBalik, menuPresunBalik, menuZmazBalik, 
                 //menuPridajDiagram, menuZmenDiagram, menuPresunDiagram, menuZmazDiagram, menuRefresh, 
@@ -79,8 +80,9 @@ namespace BPAddIn
             this.contextWrapper = new ContextWrapper(Repository);
             this.synchronization = new Synchronization();
             this.updateService = new UpdateService();
+            this.synchronizationService = new SynchronizationService();
 
-            updateService.compareVersions();
+            //updateService.compareVersions();
 
             return base.EA_Connect(Repository);
         }
@@ -148,11 +150,11 @@ namespace BPAddIn
                         break;
                     case menuZmazBalik:
                         IsEnabled = true;
-                        break;
-                    case menuRefresh:
+                        break;*/
+                    /*case menuRefresh:
                         IsEnabled = true;
-                        break;
-                     case menuPridajElement:
+                        break;*/
+                    /* case menuPridajElement:
                         IsEnabled = true;
                         break;
                     case menuPridajSpojenie:
@@ -162,6 +164,9 @@ namespace BPAddIn
                         IsEnabled = true;
                         break;
                     case menuZmazDiagram:
+                        IsEnabled = true;
+                        break;*/
+                   /* case menuSynchronization:
                         IsEnabled = true;
                         break;*/
                     // there shouldn't be any other, but just in case disable it.
@@ -239,11 +244,11 @@ namespace BPAddIn
                     break;
                 case menuZmenDiagram:
                     synchronization.zmenDiagram(Repository, 4);
-                    break;                
-                case menuRefresh:
+                    break; */               
+                /*case menuRefresh:
                     synchronization.refresh(Repository);                   
-                    break;
-                case menuNajdiMeno:
+                    break;*/
+                /*case menuNajdiMeno:
                     this.najdiMenoPodlaID(Repository);
                     break;
                 case menuPridajElement:
@@ -260,6 +265,9 @@ namespace BPAddIn
                     break;
                 case menuZmazDiagram:
                     this.zmazDiagram(Repository, 22);
+                    break;*/
+                /*case menuSynchronization:
+                    synchronizationService.checkConnectionForSynchronization(Repository);
                     break;*/
             }
         }
@@ -354,6 +362,36 @@ namespace BPAddIn
             EventProperty packageID = Info.Get("PackageID");
             contextWrapper.handlePackageCreation(Repository, Convert.ToInt32(packageID.Value.ToString()));
             return base.EA_OnPostNewPackage(Repository, Info);
+        }
+        public override bool EA_OnPreDeletePackage(Repository Repository, EventProperties Info)
+        {
+            EventProperty packageID = Info.Get("PackageID");
+            contextWrapper.handlePackageDeletion(Repository, Convert.ToInt32(packageID.Value.ToString()));
+            return base.EA_OnPreDeletePackage(Repository, Info);
+        }
+        public override bool EA_OnPreDeleteDiagram(Repository Repository, EventProperties Info)
+        {
+            EventProperty diagramID = Info.Get("DiagramID");
+            contextWrapper.handleDiagramDeletion(Repository, Convert.ToInt32(diagramID.Value.ToString()));
+            return base.EA_OnPreDeleteDiagram(Repository, Info);
+        }
+        public override bool EA_OnPreDeleteDiagramObject(Repository Repository, EventProperties Info)
+        {
+            EventProperty diagramObjectID = Info.Get("DiagramObjectID");
+            contextWrapper.handleDiagramObjectDeletion(Repository, Convert.ToInt32(diagramObjectID.Value.ToString()));
+            return base.EA_OnPreDeleteDiagramObject(Repository, Info);
+        }
+        public override bool EA_OnPreDeleteElement(Repository Repository, EventProperties Info)
+        {
+            EventProperty elementID = Info.Get("ElementID");
+            contextWrapper.handleElementDeletion(Repository, Convert.ToInt32(elementID.Value.ToString()));
+            return base.EA_OnPreDeleteElement(Repository, Info);
+        }
+        public override bool EA_OnPreDeleteConnector(Repository Repository, EventProperties Info)
+        {
+            EventProperty connectorID = Info.Get("ConnectorID");
+            contextWrapper.handleConnectorDeletion(Repository, Convert.ToInt32(connectorID.Value.ToString()));
+            return base.EA_OnPreDeleteConnector(Repository, Info);
         }
         public override void EA_Disconnect()
         {

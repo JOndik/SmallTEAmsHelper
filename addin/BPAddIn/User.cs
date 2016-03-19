@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,11 @@ namespace BPAddIn
         public string username { get; set; }
 
         public string token { get; set; }
+
+        public string serialize()
+        {
+            return JsonConvert.SerializeObject(this);
+        }  
 
     }
 }

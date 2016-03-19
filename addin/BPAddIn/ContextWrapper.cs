@@ -473,6 +473,111 @@ namespace BPAddIn
             }
         }
 
+        public void handlePackageDeletion(Repository repository, int packageID)
+        {
+            try
+            {
+                changed = false;
+                EA.Package package = repository.GetPackageByID(packageID);
+
+                PropertyChange modelChange = new PropertyChange();
+                modelChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                modelChange.itemGUID = package.PackageGUID;
+                modelChange.elementType = 3;
+                modelChange.elementDeleted = 1;
+
+                changeService.saveChange(modelChange);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void handleDiagramDeletion(Repository repository, int diagramID)
+        {
+            try
+            {
+                changed = false;
+                EA.Diagram diagram = repository.GetDiagramByID(diagramID);
+
+                PropertyChange modelChange = new PropertyChange();
+                modelChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                modelChange.itemGUID = diagram.DiagramGUID;
+                modelChange.elementType = 50;
+                modelChange.elementDeleted = 1;
+
+                changeService.saveChange(modelChange);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void handleDiagramObjectDeletion(Repository repository, int diagramObjectID)
+        {
+            try
+            {
+                changed = false;
+                EA.Element element = repository.GetElementByID(diagramObjectID);
+
+                ModelChange modelChange = new ModelChange();
+                modelChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                modelChange.itemGUID = element.ElementGUID;
+                modelChange.elementType = 700;
+                modelChange.elementDeleted = 1;
+
+                changeService.saveChange(modelChange);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void handleElementDeletion(Repository repository, int elementID)
+        {
+            try
+            {
+                changed = false;
+                EA.Element element = repository.GetElementByID(elementID);
+
+                PropertyChange modelChange = new PropertyChange();
+                modelChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                modelChange.itemGUID = element.ElementGUID;
+                modelChange.elementType = 0;
+                modelChange.elementDeleted = 1;
+
+                changeService.saveChange(modelChange);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void handleConnectorDeletion(Repository repository, int connectorID)
+        {
+            try
+            {
+                changed = false;
+                EA.Connector connector = repository.GetConnectorByID(connectorID);
+
+                PropertyChange modelChange = new PropertyChange();
+                modelChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                modelChange.itemGUID = connector.ConnectorGUID;
+                modelChange.elementType = 70;
+                modelChange.elementDeleted = 1;
+
+                changeService.saveChange(modelChange);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
         public void handlePackageCreation(Repository repository, int packageID)
         {
             try
@@ -484,21 +589,21 @@ namespace BPAddIn
                 ItemCreation itemCreation = new ItemCreation();
                 itemCreation.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 itemCreation.itemGUID = package.PackageGUID;
-                itemCreation.elementType = 800;
+                itemCreation.elementType = 3;
                 itemCreation.author = package.Element.Author;
                 itemCreation.name = package.Name;
                 itemCreation.parentGUID = "0";
 
-                if (package.ParentID != 0)
+                /*if (package.ParentID != 0)
                 {
                     EA.Element parent = repository.GetElementByID(package.ParentID);
                     if (parent != null)
                     {
                         itemCreation.parentGUID = parent.ElementGUID;
                     }
-                }
+                }*/
 
-                EA.Package parentPackage = repository.GetPackageByID(package.PackageID);
+                EA.Package parentPackage = repository.GetPackageByID(package.ParentID);
                 if (parentPackage != null)
                 {
                     itemCreation.packageGUID = parentPackage.PackageGUID;
@@ -880,7 +985,7 @@ namespace BPAddIn
                                     changeService.saveChange(stepChange);
                                 }
                             }
-
+                            
                             // step modify
                             foreach (KeyValuePair<string, EA.ScenarioStep> stepD in changedSteps)
                             {
@@ -892,7 +997,7 @@ namespace BPAddIn
                                     {
                                         break;
                                     }
-                                    EA.ScenarioStep currentStep = currentSteps[stepD.Key];
+                                    EA.ScenarioStep currentStep = currentSteps[stepD.Key]; 
                                     StepChange stepChange = new StepChange();
                                     stepChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                                     stepChange.itemGUID = GUID;
