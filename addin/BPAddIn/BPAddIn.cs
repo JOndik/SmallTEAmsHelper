@@ -77,12 +77,14 @@ namespace BPAddIn
         {
             //Database.openConnection();
 
-            this.contextWrapper = new ContextWrapper(Repository);
             this.synchronization = new Synchronization();
             this.updateService = new UpdateService();
+            updateService.compareVersions();
+
+            this.contextWrapper = new ContextWrapper(Repository);
             this.synchronizationService = new SynchronizationService();
 
-            //updateService.compareVersions();
+    
 
             return base.EA_Connect(Repository);
         }

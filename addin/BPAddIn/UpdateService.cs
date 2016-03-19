@@ -1,4 +1,5 @@
 ﻿using BPAddInTry;
+using Microsoft.Data.Entity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -174,11 +175,44 @@ namespace BPAddIn
             {
                 number = File.ReadAllLines(addInPath + "\\version.txt").First();
 
-                double actualVersion = double.Parse(number, System.Globalization.CultureInfo.InvariantCulture);
+                double currentVersion = findVersion();
+                double newVersion = double.Parse(number, System.Globalization.CultureInfo.InvariantCulture);
 
-                if (actualVersion > this.findVersion())
+                if (newVersion > currentVersion)
                 {
-                    this.editVersion(actualVersion);
+                    if (currentVersion <= 1.0)
+                    {
+                        // update db schema
+                        lock (LocalDBContext.Lock)
+                        {
+                            using (LocalDBContext context = new LocalDBContext())
+                            {
+                                context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS `item_creations`");
+                                context.Database.ExecuteSqlCommand("CREATE TABLE `item_creations` (`timestamp`	varchar(255), `itemGUID` varchar(255), `modelGUID` varchar(255), `id` INTEGER PRIMARY KEY AUTOINCREMENT,"
+                                    + "`elementType` int, `parentGUID` varchar(255), `author` varchar(255),	`name` varchar(255), `packageGUID`	varchar(255), `srcGUID`	varchar(255),"
+                                    + "`targetGUID`	varchar(255), `diagramGUID`	varchar(255), `coordinates`	varchar(255), `elementDeleted` int);");
+
+                                context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS `model_changes`");
+                                context.Database.ExecuteSqlCommand("CREATE TABLE `model_changes` (`timestamp` varchar(255),	`itemGUID` varchar(255), `modelGUID` varchar(255), `id`	INTEGER PRIMARY KEY AUTOINCREMENT,"
+                                    + "`elementType` int, `elementDeleted` int);");
+
+                                context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS `property_changes`");
+                                context.Database.ExecuteSqlCommand("CREATE TABLE `property_changes` (`timestamp` varchar(255), `itemGUID` varchar(255),	`propertyBody`	varchar(255), `propertyType` int,"
+                                    + "`elementType` int, `modelGUID` varchar(255),	`oldPropertyBody` varchar(255),	`id` INTEGER PRIMARY KEY AUTOINCREMENT,	`elementDeleted` int);");
+
+                                context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS `scenario_changes`");
+                                context.Database.ExecuteSqlCommand("CREATE TABLE `scenario_changes` (`timestamp` varchar(255), `itemGUID` varchar(255),	`modelGUID`	varchar(255),`id` INTEGER PRIMARY KEY AUTOINCREMENT,"
+	                                + "`elementType` int, `name` varchar(255), `type` varchar(255),	`status` int, `scenarioGUID` varchar(255), `elementDeleted` int);");
+
+                                context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS `step_changes`");
+                                context.Database.ExecuteSqlCommand("CREATE TABLE `step_changes` (`timestamp` varchar(255), `itemGUID` varchar(255),	`modelGUID`	varchar(255), `id` INTEGER PRIMARY KEY AUTOINCREMENT,"
+	                                + "`elementType` int, `status`	int, `scenarioGUID`	varchar(255), `position` int, `stepType` varchar(255), `name` varchar(255),	`uses`	varchar(255), `results` varchar(255),"
+	                                + "`state` varchar(255), `extensionGUID` varchar(255), `joiningStepGUID` varchar(255),	`joiningStepPosition` varchar(255),	`stepGUID`	varchar(255), `elementDeleted`	int);");
+                            }
+                        }
+                    }
+
+                    this.editVersion(newVersion);
                 }
             }
             catch(Exception ex)

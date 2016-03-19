@@ -14,8 +14,8 @@ namespace BPAddIn
 {
     public class ChangeService
     {
-        //private const string serviceAddress = "http://localhost:8080";
-        private const string serviceAddress = "http://147.175.180.200:8080";
+        private const string serviceAddress = "http://localhost:8080";
+        //private const string serviceAddress = "http://147.175.180.200:8080";
         //private const string serviceAddress = "https://ichiban.fiit.stuba.sk:8443";
         public static string userToken = "";
 
@@ -34,7 +34,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -137,7 +137,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 

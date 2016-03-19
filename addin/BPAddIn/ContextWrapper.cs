@@ -48,9 +48,6 @@ namespace BPAddIn
             {
                 switch (ot)
                 {
-                    case ObjectType.otScenarioStep:
-                        MessageBox.Show(repository.GetElementByGuid(GUID).Name);
-                        break;
                     case ObjectType.otElement:
                         //this.currentItem = (Wrapper.Element)model.selectedElement;
                         this.currentItem = repository.GetElementByGuid(GUID);
@@ -128,7 +125,7 @@ namespace BPAddIn
             catch (NullReferenceException nEx) { }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
 
         }
@@ -196,7 +193,7 @@ namespace BPAddIn
                 catch (NullReferenceException ex2) { }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    //MessageBox.Show(ex.ToString());
                 }
             }
 
@@ -211,7 +208,7 @@ namespace BPAddIn
                 catch (NullReferenceException ex2) { }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    //MessageBox.Show(ex.ToString());
                 }
             }
 
@@ -226,7 +223,7 @@ namespace BPAddIn
                 catch (NullReferenceException ex2) { }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    //MessageBox.Show(ex.ToString());
                 }
             }
         }
@@ -304,7 +301,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
 
             currentItem = changedElement;
@@ -348,7 +345,7 @@ namespace BPAddIn
                 if (diagrams.Count > 0)
                 {
                     Wrapper.Diagram diagram = diagrams.ElementAt(0);
-                    MessageBox.Show(diagram.name);
+                    //MessageBox.Show(diagram.name);
 
                     itemCreation.diagramGUID = diagram.diagramGUID;
                     Wrapper.ElementWrapper elWrapper = new Wrapper.ElementWrapper(model, el);
@@ -365,7 +362,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -469,7 +466,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -490,7 +487,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -511,7 +508,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -532,7 +529,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+               //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -553,7 +550,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -574,7 +571,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -613,7 +610,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -722,7 +719,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -1092,7 +1089,7 @@ namespace BPAddIn
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString());
+                            //MessageBox.Show(ex.ToString());
                         }
                     }                    
                 }

@@ -35,7 +35,8 @@ namespace BPAddIn
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+
+                //MessageBox.Show(e.ToString());
                 MessageBox.Show("Pre synchronizáciu je potrebné internetové pripojenie.");
             }
         }
