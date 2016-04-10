@@ -35,7 +35,7 @@ namespace BPAddIn
         private ChangeService changeService;
         private RuleService ruleService;
         private bool changed = false;
-        private Thread dispatcherThread;
+        private Thread changesDispatcherThread;
         private ItemTypes itemTypes;
 
         public ContextWrapper(EA.Repository repository)
@@ -44,8 +44,8 @@ namespace BPAddIn
             this.changeService = new ChangeService();
             this.ruleService = new RuleService();
             this.itemTypes = new ItemTypes(repository);
-            dispatcherThread = new Thread(new ThreadStart(this.changeService.startActivityDispatcher));
-            dispatcherThread.Start();
+            changesDispatcherThread = new Thread(new ThreadStart(this.changeService.startActivityDispatcher));
+            changesDispatcherThread.Start();
         }
 
         public void handleContextItemChange(EA.Repository repository, string GUID, ObjectType ot)

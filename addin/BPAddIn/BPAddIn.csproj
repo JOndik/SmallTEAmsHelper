@@ -176,7 +176,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Content.cs" />
+    <Compile Include="DataContract\DefectReport.cs" />
+    <Compile Include="DefectReportService.cs" />
     <Compile Include="ItemTypes.cs" />
+    <Compile Include="RuleAssociationCardinality.cs" />
+    <Compile Include="RuleClass.cs" />
+    <Compile Include="RuleClassRelation.cs" />
+    <Compile Include="RuleUC.cs" />
+    <Compile Include="RuleUC2.cs" />
     <Compile Include="Synchronization\ModelInformation.cs" />
     <Compile Include="Synchronization\ModelTraverse.cs" />
     <Compile Include="Synchronization\NewCorrespondenceNode.cs" />
@@ -215,6 +222,7 @@
     <Compile Include="UpdateWindow.Designer.cs">
       <DependentUpon>UpdateWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="UpdateService.cs" />
     <Compile Include="BPAddIn.cs" />

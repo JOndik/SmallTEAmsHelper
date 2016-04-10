@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BPAddIn;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,7 +35,7 @@ namespace BPAddInTry
             string zipPath = @"" + Path.GetTempPath() + "sthAddIn-update.zip";
             string extractPath = @"" + Path.GetTempPath() + "sthAddIn";
 
-            webClient.DownloadFileAsync(new Uri("https://ichiban.fiit.stuba.sk:8443/update/currentVersion"), zipPath);
+            webClient.DownloadFileAsync(new Uri(Utils.serviceAddress + "/update/currentVersion"), zipPath);
 
             if (!(Directory.Exists(extractPath)))
             {

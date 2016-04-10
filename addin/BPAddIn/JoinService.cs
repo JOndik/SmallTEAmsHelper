@@ -10,17 +10,13 @@ namespace BPAddIn
 {
     public class JoinService
     {
-        //private const string serviceAddress = "http://192.168.137.89:8080";
-        //private const string serviceAddress = "http://147.175.180.200:8080";
-        private const string serviceAddress = "https://ichiban.fiit.stuba.sk:8443/testing";
-
         public void isConnected(TeamPairDTO teamPair, JoinWindow joinWindow)
         {
             try
             {
                 using (WebClient webClient = new WebClient())
                 {
-                    using (var stream = webClient.OpenRead(serviceAddress))
+                    using (var stream = webClient.OpenRead(Utils.serviceAddress))
                     {
                         stream.Close();
                         this.uploadTeamMemberUsername(teamPair, joinWindow);
@@ -45,7 +41,7 @@ namespace BPAddIn
                 data = ChangeService.EncodeNonAsciiCharacters(teamPair.serialize());
                 try
                 {
-                    result = webClient.UploadString(serviceAddress + "/auth/pair", data);
+                    result = webClient.UploadString(Utils.serviceAddress + "/auth/pair", data);
                     MessageBox.Show("result");
                     joinWindow.Close();
                 }

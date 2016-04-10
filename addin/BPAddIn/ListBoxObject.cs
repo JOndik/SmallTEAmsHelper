@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BPAddInTry
 {
-    class ListBoxObject : Object
+    public class ListBoxObject : Object
     {
         public virtual string Text { get; set; }
         public virtual object Tag { get; set; }

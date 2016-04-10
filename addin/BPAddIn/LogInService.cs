@@ -10,11 +10,6 @@ namespace BPAddIn
 {
     public class LogInService
     {
-        //private const string serviceAddress = "http://localhost:8080";
-        //private const string serviceAddress = "http://147.175.180.200:8080";
-        private const string serviceAddress = "http://192.168.1.138:8080";
-        //private const string serviceAddress = "https://ichiban.fiit.stuba.sk:8443";
-
         public string checkConnection(string name, string password)
         {
             try
@@ -27,7 +22,7 @@ namespace BPAddIn
                     /*System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
                     System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };*/
                     
-                    using (var stream = webClient.OpenRead(serviceAddress))
+                    using (var stream = webClient.OpenRead(Utils.serviceAddress))
                     {
                         stream.Close();
                         return this.uploadLogInData(name, password);
@@ -57,7 +52,7 @@ namespace BPAddIn
                 webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
                 //data = Encoding.UTF8.GetString(Encoding.Unicode.GetBytes(dtoWrapper.serialize()));
                 data = EncodeNonAsciiCharacters(logIn.serialize());
-                result = webClient.UploadString(serviceAddress + "/auth", data);
+                result = webClient.UploadString(Utils.serviceAddress + "/auth", data);
 
                 if (("false").Equals(result) || ("error").Equals(result))
                 {                   

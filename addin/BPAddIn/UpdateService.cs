@@ -19,17 +19,13 @@ namespace BPAddIn
 {
     class UpdateService
     {
-        private const string serviceAddress = "http://192.168.1.138:8080";
-        //private const string serviceAddress = "http://147.175.180.200:8080";
-        //private const string serviceAddress = "https://ichiban.fiit.stuba.sk:8443";
-
         public void isConnected()
         {
             try
             {
                 using (WebClient webClient = new WebClient())
                 {
-                    using (var stream = webClient.OpenRead(serviceAddress))
+                    using (var stream = webClient.OpenRead(Utils.serviceAddress))
                     {
                         this.checkUpdate();
                     }
@@ -48,7 +44,7 @@ namespace BPAddIn
                 string result = "";
 
                 webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
-                result = webClient.DownloadString(serviceAddress + "/update");
+                result = webClient.DownloadString(Utils.serviceAddress + "/update");
 
                 double actualVersion;
                 try 
@@ -68,7 +64,7 @@ namespace BPAddIn
                                     string zipPath = @"" + Path.GetTempPath() + "sthAddIn-update.zip";
                                     string extractPath = @"" + Path.GetTempPath() + "sthAddIn";
 
-                                    webClient.DownloadFile("https://ichiban.fiit.stuba.sk:8443/update/currentVersion", zipPath);
+                                    webClient.DownloadFile(Utils.serviceAddress + "/update/currentVersion", zipPath);
 
                                     if (!(Directory.Exists(extractPath)))
                                     {
@@ -208,6 +204,20 @@ namespace BPAddIn
                                 context.Database.ExecuteSqlCommand("CREATE TABLE `step_changes` (`timestamp` varchar(255), `itemGUID` varchar(255),	`modelGUID`	varchar(255), `id` INTEGER PRIMARY KEY AUTOINCREMENT,"
 	                                + "`elementType` int, `status`	int, `scenarioGUID`	varchar(255), `position` int, `stepType` varchar(255), `name` varchar(255),	`uses`	varchar(255), `results` varchar(255),"
 	                                + "`state` varchar(255), `extensionGUID` varchar(255), `joiningStepGUID` varchar(255),	`joiningStepPosition` varchar(255),	`stepGUID`	varchar(255), `elementDeleted`	int);");
+                            }
+                        }
+                    }
+
+                    if (currentVersion <= 1.1)
+                    {
+                        // update db schema
+                        lock (LocalDBContext.Lock)
+                        {
+                            using (LocalDBContext context = new LocalDBContext())
+                            {
+                                context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS `defect_reports`");
+                                context.Database.ExecuteSqlCommand("CREATE TABLE `defect_reports` (`timestamp`	varchar(255), `ruleName` varchar(255), `modelGUID` varchar(255), `id` INTEGER PRIMARY KEY AUTOINCREMENT,"
+                                    + "`ruleGUID` varchar(255), `actionsBeforeCorrection` int, `isHidden` int);");
                             }
                         }
                     }

@@ -313,24 +313,32 @@ namespace BPAddIn
         /// <param name="ot">the object type of the selected item</param>
         public override void EA_OnContextItemChanged(EA.Repository Repository, string GUID, EA.ObjectType ot)
         {
-            if (Repository == null || GUID == null || ot.Equals(null))
+            try
             {
-                return;
-            }
+                if (Repository == null || GUID == null || ot.Equals(null))
+                {
+                    return;
+                }
 
-            //if (ot == ObjectType.otElement || ot == ObjectType.otDiagram || ot == ObjectType.otPackage || ot == ObjectType.otConnector) {
-            if (synchronizationService.changesAllowed)
-            {
-                contextWrapper.handleContextItemChange(Repository, GUID, ot);
+                //if (ot == ObjectType.otElement || ot == ObjectType.otDiagram || ot == ObjectType.otPackage || ot == ObjectType.otConnector) {
+                if (synchronizationService.changesAllowed)
+                {
+                    contextWrapper.handleContextItemChange(Repository, GUID, ot);
+                }
+                //}
             }
-            //}
+            catch (Exception) { }
         }
         public override bool EA_OnContextItemDoubleClicked(Repository Repository, string GUID, ObjectType ot)
         {
-            if (synchronizationService.changesAllowed)
-            {
-                contextWrapper.handleContextItemChange(Repository, GUID, ot);
+            try {
+                if (synchronizationService.changesAllowed)
+                {
+                    contextWrapper.handleContextItemChange(Repository, GUID, ot);
+                }
             }
+            catch (Exception) { }
+
             return base.EA_OnContextItemDoubleClicked(Repository, GUID, ot);
         }
         public override void EA_OnNotifyContextItemModified(EA.Repository Repository, string GUID, EA.ObjectType ot)
@@ -352,59 +360,84 @@ namespace BPAddIn
         }
         public override bool EA_OnPostNewConnector(Repository Repository, EventProperties Info)
         {
-            EventProperty connectorID = Info.Get("ConnectorID");
-            if (synchronizationService.changesAllowed)
-            {
-                contextWrapper.handleConnectorCreation(Repository, Convert.ToInt32(connectorID.Value.ToString()));
+            try {
+                EventProperty connectorID = Info.Get("ConnectorID");
+                if (synchronizationService.changesAllowed)
+                {
+                    contextWrapper.handleConnectorCreation(Repository, Convert.ToInt32(connectorID.Value.ToString()));
+                }
             }
+            catch (Exception) { }
+
             return base.EA_OnPostNewConnector(Repository, Info);
         }
         public override bool EA_OnPostNewElement(Repository Repository, EventProperties Info)
         {
-            EventProperty elementID = Info.Get("ElementID");
-            if (synchronizationService.changesAllowed)
-            {
-                contextWrapper.handleElementCreation(Repository, Convert.ToInt32(elementID.Value.ToString()));
+            try {
+                EventProperty elementID = Info.Get("ElementID");
+                if (synchronizationService.changesAllowed)
+                {
+                    contextWrapper.handleElementCreation(Repository, Convert.ToInt32(elementID.Value.ToString()));
+                }
             }
+            catch (Exception) { }
+
             return base.EA_OnPostNewElement(Repository, Info);
         }
         public override bool EA_OnPostNewDiagram(Repository Repository, EventProperties Info)
         {
-            EventProperty diagramID = Info.Get("DiagramID");
-            if (synchronizationService.changesAllowed)
-            {
-                contextWrapper.handleDiagramCreation(Repository, Convert.ToInt32(diagramID.Value.ToString()));
+            try {
+                EventProperty diagramID = Info.Get("DiagramID");
+                if (synchronizationService.changesAllowed)
+                {
+                    contextWrapper.handleDiagramCreation(Repository, Convert.ToInt32(diagramID.Value.ToString()));
+                }
             }
+            catch (Exception) { }
+
             return base.EA_OnPostNewDiagram(Repository, Info);
         }
         public override bool EA_OnPostNewDiagramObject(Repository Repository, EventProperties Info)
         {
-            EventProperty elementID = Info.Get("ID");
-            EventProperty diagramID = Info.Get("DiagramID");
-            EventProperty duID = Info.Get("DUID");
-            if (synchronizationService.changesAllowed)
-            {
-                contextWrapper.handleDiagramObjectCreation(Repository, Convert.ToInt32(elementID.Value.ToString()),
-                    Convert.ToInt32(diagramID.Value.ToString()), duID.ToString());
+            try {
+                EventProperty elementID = Info.Get("ID");
+                EventProperty diagramID = Info.Get("DiagramID");
+                EventProperty duID = Info.Get("DUID");
+                if (synchronizationService.changesAllowed)
+                {
+                    contextWrapper.handleDiagramObjectCreation(Repository, Convert.ToInt32(elementID.Value.ToString()),
+                        Convert.ToInt32(diagramID.Value.ToString()), duID.ToString());
+                }
             }
+            catch (Exception) { }
+
             return base.EA_OnPostNewDiagramObject(Repository, Info);
         }
         public override bool EA_OnPostNewPackage(Repository Repository, EventProperties Info)
         {
-            EventProperty packageID = Info.Get("PackageID");
-            if (synchronizationService.changesAllowed)
+            try
             {
-                contextWrapper.handlePackageCreation(Repository, Convert.ToInt32(packageID.Value.ToString()));
-            }           
+                EventProperty packageID = Info.Get("PackageID");
+                if (synchronizationService.changesAllowed)
+                {
+                    contextWrapper.handlePackageCreation(Repository, Convert.ToInt32(packageID.Value.ToString()));
+                }
+            }
+            catch (Exception) { }
+
             return base.EA_OnPostNewPackage(Repository, Info);
         }
         public override bool EA_OnPostNewAttribute(Repository Repository, EventProperties Info)
         {
-            EventProperty attributeID = Info.Get("AttributeID");
-            if (synchronizationService.changesAllowed)
-            {
-                contextWrapper.handleAttributeCreation(Repository, Convert.ToInt32(attributeID.Value.ToString()));
+            try {
+                EventProperty attributeID = Info.Get("AttributeID");
+                if (synchronizationService.changesAllowed)
+                {
+                    contextWrapper.handleAttributeCreation(Repository, Convert.ToInt32(attributeID.Value.ToString()));
+                }
             }
+            catch (Exception) { }
+
             return base.EA_OnPostNewAttribute(Repository, Info);
         }
         public override bool EA_OnPreDeletePackage(Repository Repository, EventProperties Info)
@@ -418,48 +451,68 @@ namespace BPAddIn
         }
         public override bool EA_OnPreDeleteDiagram(Repository Repository, EventProperties Info)
         {
-            EventProperty diagramID = Info.Get("DiagramID");
-            if (synchronizationService.changesAllowed)
-            {
-                contextWrapper.handleDiagramDeletion(Repository, Convert.ToInt32(diagramID.Value.ToString()));
+            try {
+                EventProperty diagramID = Info.Get("DiagramID");
+                if (synchronizationService.changesAllowed)
+                {
+                    contextWrapper.handleDiagramDeletion(Repository, Convert.ToInt32(diagramID.Value.ToString()));
+                }
             }
+            catch (Exception) { }
+
             return base.EA_OnPreDeleteDiagram(Repository, Info);
         }
         public override bool EA_OnPreDeleteDiagramObject(Repository Repository, EventProperties Info)
         {
-            EventProperty diagramObjectID = Info.Get("ID");
-            if (synchronizationService.changesAllowed)
-            {
-                contextWrapper.handleDiagramObjectDeletion(Repository, Convert.ToInt32(diagramObjectID.Value.ToString()));
+            try {
+                EventProperty diagramObjectID = Info.Get("ID");
+                if (synchronizationService.changesAllowed)
+                {
+                    contextWrapper.handleDiagramObjectDeletion(Repository, Convert.ToInt32(diagramObjectID.Value.ToString()));
+                }
             }
+            catch (Exception) { }
+
             return base.EA_OnPreDeleteDiagramObject(Repository, Info);
         }
         public override bool EA_OnPreDeleteElement(Repository Repository, EventProperties Info)
         {
-            EventProperty elementID = Info.Get("ElementID");
-            if (synchronizationService.changesAllowed)
-            {
-                contextWrapper.handleElementDeletion(Repository, Convert.ToInt32(elementID.Value.ToString()));
+            try {
+                EventProperty elementID = Info.Get("ElementID");
+                if (synchronizationService.changesAllowed)
+                {
+                    contextWrapper.handleElementDeletion(Repository, Convert.ToInt32(elementID.Value.ToString()));
+                }
             }
+            catch (Exception) { }
+
             return base.EA_OnPreDeleteElement(Repository, Info);
         }
 
         public override bool EA_OnPreDeleteConnector(Repository Repository, EventProperties Info)
         {
-            EventProperty connectorID = Info.Get("ConnectorID");
-            if (synchronizationService.changesAllowed)
-            {
-                contextWrapper.handleConnectorDeletion(Repository, Convert.ToInt32(connectorID.Value.ToString()));
+            try {
+                EventProperty connectorID = Info.Get("ConnectorID");
+                if (synchronizationService.changesAllowed)
+                {
+                    contextWrapper.handleConnectorDeletion(Repository, Convert.ToInt32(connectorID.Value.ToString()));
+                }
             }
+            catch (Exception) { }
+
             return base.EA_OnPreDeleteConnector(Repository, Info);
         }
         public override bool EA_OnPreDeleteAttribute(Repository Repository, EventProperties Info)
         {
-            EventProperty attributeID = Info.Get("AttributeID");
-            if (synchronizationService.changesAllowed)
-            {
-                contextWrapper.handleAttributeDeletion(Repository, Convert.ToInt32(attributeID.Value.ToString()));
+            try {
+                EventProperty attributeID = Info.Get("AttributeID");
+                if (synchronizationService.changesAllowed)
+                {
+                    contextWrapper.handleAttributeDeletion(Repository, Convert.ToInt32(attributeID.Value.ToString()));
+                }
             }
+            catch (Exception) { }
+
             return base.EA_OnPreDeleteAttribute(Repository, Info);
         }
         public override void EA_Disconnect()

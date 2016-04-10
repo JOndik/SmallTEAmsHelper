@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BPAddInTry
 {
-    class Content
+    public class Content
     {
         public string valid { get; set; }
         public string correct { get; set; }

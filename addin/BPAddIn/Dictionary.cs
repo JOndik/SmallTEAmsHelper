@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.Windows.Forms;
 
 namespace BPAddIn
 {
@@ -27,40 +28,52 @@ namespace BPAddIn
             return value;
         }
 
-        private char getWordFlag(string wordString)
+        private string getWordFlag(string wordString)
         {
+            wordString = wordString.ToLowerInvariant();
             using (LocalDBContext context = new LocalDBContext())
             {
+                //MessageBox.Show("hladam pre " + wordString);
                 var words = from w in context.dictionary
                              where w.word == wordString
+                             && w.flag.Substring(4, 1) == "1"
                              select w.flag;
 
-                try
-                {
-                    char flag = words.SingleOrDefault<String>()[0];
+                /*try
+                {*/
+                    string flags = words.FirstOrDefault<String>();
 
-                    return flag;
-                }
+                    return flags;
+                /*}
                 catch (NullReferenceException)
                 {
-                    return '\0';
-                }
+                    return "";
+                }*/
+
+            return "";
             }
         }
 
         public bool isNoun(string[] words)
         {
-            for (int i = 0; i < words.Length; i++)
+            /*for (int i = 0; i < words.Length; i++)
+            {*/
+            //MessageBox.Show(getWordFlag(words[0]));
+            if (String.IsNullOrEmpty(getWordFlag(words[0])))
             {
-                if (getWordFlag(words[i]) == FLAG_NOUN)
-                {
-                    return true;
-                }
-                else if (i < words.Length - 1 && getWordFlag(words[i]) == FLAG_ADJECTIVE && getWordFlag(words[i + 1]) == FLAG_NOUN)
-                {
-                    return true;
-                }
+                return false;
             }
+
+                if (words.Length == 1 && getWordFlag(words[0])[0] == FLAG_NOUN && getWordFlag(words[0])[3] == 's')
+                {
+                    return true;
+                }
+                else if (words.Length > 1 && (getWordFlag(words[0])[0] == FLAG_ADJECTIVE && getWordFlag(words[1])[0] == FLAG_NOUN && getWordFlag(words[1])[3] == 's')
+                    || (getWordFlag(words[0])[0] == FLAG_NOUN && getWordFlag(words[0])[3] == 's'))
+                {
+                    return true;
+                }
+            /*}*/
 
             return false;
         }
