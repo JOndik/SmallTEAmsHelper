@@ -16,7 +16,7 @@ public class CorrespondenceNode {
     private String id;
 
     @NotNull
-    private List<CorrNodePart> corrNodePartList;
+    private List<String> correspondenceNodePartIDs;
 
     public String getId() {
         return id;
@@ -26,11 +26,11 @@ public class CorrespondenceNode {
         this.id = id;
     }
 
-    public List<CorrNodePart> getCorrNodePartList() {
-        return corrNodePartList;
+    public List<String> getCorrespondenceNodePartIDs() {
+        return correspondenceNodePartIDs;
     }
 
-    public void setCorrNodePartList(List<CorrNodePart> corrNodePartList) {
-        this.corrNodePartList = corrNodePartList;
+    public void setCorrespondenceNodePartIDs(List<String> correspondenceNodePartIDs) {
+        this.correspondenceNodePartIDs = correspondenceNodePartIDs;
     }
 }

@@ -16,6 +16,7 @@ namespace BPAddIn
     {
         private const string serviceAddress = "http://localhost:8080";
         //private const string serviceAddress = "http://147.175.180.200:8080";
+        //private const string serviceAddress = "http://192.168.1.138:8080";
         //private const string serviceAddress = "https://ichiban.fiit.stuba.sk:8443";
         public static string userToken = "";
 
@@ -91,8 +92,8 @@ namespace BPAddIn
                     using (LocalDBContext context = new LocalDBContext())
                     {
                         modelChanges = context.modelChanges.ToList();
-                        modelChanges.AddRange(context.Set<PropertyChange>().ToList());
                         modelChanges.AddRange(context.Set<ItemCreation>().ToList());
+                        modelChanges.AddRange(context.Set<PropertyChange>().ToList());                     
                         modelChanges.AddRange(context.Set<ScenarioChange>().ToList());
                         modelChanges.AddRange(context.Set<StepChange>().ToList());
                     }

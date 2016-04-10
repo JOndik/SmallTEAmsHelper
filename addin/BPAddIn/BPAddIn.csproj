@@ -176,6 +176,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Content.cs" />
+    <Compile Include="ItemTypes.cs" />
+    <Compile Include="Synchronization\ModelInformation.cs" />
+    <Compile Include="Synchronization\ModelTraverse.cs" />
+    <Compile Include="Synchronization\NewCorrespondenceNode.cs" />
     <Compile Include="DataContract\ItemCreation.cs" />
     <Compile Include="DataContract\ScenarioChange.cs" />
     <Compile Include="DataContract\StepChange.cs" />
@@ -195,10 +199,15 @@
     <Compile Include="JoinWindow.Designer.cs">
       <DependentUpon>JoinWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="JsonItemConverter.cs" />
     <Compile Include="ListBoxObject.cs" />
     <Compile Include="Rule.cs" />
     <Compile Include="RuleService.cs" />
-    <Compile Include="SynchronizationService.cs" />
+    <Compile Include="Synchronization\Synchronization.cs" />
+    <Compile Include="Synchronization\SynchronizationChanges.cs" />
+    <Compile Include="Synchronization\SynchronizationDeletions.cs" />
+    <Compile Include="Synchronization\SynchronizationMovements.cs" />
+    <Compile Include="Synchronization\SynchronizationService.cs" />
     <Compile Include="TeamPair.cs" />
     <Compile Include="UpdateWindow.cs">
       <SubType>Form</SubType>
@@ -242,7 +251,7 @@
     </Compile>
     <Compile Include="Migrations\LocalDBContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Synchronization.cs" />
+    <Compile Include="Synchronization\SynchronizationAdditions.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Word.cs" />
   </ItemGroup>

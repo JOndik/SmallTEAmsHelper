@@ -23,21 +23,27 @@ namespace BPAddIn
         public EA.Connector currentConnector { get; set; }
         public EA.Package currentPackage { get; set; }
         public EA.Scenario currentScenario { get; set; }
+        public string currentParent { get; set; }
         List<ConstraintWrapper> currentConstraintsList { get; set; }
         List<ScenarioWrapper> currentScenarioList { get; set; }
         Dictionary<string, List<EA.ScenarioStep>> currentScenarioStepList { get; set; }
         Dictionary<string, string> currentExtensionPoints { get; set; }
+        Dictionary<string, EA.Attribute> currentAttributes { get; set; }
+        Dictionary<int, string> currentDiagramObjectPositions { get; set; }
+        //Dictionary<int, int> currentDiagramObjectSequences { get; set; }
         public string currentAuthor { get; set; }
         private ChangeService changeService;
         private RuleService ruleService;
         private bool changed = false;
         private Thread dispatcherThread;
+        private ItemTypes itemTypes;
 
         public ContextWrapper(EA.Repository repository)
         {
             this.model = new Wrapper.Model(repository);
             this.changeService = new ChangeService();
             this.ruleService = new RuleService();
+            this.itemTypes = new ItemTypes(repository);
             dispatcherThread = new Thread(new ThreadStart(this.changeService.startActivityDispatcher));
             dispatcherThread.Start();
         }
@@ -52,6 +58,15 @@ namespace BPAddIn
                         //this.currentItem = (Wrapper.Element)model.selectedElement;
                         this.currentItem = repository.GetElementByGuid(GUID);
                         //this.currentConstraints = currentItem.Constraints;
+
+                        if (currentItem.Type == "Class")
+                        {
+                            currentAttributes = new Dictionary<string, EA.Attribute>();
+                            foreach (EA.Attribute attr in currentItem.Attributes)
+                            {
+                                currentAttributes.Add(attr.AttributeGUID, attr);
+                            }
+                        }
 
                         if (currentItem.Type == "UseCase")
                         {
@@ -105,18 +120,50 @@ namespace BPAddIn
                         this.currentItem = null;
                         changed = false;
                         currentAuthor = ((EA.Diagram)repository.GetDiagramByGuid(GUID)).Author;
-                        if (currentDiagram.Type == "Use Case")
-                        {
+                        currentParent = currentDiagram.ParentID.ToString();
+                        /*if (currentDiagram.Type == "Use Case")
+                        {*/
                             currentExtensionPoints = new Dictionary<string, string>();
-                            foreach (EA.DiagramObject diagramObjects in currentDiagram.DiagramObjects)
+                            currentDiagramObjectPositions = new Dictionary<int, string>();
+                            foreach (EA.DiagramObject diagramObject in currentDiagram.DiagramObjects)
                             {
-                                EA.Element element = repository.GetElementByID(diagramObjects.ElementID);
-                                if (element.Type == "UseCase")
+                                try
                                 {
-                                    currentExtensionPoints.Add(element.ElementGUID, element.ExtensionPoints);
+                                    EA.Collection col = repository.GetElementSet("" + diagramObject.ElementID, 1);
+                                    //EA.Element element = repository.GetElementByID(diagramObject.ElementID);
+                                    EA.Element element = (EA.Element)col.GetAt(0);
+
+                                    if (element.Type == "UseCase")
+                                    {
+                                        currentExtensionPoints.Add(element.ElementGUID, element.ExtensionPoints);
+                                    }
                                 }
+                                catch (Exception ex)
+                                {
+                                    //MessageBox.Show(ex.ToString());
+                                }
+
+                                string coordinates = "";
+                                coordinates += "l=" + diagramObject.left + ";";
+                                coordinates += "r=" + diagramObject.right + ";";
+                                coordinates += "t=" + diagramObject.top + ";";
+                                coordinates += "b=" + diagramObject.bottom + ";";
+                                currentDiagramObjectPositions.Add(diagramObject.ElementID, coordinates);
+
+                                //currentDiagramObjectSequences.Add(diagramObject.ElementID, diagramObject.Sequence);
                             }
-                        }
+                        //}
+
+                        
+                        /*foreach (EA.DiagramObject diagramObject in currentDiagram.DiagramObjects)
+                        {
+                            string coordinates = "";
+                            coordinates += "l=" + diagramObject.left + ";";
+                            coordinates += "r=" + diagramObject.right + ";";
+                            coordinates += "t=" + diagramObject.top + ";";
+                            coordinates += "b=" + diagramObject.bottom + ";";
+                            currentDiagramObjectPositions.Add(diagramObject.ElementID, coordinates);
+                        }*/
                         break;
                     default:
                         return;
@@ -130,11 +177,66 @@ namespace BPAddIn
 
         }
 
-        public void handleChange(string GUID, EA.ObjectType ot)
+        public void handleChange(EA.Repository repository, string GUID, EA.ObjectType ot)
         {
-            try {
-                // check extension pointy       
-                if (ot == ObjectType.otDiagram)
+            // check extension pointy       
+            if (ot == ObjectType.otDiagram)
+            {
+                try
+                {
+                    EA.Diagram changedDiagram = (EA.Diagram)model.getWrappedModel().GetDiagramByGuid(GUID);
+                    foreach (EA.DiagramObject diagramObject in changedDiagram.DiagramObjects)
+                    {
+                        string coordinates = "";
+                        coordinates += "l=" + diagramObject.left + ";";
+                        coordinates += "r=" + diagramObject.right + ";";
+                        coordinates += "t=" + diagramObject.top + ";";
+                        coordinates += "b=" + diagramObject.bottom + ";";
+
+                       // MessageBox.Show(diagramObject.ElementID.ToString());
+                        if (currentDiagramObjectPositions[diagramObject.ElementID] != coordinates)
+                        {
+                           // MessageBox.Show("if");
+                            EA.Element element = model.getWrappedModel().GetElementByID(diagramObject.ElementID);
+
+                            PropertyChange propertyChange = new PropertyChange();
+                            propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                            propertyChange.itemGUID = element.ElementGUID;
+                            propertyChange.elementType = itemTypes.getElementType(element.ElementGUID);
+                            propertyChange.propertyType = 405;
+                            propertyChange.propertyBody = coordinates;
+                            propertyChange.oldPropertyBody = GUID;
+
+                            changeService.saveChange(propertyChange);
+
+                            currentDiagramObjectPositions[diagramObject.ElementID] = coordinates;
+                        }
+
+                        /*if (currentDiagramObjectSequences[diagramObject.ElementID] != diagramObject.Sequence)
+                        {
+                            // MessageBox.Show("if");
+                            EA.Element element = model.getWrappedModel().GetElementByID(diagramObject.ElementID);
+
+                            PropertyChange propertyChange = new PropertyChange();
+                            propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                            propertyChange.itemGUID = element.ElementGUID;
+                            propertyChange.elementType = itemTypes.getElementType(element.ElementGUID);
+                            propertyChange.propertyType = 406;
+                            propertyChange.propertyBody = diagramObject.Sequence.ToString();
+                            propertyChange.oldPropertyBody = GUID;
+
+                            changeService.saveChange(propertyChange);
+
+                            currentDiagramObjectSequences[diagramObject.ElementID] = diagramObject.Sequence;
+                        }*/
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.ToString());
+                }
+
+                try
                 {
                     EA.Diagram changedDiagram = (EA.Diagram)model.getWrappedModel().GetDiagramByGuid(GUID);
                     if (changedDiagram.Type == "Use Case")
@@ -143,49 +245,54 @@ namespace BPAddIn
 
                         foreach (EA.DiagramObject diagramObjects in changedDiagram.DiagramObjects)
                         {
-                            EA.Element element = model.getWrappedModel().GetElementByID(diagramObjects.ElementID);
+                            EA.Element element = (EA.Element)repository.GetElementByID(diagramObjects.ElementID);
                             if (element.Type == "UseCase")
                             {
                                 if (!currentExtensionPoints.ContainsKey(element.ElementGUID))
                                 {
                                     PropertyChange propertyChange = new PropertyChange();
                                     propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
-                                    propertyChange.itemGUID = GUID;
-                                    propertyChange.elementType = getElementType(element.ElementGUID);
+                                    propertyChange.itemGUID = element.ElementGUID;
+                                    propertyChange.elementType = itemTypes.getElementType(element.ElementGUID);
                                     propertyChange.propertyType = 13;
                                     propertyChange.propertyBody = element.ExtensionPoints;
                                     propertyChange.oldPropertyBody = "";
 
                                     changeService.saveChange(propertyChange);
                                     updatedExtensionPoints.Add(element.ElementGUID, element.ExtensionPoints);
+                                    currentExtensionPoints.Add(element.ElementGUID, element.ExtensionPoints);
                                 }
                                 else if (currentExtensionPoints[element.ElementGUID] != element.ExtensionPoints)
                                 {
                                     PropertyChange propertyChange = new PropertyChange();
                                     propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
-                                    propertyChange.itemGUID = GUID;
-                                    propertyChange.elementType = getElementType(element.ElementGUID);
+                                    propertyChange.itemGUID = element.ElementGUID;
+                                    propertyChange.elementType = itemTypes.getElementType(element.ElementGUID);
                                     propertyChange.propertyType = 13;
                                     propertyChange.propertyBody = element.ExtensionPoints;
                                     propertyChange.oldPropertyBody = currentExtensionPoints[element.ElementGUID];
 
                                     changeService.saveChange(propertyChange);
                                     updatedExtensionPoints.Add(element.ElementGUID, element.ExtensionPoints);
+                                    currentExtensionPoints[element.ElementGUID] = element.ExtensionPoints;
                                 }
                             }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.ToString());
+                }
+
+                
             }
 
             if (GUID != null && changed == false && currentItem != null)
             {
                 try
                 {
+                    handleAttributeChange(GUID);
                     handleElementChange(GUID);
                     //currentItem = null;
                     //this.changed = true;
@@ -231,14 +338,46 @@ namespace BPAddIn
         public void handleElementChange(string GUID)
         {
             EA.Element changedElement = model.getWrappedModel().GetElementByGuid(GUID);
+            EA.Element changedPositionElement = model.getWrappedModel().GetElementByGuid(currentItem.ElementGUID);
+            //MessageBox.Show(changedElement.Name);
+            //check move
+            if ((currentItem.PackageID != changedPositionElement.PackageID) || (currentItem.ParentID != changedPositionElement.ParentID))
+            {
+                PropertyChange propertyChange = new PropertyChange();
+                propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                propertyChange.elementType = 0;
+
+                if (changedPositionElement.ParentID == 0)
+                {
+                    //MessageBox.Show("tu");
+                    EA.Package targetPackage = model.getWrappedModel().GetPackageByID(changedPositionElement.PackageID);
+                    propertyChange.itemGUID = changedPositionElement.ElementGUID;
+                    propertyChange.elementType = itemTypes.getElementType(changedPositionElement.ElementGUID);
+                    propertyChange.propertyType = 401;
+                    propertyChange.propertyBody = targetPackage.PackageGUID;
+                }
+                else
+                { 
+                    /*MessageBox.Show(changedPositionElement.Name + " " + currentItem.Name);
+                    MessageBox.Show("tu2");*/
+                    EA.Element targetElement = model.getWrappedModel().GetElementByID(changedPositionElement.ParentID);
+                    propertyChange.itemGUID = changedPositionElement.ElementGUID;
+                    propertyChange.propertyType = 402;
+                    propertyChange.propertyBody = targetElement.ElementGUID;
+                }
+                //MessageBox.Show("save");
+                changeService.saveChange(propertyChange);
+                return;
+            }
 
             // check name
             if (currentItem.Name != changedElement.Name)
             {
+                //MessageBox.Show("element change");
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getElementType(GUID);
+                propertyChange.elementType = itemTypes.getElementType(GUID);
                 propertyChange.propertyType = 0;
                 propertyChange.propertyBody = changedElement.Name;
                 propertyChange.oldPropertyBody = currentItem.Name;
@@ -254,7 +393,7 @@ namespace BPAddIn
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getElementType(GUID);
+                propertyChange.elementType = itemTypes.getElementType(GUID);
                 propertyChange.propertyType = 1;
                 propertyChange.propertyBody = changedElement.Author;
                 propertyChange.oldPropertyBody = currentItem.Author;
@@ -273,7 +412,7 @@ namespace BPAddIn
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getElementType(GUID);
+                propertyChange.elementType = itemTypes.getElementType(GUID);
                 propertyChange.propertyType = 200;
                 propertyChange.propertyBody = changedElemStereotype;
                 propertyChange.oldPropertyBody = currentElemStereotype;
@@ -287,10 +426,24 @@ namespace BPAddIn
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getElementType(GUID);
-                propertyChange.propertyType = 150;
+                propertyChange.elementType = itemTypes.getElementType(GUID);
+                propertyChange.propertyType = 2;
                 propertyChange.propertyBody = changedElement.Notes;
                 propertyChange.oldPropertyBody = currentItem.Notes;
+
+                changeService.saveChange(propertyChange);
+            }
+
+            // check subtype
+            if (currentItem.Subtype != changedElement.Subtype)
+            {
+                PropertyChange propertyChange = new PropertyChange();
+                propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                propertyChange.itemGUID = GUID;
+                propertyChange.elementType = itemTypes.getElementType(GUID);
+                propertyChange.propertyType = 3;
+                propertyChange.propertyBody = changedElement.Subtype.ToString();
+                propertyChange.oldPropertyBody = currentItem.Subtype.ToString();
 
                 changeService.saveChange(propertyChange);
             }
@@ -307,9 +460,145 @@ namespace BPAddIn
             currentItem = changedElement;
         }
 
+        public void handleAttributeChange(string GUID)
+        {
+            EA.Element changedElement = model.getWrappedModel().GetElementByGuid(GUID);
+
+            foreach (EA.Attribute attr in changedElement.Attributes)
+            {
+                EA.Attribute currentAttribute = currentAttributes[attr.AttributeGUID];
+                // check name
+                if (currentAttribute.Name != attr.Name)
+                {
+                    PropertyChange propertyChange = new PropertyChange();
+                    propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                    propertyChange.itemGUID = attr.AttributeGUID;
+                    propertyChange.elementType = 90;
+                    propertyChange.propertyType = 0;
+                    propertyChange.propertyBody = attr.Name;
+                    propertyChange.oldPropertyBody = currentAttribute.Name;
+
+                    changeService.saveChange(propertyChange);
+                    currentAttributes[attr.AttributeGUID].Name = attr.Name;
+                }
+                if (currentAttribute.Visibility != attr.Visibility)
+                {
+                    PropertyChange propertyChange = new PropertyChange();
+                    propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                    propertyChange.itemGUID = attr.AttributeGUID; ;
+                    propertyChange.elementType = 90;
+                    propertyChange.propertyType = 300;
+                    propertyChange.propertyBody = attr.Visibility;
+                    propertyChange.oldPropertyBody = currentAttribute.Visibility;
+
+                    changeService.saveChange(propertyChange);
+                    currentAttributes[attr.AttributeGUID].Visibility = attr.Visibility;
+                }
+            }
+
+            
+
+            //check visibility
+            /*if (currentAttribute.Visibility != changedAttribute.Visibility)
+            {
+                PropertyChange propertyChange = new PropertyChange();
+                propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                propertyChange.itemGUID = GUID;
+                propertyChange.elementType = 90;
+                propertyChange.propertyType = 300;
+                propertyChange.propertyBody = changedAttribute.Visibility;
+                propertyChange.oldPropertyBody = currentAttribute.Visibility;
+
+                changeService.saveChange(propertyChange);
+            }*/
+
+            //currentAttribute = changedAttribute;
+        }
+
+        public void handleDiagramObjectCreation(Repository repository, int elementID, int diagramID, string DUID)
+        {
+            try
+            {
+                changed = false;
+                /*string sqlGetDiagram = @"select do.Diagram_ID from t_diagramobjects do
+                                            inner join t_object o on do.Object_ID = o.Object_ID
+                                            where o.Object_ID=" + elementID;
+
+                List<Wrapper.Diagram> diagrams = model.getDiagramsByQuery(sqlGetDiagram);
+
+                if (diagrams.Count > 0)
+                {
+                    Wrapper.Diagram diagram = diagrams.ElementAt(0);
+                    EA.Diagram diag = diagram.wrappedDiagram;
+                    EA.DiagramObject diagObj = diag.GetDiagramObjectByID(elementID, "");
+                    EA.Element element = repository.GetElementByID(diagObj.ElementID);
+
+                    ItemCreation itemCreation = new ItemCreation();
+                    itemCreation.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                    itemCreation.itemGUID = element.ElementGUID;
+                    itemCreation.elementType = itemTypes.getElementType(element.ElementGUID);
+                    itemCreation.author = element.Author;
+                    itemCreation.name = element.Name;
+                    itemCreation.parentGUID = "0";
+
+                    changeService.saveChange(itemCreation);
+                }*/
+
+                EA.Element el = repository.GetElementByID(elementID);
+                EA.Diagram diag = repository.GetDiagramByID(diagramID);
+
+                Wrapper.Diagram diagram = new Wrapper.Diagram(model, diag);
+                Wrapper.ElementWrapper elWrapper = new Wrapper.ElementWrapper(model, el);
+
+                DiagramObject cur = diagram.getdiagramObjectForElement(elWrapper);
+                string coordinates = "";
+                coordinates += "l=" + cur.left + ";";
+                coordinates += "r=" + cur.right + ";";
+                coordinates += "t=" + cur.top + ";";
+                coordinates += "b=" + cur.bottom + ";";
+                currentDiagramObjectPositions.Add(cur.ElementID, coordinates);
+
+                //EA.DiagramObject cur = diagram.GetDiagramObjectByID(elementID, "");
+
+                ItemCreation itemCreation = new ItemCreation();
+                itemCreation.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                itemCreation.itemGUID = el.ElementGUID;
+                itemCreation.diagramGUID = diag.DiagramGUID;
+                itemCreation.elementType = 700;
+                itemCreation.coordinates = "";
+
+                for (short i = 0; i < diag.DiagramObjects.Count; i++)
+                {
+                    EA.DiagramObject diagramObject = (EA.DiagramObject)diag.DiagramObjects.GetAt(i);
+                    if (diagramObject.ElementID == el.ElementID)
+                    {
+                        coordinates = "";
+                        coordinates += "l=" + diagramObject.left + ";";
+                        coordinates += "r=" + diagramObject.right + ";";
+                        coordinates += "t=" + diagramObject.top + ";";
+                        coordinates += "b=" + diagramObject.bottom + ";";
+                        itemCreation.coordinates = coordinates;
+                        break;
+                    }
+                }
+
+                /*itemCreation.elementType = itemTypes.getElementType(element.ElementGUID);
+                itemCreation.author = element.Author;
+                itemCreation.name = element.Name;
+                itemCreation.parentGUID = "0";*/
+
+                changeService.saveChange(itemCreation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
         public void handleElementCreation(Repository repository, int elementID)
         {
             try {
+                //MessageBox.Show("element creation");
                 changed = false;
                 EA.Element el = repository.GetElementByID(elementID);
                 currentItem = el;
@@ -317,18 +606,19 @@ namespace BPAddIn
                 ItemCreation itemCreation = new ItemCreation();
                 itemCreation.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 itemCreation.itemGUID = el.ElementGUID;
-                itemCreation.elementType = getElementType(el.ElementGUID);
+                itemCreation.elementType = itemTypes.getElementType(el.ElementGUID);
                 itemCreation.author = el.Author;
                 itemCreation.name = el.Name;
+                itemCreation.parentGUID = "0";
 
-                if (el.ParentID != 0)
+                /*if (el.ParentID != 0)
                 {
                     EA.Element parent = repository.GetElementByID(el.ParentID);
                     if (parent != null)
                     {
                         itemCreation.parentGUID = parent.ElementGUID;
                     }
-                }
+                }*/
 
                 EA.Package package = repository.GetPackageByID(el.PackageID);
                 if (package != null)
@@ -336,7 +626,7 @@ namespace BPAddIn
                     itemCreation.packageGUID = package.PackageGUID;
                 }
 
-                string sqlGetDiagram = @"select do.Diagram_ID from t_diagramobjects do
+                /*string sqlGetDiagram = @"select do.Diagram_ID from t_diagramobjects do
                                         inner join t_object o on do.Object_ID = o.Object_ID
                                         where o.Object_ID="+el.ElementID;
 
@@ -356,9 +646,14 @@ namespace BPAddIn
                     coordinates += "t=" + cur.top + ";";
                     coordinates += "b=" + cur.bottom + ";";
                     itemCreation.coordinates = coordinates;
-                }
+                }*/
 
                 changeService.saveChange(itemCreation);
+
+                if (el.Type == "UseCase")
+                {
+                    currentExtensionPoints.Add(el.ElementGUID, el.ExtensionPoints);
+                }
             }
             catch (Exception ex)
             {
@@ -369,6 +664,54 @@ namespace BPAddIn
         public void handleDiagramChange(string GUID)
         {
             EA.Diagram changedDiagram = (EA.Diagram)model.getWrappedModel().GetDiagramByGuid(GUID);
+            EA.Diagram changedPositionDiagram = (EA.Diagram)model.getWrappedModel().GetDiagramByGuid(currentDiagram.DiagramGUID);
+            //MessageBox.Show(changedElement.Name);
+            //check move
+            /*MessageBox.Show(currentDiagram.PackageID.ToString() + " " + changedDiagram.PackageID.ToString() + " " 
+                + currentDiagram.ParentID.ToString() + " " + changedDiagram.ParentID.ToString()
+                + " " + changedPositionDiagram.ParentID.ToString() + " " + changedPositionDiagram.PackageID.ToString());*/
+
+            if ((currentDiagram.PackageID != changedDiagram.PackageID) || (currentDiagram.ParentID != changedDiagram.ParentID) ||
+                (currentParent != changedDiagram.ParentID.ToString()))
+            {
+                PropertyChange propertyChange = new PropertyChange();
+                propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                propertyChange.elementType = 0;
+
+                /*if (changedPositionDiagram.ParentID == 0)
+                {*/
+                    //MessageBox.Show("tu");
+                MessageBox.Show(changedPositionDiagram.ParentID.ToString());
+                EA.Package targetPackage = model.getWrappedModel().GetPackageByID(changedDiagram.PackageID);
+
+                if (changedDiagram.ParentID != 0)
+                {
+                    EA.Element targetElement = model.getWrappedModel().GetElementByID(changedDiagram.ParentID);
+                    propertyChange.itemGUID = changedDiagram.DiagramGUID;
+                    propertyChange.propertyType = 403;
+                    propertyChange.propertyBody = targetElement.ElementGUID;
+                }
+                else 
+                {
+                    propertyChange.itemGUID = changedDiagram.DiagramGUID;
+                    propertyChange.propertyType = 404;
+                    propertyChange.propertyBody = targetPackage.PackageGUID;
+                }
+
+            
+                /*}
+                else
+                {
+                    /*MessageBox.Show(changedPositionElement.Name + " " + currentItem.Name);
+                    MessageBox.Show("tu2");
+                    EA.Element targetElement = model.getWrappedModel().GetElementByID(changedPositionDiagram.ParentID);
+                    propertyChange.itemGUID = changedPositionDiagram.DiagramGUID;
+                    propertyChange.propertyType = 404;
+                    propertyChange.propertyBody = targetElement.ElementGUID;*/
+                //}
+                MessageBox.Show("save");
+                changeService.saveChange(propertyChange);
+            }
 
             // check name
             if (currentDiagram.Name != changedDiagram.Name)
@@ -376,7 +719,7 @@ namespace BPAddIn
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getDiagramType(GUID);
+                propertyChange.elementType = itemTypes.getDiagramType(GUID);
                 propertyChange.propertyType = 0;
                 propertyChange.propertyBody = changedDiagram.Name;
                 propertyChange.oldPropertyBody = currentDiagram.Name;
@@ -390,7 +733,7 @@ namespace BPAddIn
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getDiagramType(GUID);
+                propertyChange.elementType = itemTypes.getDiagramType(GUID);
                 propertyChange.propertyType = 1;
                 propertyChange.propertyBody = changedDiagram.Author;
                 propertyChange.oldPropertyBody = currentAuthor;
@@ -407,7 +750,7 @@ namespace BPAddIn
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getDiagramType(GUID);
+                propertyChange.elementType = itemTypes.getDiagramType(GUID);
                 propertyChange.propertyType = 200;
                 propertyChange.propertyBody = changedDiagStereotype;
                 propertyChange.oldPropertyBody = currentDiagStereotype;
@@ -421,8 +764,8 @@ namespace BPAddIn
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getDiagramType(GUID);
-                propertyChange.propertyType = 155;
+                propertyChange.elementType = itemTypes.getDiagramType(GUID);
+                propertyChange.propertyType = 2;
                 propertyChange.propertyBody = changedDiagram.Notes;
                 propertyChange.oldPropertyBody = currentDiagram.Notes;
 
@@ -442,7 +785,7 @@ namespace BPAddIn
                 ItemCreation itemCreation = new ItemCreation();
                 itemCreation.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 itemCreation.itemGUID = diagram.DiagramGUID;
-                itemCreation.elementType = getDiagramType(diagram.DiagramGUID);
+                itemCreation.elementType = itemTypes.getDiagramType(diagram.DiagramGUID);
                 itemCreation.author = diagram.Author;
                 itemCreation.name = diagram.Name;
                 itemCreation.parentGUID = "0";
@@ -463,6 +806,32 @@ namespace BPAddIn
                 }
 
                 changeService.saveChange(itemCreation);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void handleAttributeCreation(Repository repository, int attributeID)
+        {
+            try
+            {
+                changed = false;
+                EA.Attribute attribute = repository.GetAttributeByID(attributeID);
+                EA.Element element = repository.GetElementByID(attribute.ParentID);
+
+                ItemCreation itemCreation = new ItemCreation();
+                itemCreation.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                itemCreation.itemGUID = attribute.AttributeGUID;
+                itemCreation.parentGUID = element.ElementGUID;
+                itemCreation.elementType = 90;
+                itemCreation.name = attribute.Name;
+                itemCreation.coordinates = attribute.Visibility;
+
+                changeService.saveChange(itemCreation);
+
+                currentAttributes.Add(attribute.AttributeGUID, attribute);
             }
             catch (Exception ex)
             {
@@ -491,6 +860,29 @@ namespace BPAddIn
             }
         }
 
+        public void handleAttributeDeletion(Repository repository, int attributeID)
+        {
+            try
+            {
+                changed = false;
+                EA.Attribute attribute = repository.GetAttributeByID(attributeID);
+
+                PropertyChange modelChange = new PropertyChange();
+                modelChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                modelChange.itemGUID = attribute.AttributeGUID;
+                modelChange.elementType = 90;
+                modelChange.elementDeleted = 1;
+
+                changeService.saveChange(modelChange);
+
+                currentAttributes.Remove(attribute.AttributeGUID);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+        }
+
         public void handleDiagramDeletion(Repository repository, int diagramID)
         {
             try
@@ -512,20 +904,50 @@ namespace BPAddIn
             }
         }
 
-        public void handleDiagramObjectDeletion(Repository repository, int diagramObjectID)
+        public void handleDiagramObjectDeletion(Repository repository, int elementID)
         {
             try
             {
                 changed = false;
-                EA.Element element = repository.GetElementByID(diagramObjectID);
 
-                ModelChange modelChange = new ModelChange();
+                /*string sqlGetDiagram = @"select do.Diagram_ID from t_diagramobjects do
+                                        inner join t_object o on do.Object_ID = o.Object_ID
+                                        where o.Object_ID=" + diagramObjectID;
+
+                List<Wrapper.Diagram> diagrams = model.getDiagramsByQuery(sqlGetDiagram);
+
+                if (diagrams.Count > 0)
+                {
+                    Wrapper.Diagram diagram = diagrams.ElementAt(0);
+                    //MessageBox.Show(diagram.name);
+                    for (short i = 0; i < diagram.diagramElements.Count; i++)
+                    {
+                        EA.DiagramObject diagramObject = (EA.DiagramObject)diagram.diagramElements
+                    }
+                    //itemCreation.diagramGUID = diagram.diagramGUID;
+                    //Wrapper.ElementWrapper elWrapper = new Wrapper.ElementWrapper(model, el);
+                    DiagramObject cur = diagram.getdiagramObjectForElement(elWrapper);
+                    string coordinates = "";
+                    coordinates += "l=" + cur.left + ";";
+                    coordinates += "r=" + cur.right + ";";
+                    coordinates += "t=" + cur.top + ";";
+                    coordinates += "b=" + cur.bottom + ";";
+                    itemCreation.coordinates = coordinates;
+                }*/
+
+                EA.Element element = repository.GetElementByID(elementID);
+                EA.Diagram diagram = repository.GetCurrentDiagram();
+
+                PropertyChange modelChange = new PropertyChange();
                 modelChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 modelChange.itemGUID = element.ElementGUID;
+                modelChange.propertyBody = diagram.DiagramGUID;
                 modelChange.elementType = 700;
                 modelChange.elementDeleted = 1;
 
                 changeService.saveChange(modelChange);
+
+                currentDiagramObjectPositions.Remove(element.ElementID);
             }
             catch (Exception ex)
             {
@@ -547,6 +969,11 @@ namespace BPAddIn
                 modelChange.elementDeleted = 1;
 
                 changeService.saveChange(modelChange);
+
+                if (element.Type == "UseCase")
+                {
+                    currentExtensionPoints.Remove(element.ElementGUID);
+                }
             }
             catch (Exception ex)
             {
@@ -560,6 +987,14 @@ namespace BPAddIn
             {
                 changed = false;
                 EA.Connector connector = repository.GetConnectorByID(connectorID);
+                EA.Element sourceElement = (EA.Element)repository.GetElementByID(connector.ClientID);
+
+                string sqlGetDiagram = @"select do.Diagram_ID from t_diagramobjects do
+                                        inner join t_object o on do.Object_ID = o.Object_ID
+                                        where o.Object_ID="+sourceElement.ElementID;
+
+                Wrapper.Model model = new Wrapper.Model(repository);
+                List<Wrapper.Diagram> diagrams = model.getDiagramsByQuery(sqlGetDiagram);
 
                 PropertyChange modelChange = new PropertyChange();
                 modelChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
@@ -567,11 +1002,17 @@ namespace BPAddIn
                 modelChange.elementType = 70;
                 modelChange.elementDeleted = 1;
 
+                if (diagrams.Count > 0)
+                {
+                    Wrapper.Diagram diagram = diagrams.ElementAt(0);
+                    modelChange.propertyBody = diagram.diagramGUID;
+                }
+
                 changeService.saveChange(modelChange);
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -624,7 +1065,7 @@ namespace BPAddIn
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getConnectorType(GUID);
+                propertyChange.elementType = itemTypes.getConnectorType(GUID);
                 propertyChange.propertyType = 0;
                 propertyChange.propertyBody = changedConnector.Name;
                 propertyChange.oldPropertyBody = currentConnector.Name;
@@ -638,7 +1079,7 @@ namespace BPAddIn
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getConnectorType(GUID);
+                propertyChange.elementType = itemTypes.getConnectorType(GUID);
                 propertyChange.propertyType = 200;
                 propertyChange.propertyBody = changedConnector.Stereotype;
                 propertyChange.oldPropertyBody = currentConnector.Stereotype;
@@ -652,8 +1093,8 @@ namespace BPAddIn
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getConnectorType(GUID);
-                propertyChange.propertyType = 200;
+                propertyChange.elementType = itemTypes.getConnectorType(GUID);
+                propertyChange.propertyType = 2;
                 propertyChange.propertyBody = changedConnector.Notes;
                 propertyChange.oldPropertyBody = currentConnector.Notes;
 
@@ -669,7 +1110,7 @@ namespace BPAddIn
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getConnectorType(GUID);
+                propertyChange.elementType = itemTypes.getConnectorType(GUID);
                 propertyChange.propertyType = 301;
                 propertyChange.propertyBody = changedSupplierGUID;
                 propertyChange.oldPropertyBody = currentSupplierGUID;
@@ -686,10 +1127,80 @@ namespace BPAddIn
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getConnectorType(GUID);
+                propertyChange.elementType = itemTypes.getConnectorType(GUID);
                 propertyChange.propertyType = 302;
                 propertyChange.propertyBody = changedClientGUID;
                 propertyChange.oldPropertyBody = currentClientGUID;
+
+                changeService.saveChange(propertyChange);
+            }
+
+            // check source cardinality
+            if (changedConnector.ClientEnd.Cardinality != currentConnector.ClientEnd.Cardinality)
+            {
+                PropertyChange propertyChange = new PropertyChange();
+                propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                propertyChange.itemGUID = GUID;
+                propertyChange.elementType = itemTypes.getConnectorType(GUID);
+                propertyChange.propertyType = 303;
+                propertyChange.propertyBody = changedConnector.ClientEnd.Cardinality;
+                propertyChange.oldPropertyBody = currentConnector.ClientEnd.Cardinality;
+
+                changeService.saveChange(propertyChange);
+            }
+
+            // check target cardinality
+            if (changedConnector.SupplierEnd.Cardinality != currentConnector.SupplierEnd.Cardinality)
+            {
+                PropertyChange propertyChange = new PropertyChange();
+                propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                propertyChange.itemGUID = GUID;
+                propertyChange.elementType = itemTypes.getConnectorType(GUID);
+                propertyChange.propertyType = 304;
+                propertyChange.propertyBody = changedConnector.SupplierEnd.Cardinality;
+                propertyChange.oldPropertyBody = currentConnector.SupplierEnd.Cardinality;
+
+                changeService.saveChange(propertyChange);
+            }
+
+            // check guard
+            if (changedConnector.TransitionGuard != currentConnector.TransitionGuard)
+            {
+                PropertyChange propertyChange = new PropertyChange();
+                propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                propertyChange.itemGUID = GUID;
+                propertyChange.elementType = itemTypes.getConnectorType(GUID);
+                propertyChange.propertyType = 305;
+                propertyChange.propertyBody = changedConnector.TransitionGuard;
+                propertyChange.oldPropertyBody = currentConnector.TransitionGuard;
+
+                changeService.saveChange(propertyChange);
+            }
+
+            // check action
+            if (changedConnector.TransitionAction != currentConnector.TransitionAction)
+            {
+                PropertyChange propertyChange = new PropertyChange();
+                propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                propertyChange.itemGUID = GUID;
+                propertyChange.elementType = itemTypes.getConnectorType(GUID);
+                propertyChange.propertyType = 306;
+                propertyChange.propertyBody = changedConnector.TransitionAction;
+                propertyChange.oldPropertyBody = currentConnector.TransitionAction;
+
+                changeService.saveChange(propertyChange);
+            }
+
+            // check direction
+            if (changedConnector.Direction != currentConnector.Direction)
+            {
+                PropertyChange propertyChange = new PropertyChange();
+                propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                propertyChange.itemGUID = GUID;
+                propertyChange.elementType = itemTypes.getConnectorType(GUID);
+                propertyChange.propertyType = 307;
+                propertyChange.propertyBody = changedConnector.Direction;
+                propertyChange.oldPropertyBody = currentConnector.Direction;
 
                 changeService.saveChange(propertyChange);
             }
@@ -710,25 +1221,41 @@ namespace BPAddIn
                 ItemCreation itemCreation = new ItemCreation();
                 itemCreation.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 itemCreation.itemGUID = connector.ConnectorGUID;
-                itemCreation.elementType = getConnectorType(connector.ConnectorGUID);
+                itemCreation.elementType = itemTypes.getConnectorType(connector.ConnectorGUID);
                 itemCreation.name = connector.Name;
                 itemCreation.srcGUID = repository.GetElementByID(connector.ClientID).ElementGUID;
                 itemCreation.targetGUID = repository.GetElementByID(connector.SupplierID).ElementGUID;
+
+                /*string sqlGetDiagram = @"select do.Diagram_ID from t_diagramlinks do
+                                        inner join t_object o on do.Object_ID = o.Object_ID
+                                        where o.Object_ID="+connector.ConnectorID;
+
+                List<Wrapper.Diagram> diagrams = model.getDiagramsByQuery(sqlGetDiagram);
+
+                if (diagrams.Count > 0)
+                {
+                    Wrapper.Diagram diagram = diagrams.ElementAt(0);
+                    //MessageBox.Show(diagram.name);
+
+                    itemCreation.diagramGUID = diagram.diagramGUID;
+                }*/
+
+                //itemCreation.diagramGUID = repository.GetDiagramByID(connector.DiagramID).DiagramGUID;
 
                 changeService.saveChange(itemCreation);
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString());
             }
         }
 
         public void handleUseCaseChanges(string GUID, EA.Element changedElement)
         {
-            /*if (changedElement.Type != "UseCase")
+            if (changedElement.Type != "UseCase")
             {
                 return;
-            }*/
+            }
 
             // CONSTRAINTS
             EA.Collection changedConstraints = changedElement.Constraints;
@@ -750,10 +1277,11 @@ namespace BPAddIn
                     PropertyChange propertyChange = new PropertyChange();
                     propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                     propertyChange.itemGUID = GUID;
-                    propertyChange.elementType = getElementType(GUID);
+                    propertyChange.elementType = itemTypes.getElementType(GUID);
                     propertyChange.propertyType = 11;
                     propertyChange.propertyBody = constraintWrapper.constraint.Name;
                     propertyChange.oldPropertyBody = constraintWrapper.constraint.Type;
+                    propertyChange.elementDeleted = 1;
 
                     changeService.saveChange(propertyChange);
                 }
@@ -763,7 +1291,7 @@ namespace BPAddIn
                     PropertyChange propertyChange = new PropertyChange();
                     propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                     propertyChange.itemGUID = GUID;
-                    propertyChange.elementType = getElementType(GUID);
+                    propertyChange.elementType = itemTypes.getElementType(GUID);
                     propertyChange.propertyType = 10;
                     propertyChange.propertyBody = constraintWrapper.constraint.Name + ",notes:=" + constraintWrapper.constraint.Notes;
                     propertyChange.oldPropertyBody = constraintWrapper.constraint.Type;
@@ -813,7 +1341,7 @@ namespace BPAddIn
                         ScenarioChange scenarioChange = new ScenarioChange();
                         scenarioChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                         scenarioChange.itemGUID = GUID;
-                        scenarioChange.elementType = getElementType(GUID);
+                        scenarioChange.elementType = itemTypes.getElementType(GUID);
                         scenarioChange.name = eaScenario.Name;
                         scenarioChange.type = eaScenario.Type;
                         scenarioChange.status = 0;
@@ -833,7 +1361,7 @@ namespace BPAddIn
                         ScenarioChange scenarioChange = new ScenarioChange();
                         scenarioChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                         scenarioChange.itemGUID = GUID;
-                        scenarioChange.elementType = getElementType(GUID);
+                        scenarioChange.elementType = itemTypes.getElementType(GUID);
                         scenarioChange.name = eaScenario.Name;
                         scenarioChange.type = eaScenario.Type;
                         scenarioChange.status = 1;
@@ -847,7 +1375,7 @@ namespace BPAddIn
                             StepChange stepChange = new StepChange();
                             stepChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                             stepChange.itemGUID = GUID;
-                            stepChange.elementType = getElementType(GUID);
+                            stepChange.elementType = itemTypes.getElementType(GUID);
                             stepChange.position = step.Pos;
                             stepChange.stepType = step.StepType.ToString();
                             stepChange.status = 1;
@@ -883,18 +1411,20 @@ namespace BPAddIn
                             ScenarioChange changedScenario = new ScenarioChange();
                             changedScenario.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                             changedScenario.itemGUID = GUID;
-                            changedScenario.elementType = getElementType(GUID);
-                            changedScenario.status = 3;
+                            changedScenario.elementType = itemTypes.getElementType(GUID);
+                            changedScenario.status = 2;
                             changedScenario.scenarioGUID = eaChangedScenario.ScenarioGUID;
+                            changedScenario.name = eaChangedScenario.Name;
+                            changedScenario.type = eaChangedScenario.Type;
 
-                            ScenarioChange currentScenario = new ScenarioChange();
+                            /*ScenarioChange currentScenario = new ScenarioChange();
                             currentScenario.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                             currentScenario.itemGUID = GUID;
                             currentScenario.elementType = getElementType(GUID);
                             currentScenario.name = eaCurrentScenario.Name;
                             currentScenario.type = eaCurrentScenario.Type;
                             currentScenario.status = 4;
-                            currentScenario.scenarioGUID = eaCurrentScenario.ScenarioGUID;
+                            currentScenario.scenarioGUID = eaCurrentScenario.ScenarioGUID;*/
 
                             if (eaChangedScenario.Name != eaCurrentScenario.Name)
                             {
@@ -905,12 +1435,12 @@ namespace BPAddIn
                             if (eaChangedScenario.Type != eaCurrentScenario.Type)
                             {
                                 wasChanged = true;
-                                eaChangedScenario.Type = eaCurrentScenario.Type;
+                                changedScenario.type = eaCurrentScenario.Type;
                             }
 
                             if (wasChanged)
                             {
-                                changeService.saveChange(currentScenario);
+                                //changeService.saveChange(currentScenario);
                                 changeService.saveChange(changedScenario);
                             }
 
@@ -940,7 +1470,7 @@ namespace BPAddIn
                                     StepChange stepChange = new StepChange();
                                     stepChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                                     stepChange.itemGUID = GUID;
-                                    stepChange.elementType = getElementType(GUID);
+                                    stepChange.elementType = itemTypes.getElementType(GUID);
                                     stepChange.status = 0;
                                     stepChange.scenarioGUID = scenario.Value.scenario.ScenarioGUID;
                                     stepChange.stepGUID = step.Value.StepGUID;
@@ -958,7 +1488,7 @@ namespace BPAddIn
                                     StepChange stepChange = new StepChange();
                                     stepChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                                     stepChange.itemGUID = GUID;
-                                    stepChange.elementType = getElementType(GUID);
+                                    stepChange.elementType = itemTypes.getElementType(GUID);
                                     stepChange.status = 1;
                                     stepChange.stepGUID = step.StepGUID;
                                     stepChange.scenarioGUID = scenario.Value.scenario.ScenarioGUID;
@@ -998,10 +1528,16 @@ namespace BPAddIn
                                     StepChange stepChange = new StepChange();
                                     stepChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                                     stepChange.itemGUID = GUID;
-                                    stepChange.elementType = getElementType(GUID);
+                                    stepChange.elementType = itemTypes.getElementType(GUID);
                                     stepChange.status = 2;
                                     stepChange.stepGUID = changedStep.StepGUID;
                                     stepChange.scenarioGUID = scenario.Value.scenario.ScenarioGUID;
+                                    stepChange.name = currentStep.Name;
+                                    stepChange.stepType = currentStep.StepType.ToString();
+                                    stepChange.position = currentStep.Pos;
+                                    stepChange.uses = currentStep.Uses;
+                                    stepChange.results = currentStep.Results;
+                                    stepChange.state = currentStep.State;
 
                                     if (changedStep.Name != currentStep.Name)
                                     {
@@ -1101,91 +1637,12 @@ namespace BPAddIn
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
-                propertyChange.elementType = getElementType(GUID);
+                propertyChange.elementType = itemTypes.getElementType(GUID);
                 propertyChange.propertyType = 13;
                 propertyChange.propertyBody = changedElement.ExtensionPoints;
                 propertyChange.oldPropertyBody = currentItem.ExtensionPoints;
 
                 changeService.saveChange(propertyChange);
-            }
-        }
-
-        public int getElementType(string GUID)
-        {
-            string type = model.getWrappedModel().GetElementByGuid(GUID).Type;
-
-            switch (type)
-            {
-                case "Class":
-                    return 0;
-                case "Activity":
-                    return 1;
-                case "UseCase":
-                    return 2;
-                case "Package":
-                    return 3;
-                case "Actor":
-                    return 30;
-                default:
-                    return -1;
-            }
-        }
-
-        public int getDiagramType(string GUID)
-        {
-            string type = ((EA.Diagram)model.getWrappedModel().GetDiagramByGuid(GUID)).Type;
-
-            switch (type)
-            {
-                case "Logical":
-                    return 50;
-                case "Activity":
-                    return 51;
-                case "Use Case":
-                    return 52;
-                case "Sequence":
-                    return 53;
-                case "Statechart":
-                    return 54;
-                case "Analysis":
-                    return 55;
-                case "Component":
-                    return 56;
-                case "Deployment":
-                    return 57;
-                case "Custom":
-                    return 58;
-                default:
-                    return -1;
-            }
-        }
-
-        public int getConnectorType(string GUID)
-        {
-            EA.Connector connector = (EA.Connector)model.getWrappedModel().GetConnectorByGuid(GUID);
-            string type = ((EA.Connector)model.getWrappedModel().GetConnectorByGuid(GUID)).Type;
-
-            switch (type)
-            {
-                case "Association":
-                    return 70;
-                case "Generalization":
-                    return 71;
-                case "Realization":
-                    return 72;
-                case "UseCase":
-                    if (connector.Stereotype == "include")
-                    {
-                        return 73;
-                    }
-
-                    if (connector.Stereotype == "extend")
-                    {
-                        return 74;
-                    }
-                    return -1;
-                default:
-                    return -1;
             }
         }
 

@@ -27,7 +27,8 @@ public class SmallTeamService {
         SmallTeam smallTeam = new SmallTeam();
         smallTeam.setTeamMembersId(new ArrayList<>());
         smallTeam.getTeamMembersId().add(id);
-
+        smallTeam.setCorrespondenceModel(false);
+        smallTeam.setSynchronizationAllowed(false);
         smallTeamRepository.save(smallTeam);
     }
 }

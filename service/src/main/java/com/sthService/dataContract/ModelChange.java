@@ -40,7 +40,7 @@ public class ModelChange {
     @NotNull
     private int elementDeleted;
 
-    @JsonIgnore
+    @NotNull
     private String userName;
 
     public String getId() {

@@ -107,7 +107,7 @@ namespace BPAddIn
                 ItemCreation itemCreation = new ItemCreation();
                 itemCreation.modelGUID = repository.GetPackageByID(1).PackageGUID;
                 itemCreation.itemGUID = package.PackageGUID;
-                itemCreation.elementType = 800;
+                itemCreation.elementType = 3;
                 itemCreation.author = package.Element.Author;
                 itemCreation.name = package.Name;
                 itemCreation.parentGUID = "0";

@@ -11,4 +11,6 @@ import java.util.List;
 public interface ModelChangeRepository extends MongoRepository<ModelChange, String> {
 
     List<ModelChange> findByUserNameAndTimestamp(String username, String timestamp);
+
+    ModelChange findById(String id);
 }

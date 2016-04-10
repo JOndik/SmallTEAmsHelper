@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ChangesForSyncRepository extends MongoRepository<ChangesForSynchronization, String>{
 
+    ChangesForSynchronization findByUserNameAndSmallTeamId(String userName, String smallTeamId);
 }

@@ -16,7 +16,13 @@ public class ChangesForSynchronization {
     private String id;
 
     @NotNull
+    private String userName;
+
+    @NotNull
     private List<String> changeIDs;
+
+    @NotNull
+    private String smallTeamId;
 
     public String getId() {
         return id;
@@ -26,11 +32,27 @@ public class ChangesForSynchronization {
         this.id = id;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public List<String> getChangeIDs() {
         return changeIDs;
     }
 
     public void setChangeIDs(List<String> changeIDs) {
         this.changeIDs = changeIDs;
+    }
+
+    public String getSmallTeamId() {
+        return smallTeamId;
+    }
+
+    public void setSmallTeamId(String smallTeamId) {
+        this.smallTeamId = smallTeamId;
     }
 }

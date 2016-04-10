@@ -2,8 +2,10 @@ package com.sthService.controller;
 
 import com.sthService.dataContract.DTOWrapper;
 import com.sthService.dataContract.ModelChange;
+import com.sthService.dataContract.SmallTeam;
 import com.sthService.dataContract.User;
 import com.sthService.repository.AuthorizationRepository;
+import com.sthService.repository.SmallTeamRepository;
 import com.sthService.service.AuthorizationService;
 import com.sthService.service.ModelChangeService;
 import com.sthService.service.SynchronizationService;
@@ -33,6 +35,9 @@ public class ChangesController {
     @Inject
     private SynchronizationService synchronizationService;
 
+    @Inject
+    private SmallTeamRepository smallTeamRepository;
+
     private final Logger log = LoggerFactory.getLogger(ChangesController.class);
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -46,8 +51,12 @@ public class ChangesController {
 
         if (newChange.getModelChange().getElementType() != 777) {                           //koncova sprava pri posielani celeho modelu ma elementType 777
             modelChangeService.saveChange(user.getName(), newChange.getModelChange());
+            SmallTeam smallTeam = smallTeamRepository.findByNestedUserId(user.getId());
+            if ((newChange.getModelChange().getModelGUID()).equals(user.getModelGUID()) && smallTeam != null){
+                synchronizationService.processChange(newChange.getModelChange(), user);
+            }
         } else {
-            //user.setAllModelData(true);
+            user.setAllModelData(true);
             user.setModelGUID(newChange.getModelChange().getModelGUID());
             authorizationRepository.save(user);
             synchronizationService.checkOtherTeamMembers(user);

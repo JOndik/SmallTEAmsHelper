@@ -23,6 +23,10 @@ namespace BPAddIn.DataContract
         public int elementType { get; set; }
         
         public int elementDeleted { get; set; }
+
+        [NotMapped]
+        public string userName { get; set; }
+
         [NotMapped]
         public string classType { get; set; }
 

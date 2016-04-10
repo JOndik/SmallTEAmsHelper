@@ -10,6 +10,9 @@ public interface CorrespondenceNodeRepository extends MongoRepository<Correspond
 
     CorrespondenceNode findById(String id);
 
-    @Query(value = "{ 'corrNodePartList.userName' : ?0 }")
-    CorrespondenceNode findByNestedCorrNodePartUserName(String userName);           //funguje
+    @Query(value = "{ 'correspondenceNodePartIDs' : ?0 }")
+    CorrespondenceNode findByNestedCorrespondenceNodePartId(String id);
+
+    /*@Query(value = "{ 'corrNodePartList.userName' : ?1, 'corrNodePartList.elementGUID' : ?2 }")
+    CorrespondenceNode findBySmallTeamIdAndNestedCorrNodePartUserNameAndElementGUID(String smallTeamId, String userName, String elementGUID);           //funguje*/
 }

@@ -13,7 +13,7 @@ public class SmallTeam {
 
     private List<String> teamMembersId;
 
-    private String correspondenceModelID;
+    private boolean correspondenceModel;
 
     private boolean synchronizationAllowed;
 
@@ -33,12 +33,12 @@ public class SmallTeam {
         this.teamMembersId = teamMembersId;
     }
 
-    public String getCorrespondenceModelID() {
-        return correspondenceModelID;
+    public boolean isCorrespondenceModel() {
+        return correspondenceModel;
     }
 
-    public void setCorrespondenceModelID(String correspondenceModelID) {
-        this.correspondenceModelID = correspondenceModelID;
+    public void setCorrespondenceModel(boolean correspondenceModel) {
+        this.correspondenceModel = correspondenceModel;
     }
 
     public boolean isSynchronizationAllowed() {

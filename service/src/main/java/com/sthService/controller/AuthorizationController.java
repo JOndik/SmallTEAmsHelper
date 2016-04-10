@@ -44,12 +44,14 @@ public class AuthorizationController {
         //User newMember = authorizationService.getUserByName(teamPair.getTeamMemberName());
 
         if (requester == null) {
+            log.info("tu");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         User newMember = authorizationService.getUserByName(teamPair.getTeamMemberName());
 
         if (newMember == null) {
+            log.info("new Member");
             return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -59,6 +61,12 @@ public class AuthorizationController {
         if (smallTeam == null) {
             smallTeamService.createSmallTeam(requester.getId());
         }
+
+        //
+        smallTeam = smallTeamService.getByUserId(requester.getId());
+        smallTeam.getTeamMembersId().add(newMember.getId());
+        smallTeamService.updateTeam(smallTeam);
+        //
 
         TeamPairRequest pairRequest = new TeamPairRequest();
         pairRequest.setMemberName(teamPair.getTeamMemberName());

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Document
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CorrNodePart {
+public class CorrespondenceNodePart {
 
     @Id
     private String id;
@@ -21,9 +21,18 @@ public class CorrNodePart {
     @NotNull
     private String elementGUID;
 
-    public CorrNodePart(String userName, String elementGUID){
-        this.userName = userName;
-        this.elementGUID = elementGUID;
+    @NotNull
+    private String modelGUID;
+
+    @NotNull
+    private String smallTeamID;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserName() {
@@ -40,5 +49,21 @@ public class CorrNodePart {
 
     public void setElementGUID(String elementGUID) {
         this.elementGUID = elementGUID;
+    }
+
+    public String getSmallTeamID() {
+        return smallTeamID;
+    }
+
+    public void setSmallTeamID(String smallTeamID) {
+        this.smallTeamID = smallTeamID;
+    }
+
+    public String getModelGUID() {
+        return modelGUID;
+    }
+
+    public void setModelGUID(String modelGUID) {
+        this.modelGUID = modelGUID;
     }
 }

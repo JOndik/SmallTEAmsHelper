@@ -29,7 +29,8 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Chyba internetového pripojenia.");
+                MessageBox.Show(ex.ToString());
+                //MessageBox.Show("Chyba internetového pripojenia.");
             }
         }
 

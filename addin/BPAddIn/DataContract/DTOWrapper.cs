@@ -18,7 +18,11 @@ namespace BPAddIn.DataContract
 
         public string serialize()
         {
-            return JsonConvert.SerializeObject(this);
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Objects
+            };
+            return JsonConvert.SerializeObject(this, settings);
         }
 
     }
