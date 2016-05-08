@@ -1,0 +1,14 @@
+DROP TABLE model_changes;
+DROP TABLE property_changes;
+
+CREATE TABLE model_changes(
+   timestamp varchar(255),
+   itemGUID varchar(255)
+);
+
+CREATE TABLE property_changes(
+   timestamp varchar(255),
+   itemGUID varchar(255),
+   propertyBody varchar(255),
+   propertyType int
+);

@@ -1,0 +1,521 @@
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\BPAddIn.dll.config
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\BPAddIn.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\BPAddIn.pdb
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EAAddinFramework.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Commands.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Core.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Relational.Design.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Relational.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Sqlite.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Interop.EA.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.AspNet.Razor.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Data.Sqlite.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Primitives.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Newtonsoft.Json.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Remotion.Linq.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Collections.Immutable.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Data.SQLite.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Data.SQLite.EF6.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Data.SQLite.Linq.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Interactive.Async.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Reflection.Metadata.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\UMLToolingFramework.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Interop.MSScriptControl.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EAAddinFramework.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Commands.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Core.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Relational.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Relational.Design.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Sqlite.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.AspNet.Razor.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Data.Sqlite.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Primitives.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Newtonsoft.Json.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Remotion.Linq.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Collections.Immutable.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Data.SQLite.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Interactive.Async.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Reflection.Metadata.xml
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.csprojResolveAssemblyReference.cache
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.dll
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.pdb
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\BPAddIn.tlb
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.csproj.GenerateResource.Cache
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.LogInWindow.resources
+C:\Users\Martin\Desktop\Bakalarka\SmallTEAmsHelper-master\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.JoinWindow.resources
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\BPAddIn.dll.config
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\BPAddIn.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\BPAddIn.pdb
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\BPAddIn.tlb
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EAAddinFramework.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Commands.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Core.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Relational.Design.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Relational.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Sqlite.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Interop.EA.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.AspNet.Razor.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Data.Sqlite.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Primitives.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Newtonsoft.Json.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Remotion.Linq.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Collections.Immutable.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Data.SQLite.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Data.SQLite.EF6.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Data.SQLite.Linq.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Interactive.Async.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Reflection.Metadata.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\UMLToolingFramework.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Interop.MSScriptControl.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EAAddinFramework.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Commands.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Core.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Relational.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Relational.Design.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Sqlite.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.AspNet.Razor.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Data.Sqlite.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Primitives.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Newtonsoft.Json.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Remotion.Linq.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Collections.Immutable.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Data.SQLite.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Interactive.Async.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Reflection.Metadata.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.csprojResolveAssemblyReference.cache
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.JoinWindow.resources
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.LogInWindow.resources
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.csproj.GenerateResource.Cache
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.pdb
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\BPAddIn.dll.config
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\BPAddIn.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\BPAddIn.pdb
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EAAddinFramework.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Commands.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Core.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Relational.Design.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Relational.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Sqlite.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Interop.EA.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.AspNet.Razor.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Data.Sqlite.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Primitives.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Newtonsoft.Json.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Remotion.Linq.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Collections.Immutable.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Data.SQLite.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Data.SQLite.EF6.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Data.SQLite.Linq.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Interactive.Async.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Reflection.Metadata.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\UMLToolingFramework.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Interop.MSScriptControl.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EAAddinFramework.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Commands.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Core.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Relational.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Relational.Design.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.Sqlite.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.AspNet.Razor.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Data.Sqlite.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Microsoft.Framework.Primitives.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Newtonsoft.Json.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\Remotion.Linq.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Collections.Immutable.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Data.SQLite.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Interactive.Async.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\System.Reflection.Metadata.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.JoinWindow.resources
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.LogInWindow.resources
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.csproj.GenerateResource.Cache
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.pdb
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.csprojResolveAssemblyReference.cache
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\BPAddIn.dll.config
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\BPAddIn.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\BPAddIn.pdb
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EAAddinFramework.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.Commands.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.Core.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.Relational.Design.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.Relational.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.Sqlite.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.SqlServer.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Interop.EA.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.AspNet.Razor.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.CodeAnalysis.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Data.Sqlite.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Configuration.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Logging.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Primitives.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Newtonsoft.Json.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Remotion.Linq.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\System.Collections.Immutable.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\System.Data.SQLite.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\System.Data.SQLite.EF6.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\System.Data.SQLite.Linq.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\System.Interactive.Async.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\System.Reflection.Metadata.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\UMLToolingFramework.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Interop.MSScriptControl.dll
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EAAddinFramework.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.Commands.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.Core.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.Relational.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.Relational.Design.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.Sqlite.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.SqlServer.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.AspNet.Razor.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.CodeAnalysis.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Data.Sqlite.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Configuration.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Logging.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.Framework.Primitives.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Newtonsoft.Json.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\Remotion.Linq.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\System.Collections.Immutable.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\System.Data.SQLite.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\System.Interactive.Async.xml
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\System.Reflection.Metadata.xml
+D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.csprojResolveAssemblyReference.cache
+D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.DefectsWindow.resources
+D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.JoinWindow.resources
+D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.LogInWindow.resources
+D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddInTry.UpdateWindow.resources
+D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.csproj.GenerateResource.Cache
+D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.dll
+D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.pdb
+D:\AddIn\BPAddIn\BPAddIn\bin\Release\BPAddIn.tlb
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\obj\Release\BPAddIn.csprojResolveAssemblyReference.cache
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\obj\Release\BPAddIn.DefectsWindow.resources
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\obj\Release\BPAddIn.JoinWindow.resources
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\obj\Release\BPAddIn.LogInWindow.resources
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\obj\Release\BPAddInTry.UpdateWindow.resources
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\obj\Release\BPAddIn.csproj.GenerateResource.Cache
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\obj\Release\BPAddIn.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\obj\Release\BPAddIn.pdb
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\BPAddIn.dll.config
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\BPAddIn.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\BPAddIn.pdb
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\BPAddIn.tlb
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EAAddinFramework.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.Commands.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.Core.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.Relational.Design.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.Relational.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.Sqlite.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Interop.EA.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.AspNet.Razor.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.CodeAnalysis.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Data.Sqlite.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Configuration.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Logging.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Primitives.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Newtonsoft.Json.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Remotion.Linq.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\System.Collections.Immutable.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\System.Data.SQLite.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\System.Data.SQLite.EF6.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\System.Data.SQLite.Linq.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\System.Interactive.Async.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\System.Reflection.Metadata.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\UMLToolingFramework.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Interop.MSScriptControl.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EAAddinFramework.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.Commands.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.Core.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.Relational.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.Relational.Design.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.Sqlite.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.AspNet.Razor.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.CodeAnalysis.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Data.Sqlite.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Configuration.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Logging.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Microsoft.Framework.Primitives.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Newtonsoft.Json.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\Remotion.Linq.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\System.Collections.Immutable.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\System.Data.SQLite.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\System.Interactive.Async.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\addin - Copy\BPAddIn\bin\Release\System.Reflection.Metadata.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\BPAddIn.dll.config
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\BPAddIn.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\BPAddIn.pdb
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\BPAddIn.tlb
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EAAddinFramework.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.Commands.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.Core.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.Relational.Design.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.Relational.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.Sqlite.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Interop.EA.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.AspNet.Razor.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.CodeAnalysis.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Data.Sqlite.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Configuration.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Logging.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Primitives.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Newtonsoft.Json.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Remotion.Linq.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\System.Collections.Immutable.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\System.Data.SQLite.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\System.Data.SQLite.EF6.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\System.Data.SQLite.Linq.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\System.Interactive.Async.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\System.Reflection.Metadata.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\UMLToolingFramework.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Interop.MSScriptControl.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EAAddinFramework.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.Commands.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.Core.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.Relational.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.Relational.Design.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.Sqlite.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.AspNet.Razor.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.CodeAnalysis.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Data.Sqlite.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Configuration.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Logging.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Microsoft.Framework.Primitives.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Newtonsoft.Json.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\Remotion.Linq.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\System.Collections.Immutable.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\System.Data.SQLite.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\System.Interactive.Async.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\bin\Release\System.Reflection.Metadata.xml
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\obj\Release\BPAddIn.csprojResolveAssemblyReference.cache
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\obj\Release\BPAddIn.DefectsWindow.resources
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\obj\Release\BPAddIn.JoinWindow.resources
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\obj\Release\BPAddIn.LogInWindow.resources
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\obj\Release\BPAddInTry.UpdateWindow.resources
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\obj\Release\BPAddIn.csproj.GenerateResource.Cache
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\obj\Release\BPAddIn.dll
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\aktualne\BPAddIn\obj\Release\BPAddIn.pdb
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\bin\Release\BPAddIn.tlb
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.DefectsWindow.resources
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddInTry.UpdateWindow.resources
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\BPAddIn.dll.config
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\BPAddIn.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\BPAddIn.pdb
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\BPAddIn.tlb
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EAAddinFramework.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Commands.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Core.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Relational.Design.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Relational.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Sqlite.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Interop.EA.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.AspNet.Razor.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Data.Sqlite.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Primitives.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Newtonsoft.Json.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Remotion.Linq.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Collections.Immutable.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Data.SQLite.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Data.SQLite.EF6.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Data.SQLite.Linq.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Interactive.Async.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Reflection.Metadata.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\UMLToolingFramework.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Interop.MSScriptControl.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EAAddinFramework.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Commands.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Core.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Relational.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Relational.Design.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.Sqlite.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.AspNet.Razor.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Data.Sqlite.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Abstractions.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Caching.Memory.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Abstractions.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Configuration.Binder.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.DependencyInjection.Abstractions.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Logging.Abstractions.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.OptionsModel.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Microsoft.Framework.Primitives.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Newtonsoft.Json.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\Remotion.Linq.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Collections.Immutable.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Data.SQLite.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Interactive.Async.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\bin\Release\System.Reflection.Metadata.xml
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.csprojResolveAssemblyReference.cache
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.DefectsWindow.resources
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.JoinWindow.resources
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.LogInWindow.resources
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddInTry.UpdateWindow.resources
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.csproj.GenerateResource.Cache
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.dll
+C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.pdb
