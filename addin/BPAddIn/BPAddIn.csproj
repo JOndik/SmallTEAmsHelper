@@ -184,9 +184,9 @@
     <Compile Include="RuleClassRelation.cs" />
     <Compile Include="RuleUC.cs" />
     <Compile Include="RuleUC2.cs" />
-    <Compile Include="Synchronization\ModelInformation.cs" />
-    <Compile Include="Synchronization\ModelTraverse.cs" />
-    <Compile Include="Synchronization\NewCorrespondenceNode.cs" />
+    <Compile Include="SynchronizationPackage\ModelInformation.cs" />
+    <Compile Include="SynchronizationPackage\ModelTraverse.cs" />
+    <Compile Include="SynchronizationPackage\NewCorrespondenceNode.cs" />
     <Compile Include="DataContract\ItemCreation.cs" />
     <Compile Include="DataContract\ScenarioChange.cs" />
     <Compile Include="DataContract\StepChange.cs" />
@@ -210,11 +210,29 @@
     <Compile Include="ListBoxObject.cs" />
     <Compile Include="Rule.cs" />
     <Compile Include="RuleService.cs" />
-    <Compile Include="Synchronization\Synchronization.cs" />
-    <Compile Include="Synchronization\SynchronizationChanges.cs" />
-    <Compile Include="Synchronization\SynchronizationDeletions.cs" />
-    <Compile Include="Synchronization\SynchronizationMovements.cs" />
-    <Compile Include="Synchronization\SynchronizationService.cs" />
+    <Compile Include="SynchronizationPackage\SendingDataWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SynchronizationPackage\SendingDataWindow.Designer.cs">
+      <DependentUpon>SendingDataWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SynchronizationPackage\Synchronization.cs" />
+    <Compile Include="SynchronizationPackage\SynchronizationChanges.cs" />
+    <Compile Include="SynchronizationPackage\SynchronizationDeletions.cs" />
+    <Compile Include="SynchronizationPackage\SynchronizationMovements.cs" />
+    <Compile Include="SynchronizationPackage\SynchronizationProgressWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SynchronizationPackage\SynchronizationProgressWindow.Designer.cs">
+      <DependentUpon>SynchronizationProgressWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SynchronizationPackage\SynchronizationService.cs" />
+    <Compile Include="SynchronizationPackage\SynchronizationWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SynchronizationPackage\SynchronizationWindow.Designer.cs">
+      <DependentUpon>SynchronizationWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="TeamPair.cs" />
     <Compile Include="UpdateWindow.cs">
       <SubType>Form</SubType>
@@ -259,7 +277,7 @@
     </Compile>
     <Compile Include="Migrations\LocalDBContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Synchronization\SynchronizationAdditions.cs" />
+    <Compile Include="SynchronizationPackage\SynchronizationAdditions.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Word.cs" />
   </ItemGroup>
@@ -293,6 +311,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LogInWindow.resx">
       <DependentUpon>LogInWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SynchronizationPackage\SendingDataWindow.resx">
+      <DependentUpon>SendingDataWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SynchronizationPackage\SynchronizationProgressWindow.resx">
+      <DependentUpon>SynchronizationProgressWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SynchronizationPackage\SynchronizationWindow.resx">
+      <DependentUpon>SynchronizationWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UpdateWindow.resx">
       <DependentUpon>UpdateWindow.cs</DependentUpon>

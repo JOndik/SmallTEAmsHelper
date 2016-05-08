@@ -5,14 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BPAddIn
+namespace BPAddIn.SynchronizationPackage
 {
     public class SynchronizationDeletions
     {
+        private ItemTypes itemTypes;
+
+        public SynchronizationDeletions(EA.Repository repository)
+        {
+            this.itemTypes = new ItemTypes(repository);
+        }
+
         public void deletePackage(EA.Repository Repository, string packageGUID)
         {
-            MessageBox.Show("odstranenie balika");
             EA.Package packageToDelete = (EA.Package)Repository.GetPackageByGuid(packageGUID);
+            string name = packageToDelete.Name;
             EA.Package parentPackage = (EA.Package)Repository.GetPackageByID(packageToDelete.ParentID);
 
             for (short i = 0; i < parentPackage.Packages.Count; i++)
@@ -25,12 +32,17 @@ namespace BPAddIn
                 }
             }
             parentPackage.Packages.Refresh();
+
+            BPAddIn.synchronizationWindow.addToList("Odstránenie balíka '" + name + "' z balíka '" + parentPackage.Name + "'");
         }
 
-        public void deleteDiagram(EA.Repository Repository, string diagramGUID)
+        public void deleteDiagram(EA.Repository Repository, string diagramGUID, int elementType)
         {
-            MessageBox.Show("odstranenie diagramu");
             EA.Diagram diagramToDelete = (EA.Diagram)Repository.GetDiagramByGuid(diagramGUID);
+            string name = diagramToDelete.Name;
+            int packageID = diagramToDelete.PackageID;
+            int parentID = diagramToDelete.ParentID;
+
             EA.Collection diagrams;
             if (diagramToDelete.ParentID == 0)
             {
@@ -51,12 +63,19 @@ namespace BPAddIn
                 }
             }
             diagrams.Refresh();
+
+            BPAddIn.synchronizationWindow.addToList("Odstránenie " + itemTypes.getElementTypeInSlovak(elementType) + " '" + 
+                name + "' (Pôvodné umiestnenie diagramu: " +
+                itemTypes.getLocationOfItem(Repository, packageID, parentID));
         }
 
-        public void deleteElement(EA.Repository Repository, string elementGUID)
+        public void deleteElement(EA.Repository Repository, string elementGUID, int elementType)
         {
-            MessageBox.Show("odstranenie elementu");
             EA.Element elementToDelete = (EA.Element)Repository.GetElementByGuid(elementGUID);
+            string name = elementToDelete.Name;
+            int packageID = elementToDelete.PackageID;
+            int parentID = elementToDelete.ParentID;
+
             EA.Collection elements;
             if (elementToDelete.ParentID == 0)
             {
@@ -77,11 +96,14 @@ namespace BPAddIn
                 }
             }
             elements.Refresh();
+
+            BPAddIn.synchronizationWindow.addToList("Odstránenie " + itemTypes.getElementTypeInSlovak(elementType) + " '" 
+                + name + "' (Pôvodné umiestnenie elementu: " +
+                itemTypes.getLocationOfItem(Repository, packageID, parentID));
         }
 
         public void deleteDiagramObject(EA.Repository Repository, string elementGUID, string diagramGUID)
         {
-            MessageBox.Show("odstranenie diagram objektu");
             EA.Diagram diagram = (EA.Diagram)Repository.GetDiagramByGuid(diagramGUID);
             EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
 
@@ -95,87 +117,60 @@ namespace BPAddIn
                 }
             }
             diagram.DiagramObjects.Refresh();
+
+            BPAddIn.synchronizationWindow.addToList("Odstránenie elementu '" + element.Name + "' z diagramu '" + diagram.Name + 
+                "' (Umiestnenie diagramu: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
-        public void deleteConnector(EA.Repository Repository, string connectorGUID, string diagramGUID)
+        public void deleteConnector(EA.Repository Repository, string connectorGUID, string diagramGUID, int elementType)
         {
-            /*EA.Connector connectorToDelete = (EA.Connector)Repository.GetConnectorByGuid(connectorGUID);
-            EA.Diagram diagram = (EA.Diagram)Repository.GetDiagramByGuid(diagramGUID);
-            MessageBox.Show("odstranenie spojenia guid: " + connectorGUID + " v diagrame: " + diagram.Name + " " + diagram.DiagramGUID);
-
-            for (short i = 0; i < diagram.DiagramLinks.Count; i++)
-            {
-                EA.DiagramLink actualDiagramLink = (EA.DiagramLink)diagram.DiagramLinks.GetAt(i);
-                if (actualDiagramLink.ConnectorID == connectorToDelete.ConnectorID)
-                {
-                    MessageBox.Show("delete");
-                    diagram.DiagramLinks.DeleteAt(i, false);
-                    break;
-                }
-            }
-            diagram.DiagramLinks.Refresh();*/
-
-            MessageBox.Show("odstranenie spojenia guid: " + connectorGUID);
-
             EA.Connector connector = (EA.Connector)Repository.GetConnectorByGuid(connectorGUID);
-            EA.Element element = (EA.Element)Repository.GetElementByID(connector.ClientID);
-            for (short i = 0; i < element.Connectors.Count; i++)
+            string name = connector.Name;
+            EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
+            EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
+
+            for (short i = 0; i < srcElement.Connectors.Count; i++)
             {
-                EA.Connector conn = (EA.Connector)element.Connectors.GetAt(i);
+                EA.Connector conn = (EA.Connector)srcElement.Connectors.GetAt(i);
                 if (conn.ConnectorGUID == connectorGUID)
                 {
-                    element.Connectors.DeleteAt(i, false);
+                    srcElement.Connectors.DeleteAt(i, false);
                     break;
                 }
             }
+            srcElement.Connectors.Refresh();
+
+            BPAddIn.synchronizationWindow.addToList("Odstránenie " + itemTypes.getElementTypeInSlovak(elementType) + " '" 
+                + name + "' medzi elementom '" + srcElement.Name +
+                "' a elementom '" + targetElement.Name + "'");
         }
 
-        public void deleteScenario(EA.Repository Repository, string scenarioGUID, string elementGUID)
+        public void deleteScenario(EA.Repository Repository, string scenarioGUID, string elementGUID, int elementType)
         {
-            MessageBox.Show("odstranenie scenara");
             EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
-
+            string name = "", type = "";
             for (short i = 0; i < element.Scenarios.Count; i++)
             {
-                EA.Scenario actualScenario = (EA.Scenario)element.Scenarios.GetAt(i);
-                if (actualScenario.ScenarioGUID == scenarioGUID)
+                EA.Scenario currentScenario = (EA.Scenario)element.Scenarios.GetAt(i);
+                if (currentScenario.ScenarioGUID == scenarioGUID)
                 {
+                    name = currentScenario.Name;
+                    type = currentScenario.Type;
                     element.Scenarios.DeleteAt(i, false);
                     break;
                 }
             }
             element.Scenarios.Refresh();
-        }
 
-        public void deleteScenarioStep(EA.Repository Repository, string elementGUID, string scenarioGUID, string stepGUID)
-        {
-            MessageBox.Show("pridanie kroku do scenara");
-            EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
-
-            for (short i = 0; i < element.Scenarios.Count; i++)
-            {
-                EA.Scenario scenario = (EA.Scenario)element.Scenarios.GetAt(i);
-                if (scenario.ScenarioGUID == scenarioGUID)
-                {
-                    for (short j = 0; j < scenario.Steps.Count; j++)
-                    {
-                        EA.ScenarioStep scenarioStep = (EA.ScenarioStep)scenario.Steps.GetAt(i);
-                        if (scenarioStep.StepGUID == stepGUID)
-                        {
-                            scenario.Steps.DeleteAt(j, false);
-                            scenario.Update();
-                            break;
-                        }
-                    }
-                }
-            }
-            element.Scenarios.Refresh();
+            BPAddIn.synchronizationWindow.addToList("Odstránenie scenára '" + name + "' typu '" + type + 
+                "' z " + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name 
+                + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
         public void deleteAttribute(EA.Repository Repository, string attributeGUID)
         {
-            MessageBox.Show("odstranenie atributu");
             EA.Attribute attribute = (EA.Attribute)Repository.GetAttributeByGuid(attributeGUID);
+            string name = attribute.Name;
             EA.Element element = (EA.Element)Repository.GetElementByID(attribute.ParentID);
 
             for (short i = 0; i < element.Attributes.Count; i++)
@@ -188,11 +183,13 @@ namespace BPAddIn
                 }
             }
             element.Attributes.Refresh();
+
+            BPAddIn.synchronizationWindow.addToList("Odstránenie atribútu '" + name + "' z elementu '" + element.Name 
+                + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
         public void deleteConstraint(EA.Repository repository, string elementGUID, string name, string type)
         {
-            MessageBox.Show("odstranenie obmedzenia");
             EA.Element element = (EA.Element)repository.GetElementByGuid(elementGUID);
 
             for (short i = 0; i < element.Constraints.Count; i++)
@@ -205,6 +202,9 @@ namespace BPAddIn
                 }
             }
             element.Constraints.Refresh();
+
+            BPAddIn.synchronizationWindow.addToList("Odstránenie obmedzenia '" + name + "' z elementu '" + element.Name 
+                + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(repository, element.PackageID, element.ParentID));
         }
     }
 }

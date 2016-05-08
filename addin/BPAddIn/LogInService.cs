@@ -31,7 +31,6 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
                 return "noconnection";
             }           
         }
@@ -41,27 +40,35 @@ namespace BPAddIn
         {
             LogIn logIn = new LogIn(name, password);
 
-
-
             using (WebClient webClient = new WebClient())
             {
                 string result = "";
-                string data = "";            
-               
+                string data = "";
 
-                webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
-                //data = Encoding.UTF8.GetString(Encoding.Unicode.GetBytes(dtoWrapper.serialize()));
-                data = EncodeNonAsciiCharacters(logIn.serialize());
-                result = webClient.UploadString(Utils.serviceAddress + "/auth", data);
-
-                if (("false").Equals(result) || ("error").Equals(result))
-                {                   
-                    return result;
-                }
-                else
+                try
                 {
+                    webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
+                    data = EncodeNonAsciiCharacters(logIn.serialize());
+                    result = webClient.UploadString(Utils.serviceAddress + "/auth", data);
                     saveUserToLocalDatabase(logIn.name, result);
                     return result;
+                }
+                catch (WebException ex)
+                {
+                    var response = ex.Response as HttpWebResponse;
+                    int code = (int)response.StatusCode;
+                    if (code == 401)
+                    {
+                        return "false";
+                    }
+                    else
+                    {
+                        return "error";
+                    }
+                }
+                catch (Exception ex2)
+                {
+                    return "error";
                 }
             }
         }

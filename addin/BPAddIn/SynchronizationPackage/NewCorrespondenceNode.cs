@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BPAddIn
+namespace BPAddIn.SynchronizationPackage
 {
     public class NewCorrespondenceNode
     {

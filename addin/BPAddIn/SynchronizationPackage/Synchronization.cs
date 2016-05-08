@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BPAddIn.DataContract;
 using System.Windows.Forms;
 
-namespace BPAddIn
+namespace BPAddIn.SynchronizationPackage
 {
     public class Synchronization
     {
@@ -18,8 +18,8 @@ namespace BPAddIn
         public Synchronization(EA.Repository repository)
         {
             this.synchronizationMovements = new SynchronizationMovements(repository);
-            this.synchronizationDeletions = new SynchronizationDeletions();
-            this.synchronizationAdditions = new SynchronizationAdditions();
+            this.synchronizationDeletions = new SynchronizationDeletions(repository);
+            this.synchronizationAdditions = new SynchronizationAdditions(repository);
             this.synchronizationChanges = new SynchronizationChanges(repository);
         }
 
@@ -30,7 +30,7 @@ namespace BPAddIn
             {
                 GUID = synchronizationAdditions.addPackage(repository, itemCreation.packageGUID, itemCreation.name, itemCreation.author);
             }
-            else if (itemCreation.elementType >= 50 && itemCreation.elementType <= 59)
+            else if (itemCreation.elementType >= 50 && itemCreation.elementType < 70)
             {
                 GUID = synchronizationAdditions.addDiagram(repository, itemCreation.parentGUID, itemCreation.packageGUID,
                     itemCreation.elementType, itemCreation.name, itemCreation.author);
@@ -61,91 +61,99 @@ namespace BPAddIn
             switch (propertyChange.propertyType)
             {
                 case 0:                                                                 //zmena mena
-                    if (propertyChange.elementType < 50)
+                    if (propertyChange.elementType == 3)
                     {
-                        synchronizationChanges.changeElementName(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                        synchronizationChanges.changePackageName(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody);
                     }
-                    else if (propertyChange.elementType >= 50 && propertyChange.elementType <= 59)
+                    else if (propertyChange.elementType < 50)
                     {
-                        synchronizationChanges.changeDiagramName(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                        synchronizationChanges.changeElementName(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
+                    }
+                    else if (propertyChange.elementType >= 50 && propertyChange.elementType < 70)
+                    {
+                        synchronizationChanges.changeDiagramName(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     }
                     else if (propertyChange.elementType >= 70 && propertyChange.elementType <= 79)
                     {
-                        synchronizationChanges.changeConnectorName(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                        synchronizationChanges.changeConnectorName(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     }
                     else if (propertyChange.elementType == 90)
                     {
-                        synchronizationChanges.changeAttributeName(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                        synchronizationChanges.changeAttributeName(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody);
                     }
                     break;
                 case 1:                                                                 //zmena autora
                     if (propertyChange.elementType == 3)
                     {
-                        synchronizationChanges.changePackageAuthor(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                        synchronizationChanges.changePackageAuthor(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody);
                     }
-                    else if (propertyChange.elementType >= 50 && propertyChange.elementType <= 59)
+                    else if (propertyChange.elementType >= 50 && propertyChange.elementType < 70)
                     {
-                        synchronizationChanges.changeDiagramAuthor(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                        synchronizationChanges.changeDiagramAuthor(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     }
                     else if (propertyChange.elementType < 50)
                     {
-                        synchronizationChanges.changeElementAuthor(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                        synchronizationChanges.changeElementAuthor(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     }
                     break;
                 case 2:                                                                 //zmena poznamok
-                    if (propertyChange.elementType < 50)
+                    if (propertyChange.elementType == 3)
                     {
-                        synchronizationChanges.changeElementNotes(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                        synchronizationChanges.changePackageNotes(repository, propertyChange.itemGUID, propertyChange.propertyBody);
                     }
-                    else if (propertyChange.elementType >= 50 && propertyChange.elementType <= 59)
+                    else if (propertyChange.elementType < 50)
                     {
-                        synchronizationChanges.changeDiagramNotes(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                        synchronizationChanges.changeElementNotes(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.elementType);
+                    }
+                    else if (propertyChange.elementType >= 50 && propertyChange.elementType < 70)
+                    {
+                        synchronizationChanges.changeDiagramNotes(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.elementType);
                     }
                     else if (propertyChange.elementType >= 70 && propertyChange.elementType <= 79)
                     {
-                        synchronizationChanges.changeConnectorNotes(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                        synchronizationChanges.changeConnectorNotes(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.elementType);
                     }
                     break;
                 case 13:                                                                 //zmena bodov rozsirenia
-                    synchronizationChanges.setExtensionPoints(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                    synchronizationChanges.setExtensionPoints(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.elementType);
                     break;
                 case 200:                                                               //zmena stereotypu
                     if (propertyChange.elementType < 50)
                     {
-                        synchronizationChanges.changeElementStereotype(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                        synchronizationChanges.changeElementStereotype(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     }
-                    else if (propertyChange.elementType >= 50 && propertyChange.elementType <= 59)
+                    else if (propertyChange.elementType >= 50 && propertyChange.elementType < 70)
                     {
-                        synchronizationChanges.changeDiagramStereotype(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                        synchronizationChanges.changeDiagramStereotype(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     }
                     else if (propertyChange.elementType >= 70 && propertyChange.elementType <= 79)
                     {
-                        synchronizationChanges.changeConnectorStereotype(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                        synchronizationChanges.changeConnectorStereotype(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     }
                     break;
                 case 300:                                                                  //zmena scope atributu
-                    synchronizationChanges.changeAttributeVisibility(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                    synchronizationChanges.changeAttributeVisibility(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody);
                     break;
                 case 301:                                                                   //zmena cieloveho elementu spojenia
-                    synchronizationChanges.changeConnectorTarget(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                    synchronizationChanges.changeConnectorTarget(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     break;
                 case 302:                                                                   //zmena zdrojoveho elementu spojenia   
-                    synchronizationChanges.changeConnectorSource(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                    synchronizationChanges.changeConnectorSource(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     break;
                 case 303:                                                                   //zmena kardinality zdroja spojenia  
-                    synchronizationChanges.changeConnectorSourceCardinality(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                    synchronizationChanges.changeConnectorSourceCardinality(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     break;
                 case 304:                                                                   //zmena kardinality ciela spojenia 
-                    synchronizationChanges.changeConnectorTargetCardinality(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                    synchronizationChanges.changeConnectorTargetCardinality(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     break;
                 case 305:                                                                   //zmena guard spojenia
-                    synchronizationChanges.changeConnectorGuard(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                    synchronizationChanges.changeConnectorGuard(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     break;
                 case 307:                                                                   //zmena smeru spojenia
-                    synchronizationChanges.changeConnectorDirection(repository, propertyChange.itemGUID, propertyChange.propertyBody);
+                    synchronizationChanges.changeConnectorDirection(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     break;
                 case 10:                                                                   //pridanie obmedzenia
-                    synchronizationChanges.addConstraint(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody);
+                    synchronizationChanges.addConstraint(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody, propertyChange.elementType);
                     break;
                 case 401:                                                                   //presun elementu alebo balika do balika
                     synchronizationMovements.moveElementOrPackageToPackage(repository, propertyChange.itemGUID, propertyChange.propertyBody, 
@@ -303,25 +311,25 @@ namespace BPAddIn
             {
                 synchronizationDeletions.deletePackage(repository, propertyChange.itemGUID);
             }
-            else if (propertyChange.elementType == 50)
+            else if (propertyChange.elementType >= 50 && propertyChange.elementType < 70)
             {
-                synchronizationDeletions.deleteDiagram(repository, propertyChange.itemGUID);
-            }
-            else if (propertyChange.elementType == 0)
-            {
-                synchronizationDeletions.deleteElement(repository, propertyChange.itemGUID);
-            }
-            else if (propertyChange.elementType == 70)
-            {
-                synchronizationDeletions.deleteConnector(repository, propertyChange.itemGUID, propertyChange.propertyBody);
-            }
-            else if (propertyChange.elementType == 90)
-            {
-                synchronizationDeletions.deleteAttribute(repository, propertyChange.itemGUID);
+                synchronizationDeletions.deleteDiagram(repository, propertyChange.itemGUID, propertyChange.elementType);
             }
             else if (propertyChange.propertyType == 11)
             {
                 synchronizationDeletions.deleteConstraint(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.oldPropertyBody);
+            }
+            else if (propertyChange.elementType < 50)
+            {
+                synchronizationDeletions.deleteElement(repository, propertyChange.itemGUID, propertyChange.elementType);
+            }
+            else if (propertyChange.elementType >= 70 && propertyChange.elementType <= 79)
+            {
+                synchronizationDeletions.deleteConnector(repository, propertyChange.itemGUID, propertyChange.propertyBody, propertyChange.elementType);
+            }
+            else if (propertyChange.elementType == 90)
+            {
+                synchronizationDeletions.deleteAttribute(repository, propertyChange.itemGUID);
             }
             else if (propertyChange.elementType == 700)
             {
@@ -329,25 +337,25 @@ namespace BPAddIn
             }
         }
 
-        public string handleScenarioAddition(ScenarioChange scenarioChange, EA.Repository repository)
+        public string handleScenarioAddition(StepChange scenarioChange, EA.Repository repository)
         {
-            return synchronizationAdditions.addScenario(repository, scenarioChange.itemGUID, scenarioChange.name, scenarioChange.type);
+            return synchronizationAdditions.addScenario(repository, scenarioChange.itemGUID, scenarioChange.name, scenarioChange.stepType, scenarioChange.state, scenarioChange.elementType);
         }
 
-        public void handleScenarioChange(ScenarioChange scenarioChange, EA.Repository repository)
+        public void handleScenarioChange(StepChange scenarioChange, EA.Repository repository)
         {
             if (scenarioChange.status == 2)
             {
                 synchronizationChanges.changeScenario(repository, scenarioChange.scenarioGUID, scenarioChange.itemGUID, scenarioChange.name,
-                    scenarioChange.type);
+                    scenarioChange.stepType, scenarioChange.state, scenarioChange.elementType);
             }
             else if (scenarioChange.status == 0)
             {
-                synchronizationDeletions.deleteScenario(repository, scenarioChange.scenarioGUID, scenarioChange.itemGUID);
+                synchronizationDeletions.deleteScenario(repository, scenarioChange.scenarioGUID, scenarioChange.itemGUID, scenarioChange.elementType);
             }
         }
 
-        public string handleScenarioStepAddition(StepChange stepChange, EA.Repository repository)
+        /*public string handleScenarioStepAddition(StepChange stepChange, EA.Repository repository)
         {
             return synchronizationAdditions.addScenarioStep(repository, stepChange.itemGUID, stepChange.scenarioGUID, stepChange.position,
                 stepChange.stepType.ToString(), stepChange.name, stepChange.uses, stepChange.results, stepChange.state);
@@ -364,6 +372,6 @@ namespace BPAddIn
             {
                 synchronizationDeletions.deleteScenarioStep(repository, stepChange.itemGUID, stepChange.scenarioGUID, stepChange.stepGUID);
             }
-        }
+        }*/
     }
 }

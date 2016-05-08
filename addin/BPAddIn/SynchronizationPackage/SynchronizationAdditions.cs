@@ -5,34 +5,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BPAddIn
+namespace BPAddIn.SynchronizationPackage
 {
     public class SynchronizationAdditions
     {
-        //public Wrapper.Model model;
+        private ItemTypes itemTypes;
 
-        public SynchronizationAdditions()
+        public SynchronizationAdditions(EA.Repository repository)
         {
-
+            this.itemTypes = new ItemTypes(repository);
         }
-
-        /*public SynchronizationAdditions(EA.Repository repository)
-        {
-            this.model = new Wrapper.Model(repository);
-        }*/
 
         public String addPackage(EA.Repository Repository, string packageGUID, string name, string author)
         {
-            EA.Collection packages = (EA.Collection)Repository.GetPackageByGuid(packageGUID).Packages;
-            EA.Package newPackage = (EA.Package)packages.AddNew(name, "");
+            EA.Package parentPackage = (EA.Package)Repository.GetPackageByGuid(packageGUID);
+           
+            EA.Package newPackage = (EA.Package)parentPackage.Packages.AddNew(name, "");
             newPackage.Update();
 
             EA.Element packageMetaElement = (EA.Element)newPackage.Element;
             packageMetaElement.Author = author;
             newPackage.Update();
 
-            packages.Refresh();
-            MessageBox.Show("pridanie balika " + newPackage.PackageGUID);
+            parentPackage.Packages.Refresh();
+            BPAddIn.synchronizationWindow.addToList("Pridanie balíka '" + name + "' do balíka '" + parentPackage.Name
+                   + "' - autor: '" + author + "'");
+
             return newPackage.PackageGUID;
         }
 
@@ -57,7 +55,20 @@ namespace BPAddIn
             newDiagram.Author = author;
             newDiagram.Update();
             diagrams.Refresh();
-            MessageBox.Show("pridanie diagramu: " + newDiagram.DiagramGUID);
+
+            EA.Package parentPackage = (EA.Package)Repository.GetPackageByGuid(packageGUID);
+            if (parentGUID == "0")
+            {              
+                BPAddIn.synchronizationWindow.addToList("Pridanie " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+                    "' do balíka '" + parentPackage.Name + "' - autor: '" + author + "'");
+            }
+            else
+            {
+                EA.Element parentElement = (EA.Element)Repository.GetElementByGuid(parentGUID);
+                BPAddIn.synchronizationWindow.addToList("Pridanie " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+                    "' do elementu '" + parentElement.Name + "' v balíku '" + parentPackage.Name + "' - autor: '" + author + "'");
+            }
+
             return newDiagram.DiagramGUID;           
         }
 
@@ -80,6 +91,11 @@ namespace BPAddIn
                 elements = (EA.Collection)Repository.GetElementByGuid(parentGUID).Elements;
             }
 
+            if (elementType == 6 || (elementType > 30 && elementType < 45))
+            {
+                elements = (EA.Collection)Repository.GetPackageByGuid(packageGUID).Elements;
+            }
+
             EA.Element newElement = (EA.Element)elements.AddNew(name, getElementType(elementType));
 
             if ((elementType >= 7 && elementType <= 10) || (elementType >= 18 && elementType <= 23))
@@ -92,17 +108,28 @@ namespace BPAddIn
                 newElement.Stereotype = getElementStereotype(elementType);
             }
 
-            MessageBox.Show("pridanie elementu: " + newElement.ElementGUID);
             newElement.Author = author;
             newElement.Update();
             elements.Refresh();
+
+            EA.Package parentPackage = (EA.Package)Repository.GetPackageByGuid(packageGUID);
+            if (parentGUID == "0")
+            {
+                BPAddIn.synchronizationWindow.addToList("Pridanie " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+                    "' do balíka '" + parentPackage.Name + "' - autor: '" + author + "'");
+            }
+            else
+            {
+                EA.Element parentElement = (EA.Element)Repository.GetElementByGuid(parentGUID);
+                BPAddIn.synchronizationWindow.addToList("Pridanie " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+                    "' do elementu '" + parentElement.Name + "' v balíku '" + parentPackage.Name + "' - autor: '" + author + "'");
+            }
                         
             return newElement.ElementGUID;
         }
 
         public void addDiagramObject(EA.Repository Repository, string elementGUID, string diagramGUID, string coordinates)
         {
-            MessageBox.Show("pridanie diagram objektu: " + elementGUID);
             int left, right, top, bottom;
 
             string[] coordinate;
@@ -133,27 +160,33 @@ namespace BPAddIn
                 EA.Element el = (EA.Element)Repository.GetElementByID(diagramObj.ElementID);
                 if (diagramObj.left <= left && diagramObj.right >= right && diagramObj.top >= top && diagramObj.bottom <= bottom)
                 {
-                    MessageBox.Show("naslo: " + el.Name + " " + diagramObj.Sequence);
-                    /*if (diagramObj.Sequence > 1)
-                    {*/
-                        diagramObj.Sequence += 1;
-                        diagramObj.Update();
-                    //}
-                    MessageBox.Show("zvysene: " + el.Name + " " + diagramObj.Sequence);
+                    diagramObj.Sequence += 1;
+                    diagramObj.Update();
                 }
             }
             diagram.DiagramObjects.Refresh();
 
             EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
             EA.DiagramObject displayElement = (EA.DiagramObject)diagram.DiagramObjects.AddNew(coordinates, "");
-            //string[] coords = coordinates.Split(';');
+
             displayElement.ElementID = element.ElementID;
             displayElement.Sequence = 1;
             displayElement.Update();
-            diagram.DiagramObjects.Refresh();
-            
-            /*displayElement.left = Convert.ToInt32(coords[0].Split('=')[1]);
-            displayElement.Update();*/
+            diagram.DiagramObjects.Refresh();      
+
+            EA.Package parentPackage = (EA.Package)Repository.GetPackageByID(diagram.PackageID);
+            if (diagram.ParentID == 0)
+            {
+                BPAddIn.synchronizationWindow.addToList("Pridanie elementu '" + element.Name + "' do diagramu '"
+                    + diagram.Name + "' (Umiestnenie diagramu: balík '" + parentPackage.Name + "')");
+            }
+            else
+            {
+                EA.Element parentElement = (EA.Element)Repository.GetElementByID(diagram.ParentID);
+                BPAddIn.synchronizationWindow.addToList("Pridanie elementu '" + element.Name + "' do diagramu '"
+                   + diagram.Name + "' (Umiestnenie diagramu: element '" + parentElement.Name
+                   + "' v balíku '" + parentPackage.Name + "')");
+            }
         }
 
         public string addConnector(EA.Repository Repository, string srcGUID, string targetGUID, string name, int elementType)
@@ -178,70 +211,29 @@ namespace BPAddIn
             newConnector.Update();
             source.Connectors.Refresh();
 
-            MessageBox.Show("pridanie spojenia guid: " + newConnector.ConnectorGUID);
+            BPAddIn.synchronizationWindow.addToList("Pridanie " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+                   "' medzi elementom '" + source.Name + "' a elementom '" + target.Name + "'");
 
             return newConnector.ConnectorGUID;
         }     
 
-        public string addScenario(EA.Repository Repository, string elementGUID, string name, string type)
+        public string addScenario(EA.Repository Repository, string elementGUID, string name, string type, string XMLContent, int elementType)
         {
-            MessageBox.Show("pridanie scenara");
             EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
 
             EA.Scenario scenario = (EA.Scenario)element.Scenarios.AddNew(name, type);
+            scenario.XMLContent = XMLContent;
             scenario.Update();
             element.Scenarios.Refresh();
-            
 
-            MessageBox.Show(scenario.ScenarioGUID);
+            BPAddIn.synchronizationWindow.addToList("Pridanie scenára '" + name + "' typu '" + type + "' do " 
+                + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
 
-            ///////////////
-            EA.ScenarioStep scenarioStep = (EA.ScenarioStep)scenario.Steps.AddNew("a", "stActor");
-            scenarioStep.Uses = "";
-            scenarioStep.Results = "";
-            scenarioStep.State = "";
-            scenarioStep.Update();
-            scenario.Steps.Refresh();
-            element.Scenarios.Refresh();
-
-            /*scenario.Steps.DeleteAt(0, false);
-            scenario.Steps.Refresh();
-            element.Scenarios.Refresh();*/
-
-            Repository.AdviseElementChange(element.ElementID);
             return scenario.ScenarioGUID;
         }
 
-        public string addScenarioStep(EA.Repository Repository, string elementGUID, string scenarioGUID, int position, string stepType,
-            string name, string uses, string results, string state)
-        {
-            MessageBox.Show("pridanie kroku do scenara");
-            EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
-
-            for (short i = 0; i < element.Scenarios.Count; i++)
-            {
-                EA.Scenario scenario = (EA.Scenario)element.Scenarios.GetAt(i);
-                MessageBox.Show(scenario.ScenarioGUID + " " + scenarioGUID);
-                if (scenario.ScenarioGUID == scenarioGUID)
-                {
-                    MessageBox.Show("zac if");
-                    EA.ScenarioStep scenarioStep = (EA.ScenarioStep)scenario.Steps.AddNew(name, stepType);
-                    scenarioStep.Uses = uses;
-                    scenarioStep.Results = results;
-                    scenarioStep.State = state;
-                    scenarioStep.Update();
-                    scenario.Steps.Refresh();
-                    element.Scenarios.Refresh();
-                    MessageBox.Show(scenarioStep.StepGUID);
-                    return scenarioStep.StepGUID;
-                }
-            }
-            return "";
-        }       
-
         public string addAttribute(EA.Repository Repository, string elementGUID, string name, string scope)
         {
-            MessageBox.Show("pridanie atributu");
             EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
 
             EA.Attribute attribute = (EA.Attribute)element.Attributes.AddNew(name, "");
@@ -249,6 +241,10 @@ namespace BPAddIn
             attribute.Update();
 
             element.Attributes.Refresh();
+
+            BPAddIn.synchronizationWindow.addToList("Pridanie atribútu '" + name + "' s viditeľnosťou '" + scope 
+                + "' do triedy '" + element.Name + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
+
             return attribute.AttributeGUID;
         }
 
@@ -298,7 +294,7 @@ namespace BPAddIn
                     return "Event";
                 case 19:
                     return "Event";
-                case 20:
+              /*  case 20:
                     return "InteractionFragment";
                 case 21:
                     return "InteractionFragment";
@@ -307,7 +303,7 @@ namespace BPAddIn
                 case 23:
                     return "InteractionFragment";
                 case 24:
-                    return "Sequence";
+                    return "Sequence";*/
                 case 25:
                     return "Component";
                 case 26:
@@ -316,8 +312,14 @@ namespace BPAddIn
                     return "Actor";
                 case 45:
                     return "Note";
-                case 46:
-                    return "InteractionOccurrence";
+            /*    case 46:
+                    return "InteractionOccurrence";*/
+                case 47:
+                    return "Requirement";
+              /*  case 48:
+                    return "Interaction";*/
+                case 49:
+                    return "StateMachine";
                 default:
                     return "";
             }
@@ -384,14 +386,14 @@ namespace BPAddIn
                     return 1;
                 case 19:
                     return 0;
-                case 20:
+              /*  case 20:
                     return 0;
                 case 21:
                     return 1;
                 case 22:
                     return 2;
                 case 23:
-                    return 4;
+                    return 4;*/
                 default:
                     return -1;
             }
@@ -422,6 +424,8 @@ namespace BPAddIn
                     return "Extended::User Interface";
                 case 59:
                     return "Extended::Requirements";
+                case 60:
+                    return "Package";
                 default:
                     return "";
             }
@@ -447,8 +451,8 @@ namespace BPAddIn
                     return "ControlFlow";
                 case 77:
                     return "StateFlow";
-                case 78:
-                    return "Sequence";
+               /* case 78:
+                    return "Sequence";*/
                 case 79:
                     return "Dependency";
                 default:

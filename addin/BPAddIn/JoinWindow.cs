@@ -20,6 +20,7 @@ namespace BPAddIn
             MaximizeBox = false;
             MinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             AcceptButton = btnConfirmNames;
         }
 
@@ -54,6 +55,11 @@ namespace BPAddIn
                     joinService.isConnected(teamPair, this);
                 }
             }            
+        }
+
+        public void closeWindow()
+        {
+            this.Close();
         }
     }
 }

@@ -6,47 +6,50 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Wrapper = TSF.UmlToolingFramework.Wrappers.EA;
 
-namespace BPAddIn
+namespace BPAddIn.SynchronizationPackage
 {
     public class SynchronizationMovements
     {
         
         public Wrapper.Model model;
+        private ItemTypes itemTypes;
+
         public SynchronizationMovements(EA.Repository repository)
         {
             this.model = new Wrapper.Model(repository);
+            this.itemTypes = new ItemTypes(repository);
         }
 
         public void moveElementOrPackageToPackage(EA.Repository repository, string itemGUID, string targetPackageGUID, int elementType)
         {
-            MessageBox.Show("presun do balika");
             EA.Package targetPackage = (EA.Package)repository.GetPackageByGuid(targetPackageGUID);
 
             if (elementType == 3)
             {
                 EA.Package package = (EA.Package)repository.GetPackageByGuid(itemGUID);
-                //EA.Element package = (EA.Element)model.getWrappedModel().GetElementByGuid(itemGUID);
 
                 if (package.ParentID != targetPackage.PackageID)
                 {
-                    MessageBox.Show("presun balika " + package.Name + " " + package.PackageGUID + " do balika " + 
-                        targetPackage.Name + " " + targetPackage.PackageGUID);
                     package.ParentID = targetPackage.PackageID;
                     package.Update();
                     targetPackage.Packages.Refresh();
+                    BPAddIn.synchronizationWindow.addToList("Presun balíka '" + package.Name + "' do balíka '" +
+                    targetPackage.Name + "'");
                 }
             }
             else
             {
                 EA.Element element = (EA.Element)repository.GetElementByGuid(itemGUID);
-                /*if (element.PackageID != targetPackage.PackageID)
-                {*/
-                    MessageBox.Show("presun elementu " + element.Name + " " + element.ElementGUID + 
-                        " do balika " + targetPackage.Name + " " + targetPackage.PackageGUID);
+
+                if (element.ParentID != targetPackage.PackageID)
+                {
                     element.PackageID = targetPackage.PackageID;
                     element.Update();
                     targetPackage.Elements.Refresh();
-                //}
+
+                    BPAddIn.synchronizationWindow.addToList("Presun elementu '" + element.Name + "' do balíka '" +
+                    targetPackage.Name + "'");   
+                }        
             }           
         }
 
@@ -54,31 +57,40 @@ namespace BPAddIn
         {
             EA.Element targetElement = (EA.Element)repository.GetElementByGuid(targetElementGUID);
             EA.Element element = (EA.Element)repository.GetElementByGuid(itemGUID);
-            MessageBox.Show("presun elementu " + element.Name + " do elementu " + targetElement.Name);
-            element.ParentID = targetElement.ElementID;
-            element.Update();
-            targetElement.Elements.Refresh();
+
+            if (element.ParentID != targetElement.ElementID)
+            {
+                element.ParentID = targetElement.ElementID;
+                element.Update();
+                targetElement.Elements.Refresh();
+
+                BPAddIn.synchronizationWindow.addToList("Presun elementu '" + element.Name + "' do elementu '" +
+                   targetElement.Name + "'");
+            }
         }
 
         public void moveDiagramToPackage(EA.Repository Repository, string diagramGUID, string packageGUID)
         {
             EA.Package package = (EA.Package)Repository.GetPackageByGuid(packageGUID);
             EA.Diagram diagram = (EA.Diagram)Repository.GetDiagramByGuid(diagramGUID);
-            MessageBox.Show("presun diagramu " + diagram.Name + " do balika " + package.Name);
             diagram.PackageID = package.PackageID;
             diagram.Update();
             package.Diagrams.Refresh();
+
+            BPAddIn.synchronizationWindow.addToList("Presun diagramu '" + diagram.Name + "' do balíka '" +
+               package.Name + "'");
         }
 
         public void moveDiagramToElement(EA.Repository Repository, string diagramGUID, string elementGUID)
         {
             EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
             EA.Diagram diagram = (EA.Diagram)Repository.GetDiagramByGuid(diagramGUID);
-            MessageBox.Show("presun diagramu " + diagram.Name + " " + diagram.DiagramGUID + 
-                " do elementu " + element.Name + " " + element.ElementGUID);
             diagram.ParentID = element.ElementID;
             diagram.Update();
             element.Diagrams.Refresh();
+
+            BPAddIn.synchronizationWindow.addToList("Presun diagramu '" + diagram.Name + "' do elementu '" +
+                    element.Name + "'");
         }
 
         public void moveElementInDiagram(EA.Repository Repository, string elementGUID, string diagramGUID, string coordinates)
@@ -87,9 +99,6 @@ namespace BPAddIn
             EA.Diagram diagram = (EA.Diagram)Repository.GetDiagramByGuid(diagramGUID);
 
             int left, right, top, bottom, pocet = 0;
-
-            MessageBox.Show("zmena suradnic elementu "  + element.Name + " " + element.ElementGUID + 
-               " v diagrame " + diagram.Name + " " + diagram.DiagramGUID);
 
             Wrapper.Diagram diagramWrapper = new Wrapper.Diagram(model, diagram);
             Wrapper.ElementWrapper elWrapper = new Wrapper.ElementWrapper(model, element);
@@ -128,7 +137,6 @@ namespace BPAddIn
                     if (diagramObj.ElementID != diagramObject.ElementID)
                     {
                         pocet++;
-                        MessageBox.Show("zvyseny pocet je: " + pocet);
                     }
                 }
             }
@@ -144,52 +152,26 @@ namespace BPAddIn
                 {
                     if (diagramObj.ElementID != diagramObject.ElementID)
                     {
-                        MessageBox.Show("naslo: " + el.Name + " " + diagramObj.Sequence + " presuvany" + diagramObject.Sequence);
-                        /*if (diagramObj.Sequence > 1)
-                        {*/
                         diagramObj.Sequence += 1;
-                        //diagramObj.Sequence += diagramObject.Sequence - diagramObj.Sequence;
                         diagramObj.Update();
-                        //}
                     }
                 }
             }
 
+            int parentID = diagram.ParentID;
+            EA.Package package = (EA.Package)Repository.GetPackageByID(diagram.PackageID);
+            if (parentID == 0)
+            {
+                BPAddIn.synchronizationWindow.addToList("Zmena súradníc elementu '" + element.Name + "' v diagrame '" +
+                    diagram.Name + "' (Umiestnenie diagramu: balík '" + package.Name + "')");
+            }
+            else {
+                EA.Element parent = (EA.Element)Repository.GetElementByID(parentID);
+                BPAddIn.synchronizationWindow.addToList("Zmena súradníc elementu '" + element.Name + "' v diagrame '" +
+                    diagram.Name + "' (Umiestnenie diagramu: element '" + parent.Name + "' v balíku '" + package.Name + "')");
+            }
+            
             diagram.DiagramObjects.Refresh();
-        }
-
-
-        /*public void movePackageToPackage(EA.Repository Repository, string packageGUID, string targetPackageGUID)
-        {
-            MessageBox.Show("presun balika do balika");
-            EA.Package package = (EA.Package)Repository.GetPackageByGuid(targetPackageGUID);
-            EA.Package element = (EA.Package)Repository.GetPackageByGuid(packageGUID);
-            element.PackageGUID = package.PackageGUID;
-            element.Update();
-        }*/
-
-        /*public void moveElementToPackage(EA.Repository Repository, string elementGUID, string packageGUID)
-        {
-            MessageBox.Show("presun elementu do balika");
-            EA.Package package = (EA.Package)Repository.GetPackageByGuid(packageGUID);
-            EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
-            element.PackageID = package.PackageID;
-            element.Update();
-        }*/
-
-        /*public void moveElementToElement(EA.Repository Repository, string elementGUID, string targetElementGUID)
-        {
-            MessageBox.Show("presun elementu do elementu " + targetElementGUID);
-
-            EA.Element targetElement = (EA.Element)Repository.GetElementByGuid(targetElementGUID);
-            EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
-            element.ParentID = targetElement.ElementID;
-            element.Update();
-        }*/
-
-        public void moveDiagramObject(EA.Repository Repository, string elementGUID, string diagramGUID, string coordinates)
-        {
-
         }
     }
 }

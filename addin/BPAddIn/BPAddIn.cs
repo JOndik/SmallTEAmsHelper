@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using TSF.UmlToolingFramework.Wrappers.EA;
 using EA;
 using BPAddInTry;
+using BPAddIn.SynchronizationPackage;
 
 namespace BPAddIn
 {
@@ -17,26 +18,13 @@ namespace BPAddIn
         const string menuLoginWindow = "Prihlásenie";
         const string menuDbTest = "&Zobraz okno s detekciou chýb";
         const string menuClassNamesValidation = "&Validácia tried";
-        const string menuJoining = "Spojenie";
+        const string menuJoining = "Pridanie kolegu do tímu";
+        const string menuEndJoining = "Zrušenie tímu";
         const string menuUpdate = "Aktualizácia";
         const string menuOpenProperties = "&Open Properties";
-        //const string menuSynchronization = "Synchronizácia";
-       
-        /*const string menuPridajDiagram = "&Pridaj diagram";
-        const string menuPresunDiagram = "&Presun diagram";
-        const string menuZmenDiagram = "&Zmen diagram";
-        const string menuZmazDiagram = "&Zmaz diagram";
-        //const string menuNajdiMeno = "&Najdi meno";
-        const string menuPridajElement = "&Pridaj element";
-        const string menuPridajSpojenie = "&Pridaj spojenie";
-        const string menuPridajBalik = "&Pridaj balik";
-        const string menuZmenBalik = "&Zmen balik";
-        const string menuPresunBalik = "&Presun balik";
-        const string menuZmazBalik = "&Zmaz balik";*/
-        //const string menuRefresh = "&Refresh";       
-        /*const string menuPridajTriedu = "&Pridaj triedu";
-        const string menuZmazDiagram = "&Zmaz diagram";*/
-        
+        const string menuSynchronization = "Synchronizácia";
+        const string menuSynchronizationWindow = "Zobraz okno so synchronizáciou";
+            
         Dictionary dict;
 
         // the control to add to the add-in window
@@ -44,10 +32,13 @@ namespace BPAddIn
 
         ContextWrapper contextWrapper;
         SynchronizationChanges synchronizationChanges;
-        Synchronization synchronization;
         UpdateService updateService;
         SynchronizationService synchronizationService;
+        JoinService joinService;
         public static DefectsWindow defectsWindow = null;
+        public static SynchronizationWindow synchronizationWindow = null;
+        public static SynchronizationProgressWindow syncProgressWindow = null;
+        public static bool changesAllowed = true;
 
         /// <summary>
         /// constructor where we set the menuheader and menuOptions
@@ -55,11 +46,7 @@ namespace BPAddIn
         public BPAddIn() : base()
         {                                                   
             this.menuHeader = menuName;
-            this.menuOptions = new string[] { /*menuRefresh, menuSynchronization,*/ menuLoginWindow, menuJoining, menuDbTest, /*menuClassNamesValidation,*/ menuUpdate, /*menuOpenProperties*/ };
-                //menuPridajElement, menuPridajSpojenie,
-                //menuPridajBalik, menuZmenBalik, menuPresunBalik, menuZmazBalik, 
-                //menuPridajDiagram, menuZmenDiagram, menuPresunDiagram, menuZmazDiagram, menuRefresh, 
-
+            this.menuOptions = new string[] { menuSynchronization, menuJoining, menuEndJoining, menuSynchronizationWindow, menuDbTest, menuLoginWindow, /*menuClassNamesValidation,*/ menuUpdate, /*menuOpenProperties*/ };
             this.dict = new Dictionary();
             //this.defectsWindow = new DefectsWindow();
         }
@@ -83,8 +70,8 @@ namespace BPAddIn
 
             this.contextWrapper = new ContextWrapper(Repository);
             this.synchronizationService = new SynchronizationService(Repository);
-
-            this.synchronizationChanges = new SynchronizationChanges();
+            this.joinService = new JoinService();
+            this.synchronizationChanges = new SynchronizationChanges(Repository);
 
             return base.EA_Connect(Repository);
         }
@@ -102,18 +89,7 @@ namespace BPAddIn
             if (IsProjectOpen(Repository))
             {
                 switch (ItemName)
-                {
-                    // define the state of the hello menu option                                  
-                    /*case menuHello:
-                        IsEnabled = shouldWeSayHello;
-                        break;
-                    // define the state of the goodbye menu option
-                    case menuGoodbye:
-                        IsEnabled = !shouldWeSayHello;
-                        break;*/
-                    /*case menuOpenProperties:
-                        IsEnabled = true;
-                        break;*/
+                {                  
                     case menuDbTest:
                         IsEnabled = true;
                         break;
@@ -128,49 +104,16 @@ namespace BPAddIn
                         break;
                     case menuJoining:
                         IsEnabled = true;
-                        break; 
-                    /*case menuPridajBalik:
+                        break;          
+                    case menuEndJoining:
                         IsEnabled = true;
                         break;
-                    case menuPridajDiagram:
+                    case menuSynchronization:
                         IsEnabled = true;
                         break;
-                    case menuZmenDiagram:
+                    case menuSynchronizationWindow:
                         IsEnabled = true;
                         break;
-                    case menuZmazDiagram:
-                        IsEnabled = true;
-                        break;
-                    case menuPresunDiagram:
-                        IsEnabled = true;
-                        break;
-                    case menuZmenBalik:
-                        IsEnabled = true;
-                        break;
-                    case menuPresunBalik:
-                        IsEnabled = true;
-                        break;
-                    case menuZmazBalik:
-                        IsEnabled = true;
-                        break;*/
-                    /*case menuRefresh:
-                        IsEnabled = true;
-                        break;*/
-                    /* case menuPridajElement:
-                        IsEnabled = true;
-                        break;
-                    case menuPridajSpojenie:
-                        IsEnabled = true;
-                        break;*/                                    
-                    /*case menuPridajTriedu:
-                        IsEnabled = true;
-                        break;
-                    case menuZmazDiagram:
-                        IsEnabled = true;
-                        break;*/
-                    /*case menuSynchronization:
-                        IsEnabled = true;
-                        break;*/
                     // there shouldn't be any other, but just in case disable it.
                     default:
                         IsEnabled = false;
@@ -200,7 +143,10 @@ namespace BPAddIn
                 
                 case menuJoining:
                     this.showJoinWindow();
-                    break;         
+                    break;    
+                case menuEndJoining:
+                    joinService.isConnectedInternet();
+                    break;
                 /*case menuOpenProperties:
                     this.testPropertiesDialog(Repository);
                     break;*/
@@ -221,56 +167,18 @@ namespace BPAddIn
                     break;                               
                 case menuUpdate:
                     updateService.isConnected();
+                    break;               
+                case menuSynchronization:
+                    //showSynchronizationWindow(Repository);
+                    synchronizationService.checkInternetConnection(Repository);
                     break;
-
-                /*case menuPridajBalik:
-                    synchronization.pridajBalik(Repository, 1);
+                case menuSynchronizationWindow:
+                    if (synchronizationWindow == null)
+                    {
+                        synchronizationWindow = Repository.AddWindow("Synchronizácia", "BPAddIn.SynchronizationPackage.SynchronizationWindow") as SynchronizationWindow;
+                    }
+                    Repository.ShowAddinWindow("Synchronizácia");
                     break;
-                case menuPresunBalik:
-                    synchronization.presunBalik(Repository, 15, 2);
-                    break;
-                case menuZmazBalik:
-                    synchronization.zmazBalik(Repository, 14);
-                    break;
-                case menuZmenBalik:
-                    synchronization.zmenBalik(Repository, 3);
-                    break;
-                case menuPridajDiagram:
-                    synchronization.pridajDiagram(Repository, 23);
-                    break;
-                case menuPresunDiagram:
-                    synchronization.presunDiagram(Repository, 3, 7);
-                    break;
-                case menuZmazDiagram:
-                    synchronization.zmazDiagram(Repository, 7);
-                    break;
-                case menuZmenDiagram:
-                    synchronization.zmenDiagram(Repository, 4);
-                    break; */               
-                /*case menuRefresh:
-                    synchronizationChanges.refresh(Repository);                   
-                    break;*/
-                /*case menuNajdiMeno:
-                    this.najdiMenoPodlaID(Repository);
-                    break;
-                case menuPridajElement:
-                    synchronization.pridajElement(Repository, 1);
-                    break;   
-                case menuPridajSpojenie:
-                    synchronization.pridajSpojenie(Repository, 113, 117);
-                    break;
-                case menuZmen:
-                    this.zmen(Repository, 8);
-                    break;
-                case menuPridajTriedu:
-                    this.pridajTriedu(Repository, 6);
-                    break;
-                case menuZmazDiagram:
-                    this.zmazDiagram(Repository, 22);
-                    break;*/
-                /*case menuSynchronization:
-                    synchronizationService.checkConnectionForSynchronization(Repository);
-                    break;*/
             }
         }
 
@@ -321,7 +229,7 @@ namespace BPAddIn
                 }
 
                 //if (ot == ObjectType.otElement || ot == ObjectType.otDiagram || ot == ObjectType.otPackage || ot == ObjectType.otConnector) {
-                if (synchronizationService.changesAllowed)
+                if (changesAllowed)
                 {
                     contextWrapper.handleContextItemChange(Repository, GUID, ot);
                 }
@@ -332,7 +240,7 @@ namespace BPAddIn
         public override bool EA_OnContextItemDoubleClicked(Repository Repository, string GUID, ObjectType ot)
         {
             try {
-                if (synchronizationService.changesAllowed)
+                if (changesAllowed)
                 {
                     contextWrapper.handleContextItemChange(Repository, GUID, ot);
                 }
@@ -347,7 +255,7 @@ namespace BPAddIn
                 //MessageBox.Show(GUID + " " + Repository.GetElementByGuid(GUID).Type);
 
                 //MessageBox.Show(ot.ToString());
-                if (synchronizationService.changesAllowed)
+                if (changesAllowed)
                 {
                     contextWrapper.handleChange(Repository, GUID, ot);
                     contextWrapper.broadcastEvent(Repository, GUID, ot);
@@ -362,10 +270,10 @@ namespace BPAddIn
         {
             try {
                 EventProperty connectorID = Info.Get("ConnectorID");
-                if (synchronizationService.changesAllowed)
-                {
+                //if (synchronizationService.changesAllowed)
+               // {
                     contextWrapper.handleConnectorCreation(Repository, Convert.ToInt32(connectorID.Value.ToString()));
-                }
+               // }
             }
             catch (Exception) { }
 
@@ -375,7 +283,7 @@ namespace BPAddIn
         {
             try {
                 EventProperty elementID = Info.Get("ElementID");
-                if (synchronizationService.changesAllowed)
+                if (changesAllowed)
                 {
                     contextWrapper.handleElementCreation(Repository, Convert.ToInt32(elementID.Value.ToString()));
                 }
@@ -388,7 +296,7 @@ namespace BPAddIn
         {
             try {
                 EventProperty diagramID = Info.Get("DiagramID");
-                if (synchronizationService.changesAllowed)
+                if (changesAllowed)
                 {
                     contextWrapper.handleDiagramCreation(Repository, Convert.ToInt32(diagramID.Value.ToString()));
                 }
@@ -403,7 +311,7 @@ namespace BPAddIn
                 EventProperty elementID = Info.Get("ID");
                 EventProperty diagramID = Info.Get("DiagramID");
                 EventProperty duID = Info.Get("DUID");
-                if (synchronizationService.changesAllowed)
+                if (changesAllowed)
                 {
                     contextWrapper.handleDiagramObjectCreation(Repository, Convert.ToInt32(elementID.Value.ToString()),
                         Convert.ToInt32(diagramID.Value.ToString()), duID.ToString());
@@ -418,7 +326,7 @@ namespace BPAddIn
             try
             {
                 EventProperty packageID = Info.Get("PackageID");
-                if (synchronizationService.changesAllowed)
+                if (changesAllowed)
                 {
                     contextWrapper.handlePackageCreation(Repository, Convert.ToInt32(packageID.Value.ToString()));
                 }
@@ -431,7 +339,7 @@ namespace BPAddIn
         {
             try {
                 EventProperty attributeID = Info.Get("AttributeID");
-                if (synchronizationService.changesAllowed)
+                if (changesAllowed)
                 {
                     contextWrapper.handleAttributeCreation(Repository, Convert.ToInt32(attributeID.Value.ToString()));
                 }
@@ -443,7 +351,7 @@ namespace BPAddIn
         public override bool EA_OnPreDeletePackage(Repository Repository, EventProperties Info)
         {
             EventProperty packageID = Info.Get("PackageID");
-            if (synchronizationService.changesAllowed)
+            if (changesAllowed)
             {
                 contextWrapper.handlePackageDeletion(Repository, Convert.ToInt32(packageID.Value.ToString()));
             }
@@ -453,7 +361,7 @@ namespace BPAddIn
         {
             try {
                 EventProperty diagramID = Info.Get("DiagramID");
-                if (synchronizationService.changesAllowed)
+                if (changesAllowed)
                 {
                     contextWrapper.handleDiagramDeletion(Repository, Convert.ToInt32(diagramID.Value.ToString()));
                 }
@@ -466,7 +374,7 @@ namespace BPAddIn
         {
             try {
                 EventProperty diagramObjectID = Info.Get("ID");
-                if (synchronizationService.changesAllowed)
+                if (changesAllowed)
                 {
                     contextWrapper.handleDiagramObjectDeletion(Repository, Convert.ToInt32(diagramObjectID.Value.ToString()));
                 }
@@ -479,7 +387,7 @@ namespace BPAddIn
         {
             try {
                 EventProperty elementID = Info.Get("ElementID");
-                if (synchronizationService.changesAllowed)
+                if (changesAllowed)
                 {
                     contextWrapper.handleElementDeletion(Repository, Convert.ToInt32(elementID.Value.ToString()));
                 }
@@ -493,7 +401,7 @@ namespace BPAddIn
         {
             try {
                 EventProperty connectorID = Info.Get("ConnectorID");
-                if (synchronizationService.changesAllowed)
+                if (changesAllowed)
                 {
                     contextWrapper.handleConnectorDeletion(Repository, Convert.ToInt32(connectorID.Value.ToString()));
                 }
@@ -506,7 +414,7 @@ namespace BPAddIn
         {
             try {
                 EventProperty attributeID = Info.Get("AttributeID");
-                if (synchronizationService.changesAllowed)
+                if (changesAllowed)
                 {
                     contextWrapper.handleAttributeDeletion(Repository, Convert.ToInt32(attributeID.Value.ToString()));
                 }

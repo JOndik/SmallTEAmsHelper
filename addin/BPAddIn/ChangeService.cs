@@ -15,6 +15,8 @@ namespace BPAddIn
     public class ChangeService
     {
         public static string userToken = "";
+        public static readonly AutoResetEvent newEvent = new AutoResetEvent(true);
+        //public static ManualResetEvent newEvent = new ManualResetEvent(false);
 
         public void saveChange(ModelChange change)
         {
@@ -74,7 +76,9 @@ namespace BPAddIn
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.ToString());
-                Thread.Sleep(sleepTime);
+                //Thread.Sleep(sleepTime);
+                newEvent.WaitOne(sleepTime);
+                startActivityDispatcher();
             }
         }
 
@@ -90,14 +94,14 @@ namespace BPAddIn
                         modelChanges = context.modelChanges.ToList();
                         modelChanges.AddRange(context.Set<ItemCreation>().ToList());
                         modelChanges.AddRange(context.Set<PropertyChange>().ToList());                     
-                        modelChanges.AddRange(context.Set<ScenarioChange>().ToList());
                         modelChanges.AddRange(context.Set<StepChange>().ToList());
+                        modelChanges.AddRange(context.Set<ScenarioChange>().ToList());
                     }
                 }
 
                 if (modelChanges.Count == 0)
                 {
-                    Thread.Sleep(15 * 1000);
+                    Thread.Sleep(10 * 1000);
                     uploadChanges();
                 }
 
@@ -134,6 +138,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
+                throw new Exception();
                 //MessageBox.Show(ex.ToString());
             }
         }
