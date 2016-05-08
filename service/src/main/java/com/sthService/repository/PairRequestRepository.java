@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface PairRequestRepository extends MongoRepository<TeamPairRequest, String> {
 
     TeamPairRequest findByToken(String token);
+
+    TeamPairRequest findByMemberName(String memberName);
 }

@@ -519,3 +519,6 @@ C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsH
 C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.csproj.GenerateResource.Cache
 C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.dll
 C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsHelper\SmallTEAmsHelper\addin\BPAddIn\obj\Release\BPAddIn.pdb
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.SynchronizationPackage.SynchronizationProgressWindow.resources
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.SynchronizationPackage.SynchronizationWindow.resources
+C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.SynchronizationPackage.SendingDataWindow.resources

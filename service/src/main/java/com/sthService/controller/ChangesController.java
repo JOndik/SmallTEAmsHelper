@@ -1,14 +1,9 @@
 package com.sthService.controller;
 
-import com.sthService.dataContract.DTOWrapper;
-import com.sthService.dataContract.ModelChange;
-import com.sthService.dataContract.SmallTeam;
-import com.sthService.dataContract.User;
-import com.sthService.repository.AuthorizationRepository;
-import com.sthService.repository.SmallTeamRepository;
+import com.sthService.dataContract.*;
 import com.sthService.service.AuthorizationService;
 import com.sthService.service.ModelChangeService;
-import com.sthService.service.SynchronizationService;
+import com.sthService.service.SmallTeamService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -30,13 +25,13 @@ public class ChangesController {
     private AuthorizationService authorizationService;
 
     @Inject
-    private AuthorizationRepository authorizationRepository;
+    private SmallTeamService smallTeamService;
 
     @Inject
-    private SynchronizationService synchronizationService;
+    private ProcessChangesController processChangesController;
 
     @Inject
-    private SmallTeamRepository smallTeamRepository;
+    private CorrModelController corrModelController;
 
     private final Logger log = LoggerFactory.getLogger(ChangesController.class);
 
@@ -51,27 +46,37 @@ public class ChangesController {
 
         if (newChange.getModelChange().getElementType() != 777) {                           //koncova sprava pri posielani celeho modelu ma elementType 777
             modelChangeService.saveChange(user.getName(), newChange.getModelChange());
-            SmallTeam smallTeam = smallTeamRepository.findByNestedUserId(user.getId());
+            SmallTeam smallTeam = smallTeamService.getByUserId(user.getId());
             if ((newChange.getModelChange().getModelGUID()).equals(user.getModelGUID()) && smallTeam != null){
-                synchronizationService.processChange(newChange.getModelChange(), user);
+                processChangesController.processChange(newChange.getModelChange(), user);
             }
         } else {
+            if (user.isAllModelData()){
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
             user.setAllModelData(true);
             user.setModelGUID(newChange.getModelChange().getModelGUID());
-            authorizationRepository.save(user);
-            synchronizationService.checkOtherTeamMembers(user);
+            authorizationService.updateUser(user);
+            corrModelController.checkOtherTeamMembers(user);
         }
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //@RequestMapping(value = "", method = RequestMethod.GET)
-    /*@RequestMapping(value = "/{timestamp}", method = RequestMethod.GET)           // v browseri 8080/changes/12345
-    public List<ModelChange> fetchAllChange(@PathVariable String timestamp) {
-        log.warn(timestamp);                                                        //napise warn 12345
-        return modelChangeService.fetchAllChanges();
-
-    }*/
+    @RequestMapping(value = "/lastCreate", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> findLastCreate(@RequestBody ModelInformation modelInformation) {
+        log.info("Last create found: user with token " + modelInformation.getToken());
+        User user = authorizationService.getUserByToken(modelInformation.getToken());
+        if (user == null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } else {
+            if (user.getModelGUID().equals(modelInformation.getModelGUID())) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<ModelChange> fetchAllChange() {

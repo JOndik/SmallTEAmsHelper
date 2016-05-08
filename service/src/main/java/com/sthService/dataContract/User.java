@@ -23,9 +23,6 @@ public class User {
     private String token;
 
     @NotNull
-    private String lastSynchronizationTime;
-
-    @NotNull
     private String modelGUID;
 
     @NotNull
@@ -61,14 +58,6 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getLastSynchronizationTime() {
-        return lastSynchronizationTime;
-    }
-
-    public void setLastSynchronizationTime(String lastSynchronizationTime) {
-        this.lastSynchronizationTime = lastSynchronizationTime;
     }
 
     public String getModelGUID() {

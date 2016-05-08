@@ -20,6 +20,7 @@ namespace BPAddIn
             MaximizeBox = false;
             MinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             AcceptButton = btnLogIn;
         }
 
@@ -32,8 +33,8 @@ namespace BPAddIn
                 result = logInService.checkConnection(tfPrihlasMeno.Text, pfHeslo.Text);
                 if (("noconnection").Equals(result))
                 {
-                    MessageBox.Show("Chyba internetového pripojenia.");
                     this.Close();
+                    MessageBox.Show("Server je nedostupný. Skontrolujte si internetového pripojenie.");
                 }
                 else if (("false").Equals(result))
                 {
@@ -42,13 +43,13 @@ namespace BPAddIn
                 }
                 else if (("error").Equals(result))
                 {
-                    MessageBox.Show("Nastala chyba na serveri.");
                     this.Close();
+                    MessageBox.Show("Nastala chyba na serveri.");                   
                 }
                 else
                 {
-                    MessageBox.Show("Boli ste úspešne prihlásený. Pri ďalšom zapnutí EA sa už nemusíte prihlasovať.");
                     this.Close();
+                    MessageBox.Show("Boli ste úspešne prihlásený. Pri ďalšom zapnutí EA sa už nemusíte prihlasovať.");
                 }
             }
             else

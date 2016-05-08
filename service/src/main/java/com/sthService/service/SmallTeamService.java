@@ -31,4 +31,8 @@ public class SmallTeamService {
         smallTeam.setSynchronizationAllowed(false);
         smallTeamRepository.save(smallTeam);
     }
+
+    public void deleteSmallTeam(SmallTeam smallTeam){
+        smallTeamRepository.delete(smallTeam);
+    }
 }

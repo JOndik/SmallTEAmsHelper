@@ -17,16 +17,32 @@ public class ModelChangeService {
     @Inject
     private ModelChangeRepository modelChangeRepository;
 
-    private final Logger log = LoggerFactory.getLogger(ModelChangeService.class);
-
     public void saveChange(String username, ModelChange newChange) {
-        //log.info(((PropertyChange)newChange).getPropertyBody());
-
         newChange.setUserName(username);
         modelChangeRepository.save(newChange);
     }
 
     public List<ModelChange> fetchAllChanges() {
         return modelChangeRepository.findAll();
+    }
+
+    public List<ModelChange> findModelData(String timestamp){
+        return modelChangeRepository.findByTimestamp(timestamp);
+    }
+
+    public ModelChange getChangeById(String id){
+        return modelChangeRepository.findById(id);
+    }
+
+    public List<ModelChange> getChangesByUsernameAndTimestamp(String userName, String timestamp){
+        return modelChangeRepository.findByUserNameAndTimestamp(userName, timestamp);
+    }
+
+    public void updateModelChange(ModelChange modelChange){
+        modelChangeRepository.save(modelChange);
+    }
+
+    public void deleteModelChange(ModelChange modelChange){
+        modelChangeRepository.delete(modelChange);
     }
 }

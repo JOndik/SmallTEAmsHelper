@@ -481,15 +481,32 @@ namespace BPAddIn
                     changeService.saveChange(propertyChange);
                     currentAttributes[attr.AttributeGUID].Name = attr.Name;
                 }
+
+                // check scope
                 if (currentAttribute.Visibility != attr.Visibility)
                 {
                     PropertyChange propertyChange = new PropertyChange();
                     propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
-                    propertyChange.itemGUID = attr.AttributeGUID; ;
+                    propertyChange.itemGUID = attr.AttributeGUID;
                     propertyChange.elementType = 90;
                     propertyChange.propertyType = 300;
                     propertyChange.propertyBody = attr.Visibility;
                     propertyChange.oldPropertyBody = currentAttribute.Visibility;
+
+                    changeService.saveChange(propertyChange);
+                    currentAttributes[attr.AttributeGUID].Visibility = attr.Visibility;
+                }
+
+                // check notes
+                if (currentAttribute.Notes != attr.Notes)
+                {
+                    PropertyChange propertyChange = new PropertyChange();
+                    propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
+                    propertyChange.itemGUID = attr.AttributeGUID;
+                    propertyChange.elementType = 90;
+                    propertyChange.propertyType = 2;
+                    propertyChange.propertyBody = attr.Notes;
+                    propertyChange.oldPropertyBody = currentAttribute.Notes;
 
                     changeService.saveChange(propertyChange);
                     currentAttributes[attr.AttributeGUID].Visibility = attr.Visibility;
@@ -591,7 +608,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -611,14 +628,18 @@ namespace BPAddIn
                 itemCreation.name = el.Name;
                 itemCreation.parentGUID = "0";
 
-                /*if (el.ParentID != 0)
+                if (itemTypes.getElementType(el.ElementGUID) != 6 && 
+                    (itemTypes.getElementType(el.ElementGUID) < 30 || itemTypes.getElementType(el.ElementGUID) > 44))
                 {
-                    EA.Element parent = repository.GetElementByID(el.ParentID);
-                    if (parent != null)
+                    if (el.ParentID != 0)
                     {
-                        itemCreation.parentGUID = parent.ElementGUID;
+                        EA.Element parent = repository.GetElementByID(el.ParentID);
+                        if (parent != null)
+                        {
+                            itemCreation.parentGUID = parent.ElementGUID;
+                        }
                     }
-                }*/
+                }
 
                 EA.Package package = repository.GetPackageByID(el.PackageID);
                 if (package != null)
@@ -681,7 +702,7 @@ namespace BPAddIn
                 /*if (changedPositionDiagram.ParentID == 0)
                 {*/
                     //MessageBox.Show("tu");
-                MessageBox.Show(changedPositionDiagram.ParentID.ToString());
+                //MessageBox.Show(changedPositionDiagram.ParentID.ToString());
                 EA.Package targetPackage = model.getWrappedModel().GetPackageByID(changedDiagram.PackageID);
 
                 if (changedDiagram.ParentID != 0)
@@ -709,7 +730,7 @@ namespace BPAddIn
                     propertyChange.propertyType = 404;
                     propertyChange.propertyBody = targetElement.ElementGUID;*/
                 //}
-                MessageBox.Show("save");
+                //MessageBox.Show("save");
                 changeService.saveChange(propertyChange);
             }
 
@@ -893,7 +914,7 @@ namespace BPAddIn
                 PropertyChange modelChange = new PropertyChange();
                 modelChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 modelChange.itemGUID = diagram.DiagramGUID;
-                modelChange.elementType = 50;
+                modelChange.elementType = itemTypes.getDiagramType(diagram.DiagramGUID); ;
                 modelChange.elementDeleted = 1;
 
                 changeService.saveChange(modelChange);
@@ -965,7 +986,7 @@ namespace BPAddIn
                 PropertyChange modelChange = new PropertyChange();
                 modelChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 modelChange.itemGUID = element.ElementGUID;
-                modelChange.elementType = 0;
+                modelChange.elementType = itemTypes.getElementType(element.ElementGUID); ;
                 modelChange.elementDeleted = 1;
 
                 changeService.saveChange(modelChange);
@@ -989,30 +1010,30 @@ namespace BPAddIn
                 EA.Connector connector = repository.GetConnectorByID(connectorID);
                 EA.Element sourceElement = (EA.Element)repository.GetElementByID(connector.ClientID);
 
-                string sqlGetDiagram = @"select do.Diagram_ID from t_diagramobjects do
+                /*string sqlGetDiagram = @"select do.Diagram_ID from t_diagramobjects do
                                         inner join t_object o on do.Object_ID = o.Object_ID
                                         where o.Object_ID="+sourceElement.ElementID;
 
                 Wrapper.Model model = new Wrapper.Model(repository);
-                List<Wrapper.Diagram> diagrams = model.getDiagramsByQuery(sqlGetDiagram);
+                List<Wrapper.Diagram> diagrams = model.getDiagramsByQuery(sqlGetDiagram);*/
 
                 PropertyChange modelChange = new PropertyChange();
                 modelChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 modelChange.itemGUID = connector.ConnectorGUID;
-                modelChange.elementType = 70;
+                modelChange.elementType = itemTypes.getConnectorType(connector.ConnectorGUID);
                 modelChange.elementDeleted = 1;
 
-                if (diagrams.Count > 0)
+                /*if (diagrams.Count > 0)
                 {
                     Wrapper.Diagram diagram = diagrams.ElementAt(0);
                     modelChange.propertyBody = diagram.diagramGUID;
-                }
+                }*/
 
                 changeService.saveChange(modelChange);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -1246,7 +1267,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -1338,12 +1359,10 @@ namespace BPAddIn
                     if (!changedDict.ContainsKey(scenario.Key))
                     {
                         EA.Scenario eaScenario = scenario.Value.scenario;
-                        ScenarioChange scenarioChange = new ScenarioChange();
+                        StepChange scenarioChange = new StepChange();
                         scenarioChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                         scenarioChange.itemGUID = GUID;
                         scenarioChange.elementType = itemTypes.getElementType(GUID);
-                        scenarioChange.name = eaScenario.Name;
-                        scenarioChange.type = eaScenario.Type;
                         scenarioChange.status = 0;
                         scenarioChange.scenarioGUID = eaScenario.ScenarioGUID;
 
@@ -1358,19 +1377,20 @@ namespace BPAddIn
                     {
                         // pridaj scenar
                         EA.Scenario eaScenario = scenario.Value.scenario;
-                        ScenarioChange scenarioChange = new ScenarioChange();
+                        StepChange scenarioChange = new StepChange();
                         scenarioChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                         scenarioChange.itemGUID = GUID;
                         scenarioChange.elementType = itemTypes.getElementType(GUID);
                         scenarioChange.name = eaScenario.Name;
-                        scenarioChange.type = eaScenario.Type;
+                        scenarioChange.stepType = eaScenario.Type;
                         scenarioChange.status = 1;
                         scenarioChange.scenarioGUID = eaScenario.ScenarioGUID;
+                        scenarioChange.state = eaScenario.XMLContent;
 
                         changeService.saveChange(scenarioChange);
 
                         // pridaj jeho kroky
-                        foreach (EA.ScenarioStep step in eaScenario.Steps)
+                        /*foreach (EA.ScenarioStep step in eaScenario.Steps)
                         {
                             StepChange stepChange = new StepChange();
                             stepChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
@@ -1397,7 +1417,7 @@ namespace BPAddIn
                             }
 
                             changeService.saveChange(stepChange);
-                        }
+                        }*/
                     }
                     else
                     {
@@ -1408,14 +1428,15 @@ namespace BPAddIn
                             EA.Scenario eaCurrentScenario = currentDict[scenario.Key].scenario;
                             bool wasChanged = false;
 
-                            ScenarioChange changedScenario = new ScenarioChange();
+                            StepChange changedScenario = new StepChange();
                             changedScenario.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                             changedScenario.itemGUID = GUID;
                             changedScenario.elementType = itemTypes.getElementType(GUID);
                             changedScenario.status = 2;
                             changedScenario.scenarioGUID = eaChangedScenario.ScenarioGUID;
                             changedScenario.name = eaChangedScenario.Name;
-                            changedScenario.type = eaChangedScenario.Type;
+                            changedScenario.stepType = eaChangedScenario.Type;
+                            changedScenario.state = eaChangedScenario.XMLContent;
 
                             /*ScenarioChange currentScenario = new ScenarioChange();
                             currentScenario.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
@@ -1435,7 +1456,13 @@ namespace BPAddIn
                             if (eaChangedScenario.Type != eaCurrentScenario.Type)
                             {
                                 wasChanged = true;
-                                changedScenario.type = eaCurrentScenario.Type;
+                                changedScenario.stepType = eaChangedScenario.Type;
+                            }
+
+                            if (eaChangedScenario.XMLContent != eaCurrentScenario.XMLContent)
+                            {
+                                wasChanged = true;
+                                changedScenario.state = eaChangedScenario.XMLContent;
                             }
 
                             if (wasChanged)
@@ -1444,7 +1471,7 @@ namespace BPAddIn
                                 changeService.saveChange(changedScenario);
                             }
 
-                            Dictionary<string, EA.ScenarioStep> changedSteps = new Dictionary<string, ScenarioStep>();
+                            /*Dictionary<string, EA.ScenarioStep> changedSteps = new Dictionary<string, ScenarioStep>();
                             foreach (EA.ScenarioStep step in eaChangedScenario.Steps)
                             {
                                 if (!changedSteps.ContainsKey(step.StepGUID))
@@ -1621,7 +1648,7 @@ namespace BPAddIn
                                         changeService.saveChange(stepChange);
                                     }
                                 }
-                            }
+                            }*/
                         }
                         catch (Exception ex)
                         {

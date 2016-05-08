@@ -32,6 +32,11 @@ public class PairRequestService {
         return pairRequestRepository.findByToken(pairToken);
     }
 
+    public TeamPairRequest getPairRequestByMemberName(String memberName) {
+        return pairRequestRepository.findByMemberName(memberName);
+    }
+
+
     public void deleteRequest(TeamPairRequest request) {
         pairRequestRepository.delete(request);
     }
