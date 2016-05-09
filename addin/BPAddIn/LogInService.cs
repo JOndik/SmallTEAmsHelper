@@ -14,14 +14,8 @@ namespace BPAddIn
         {
             try
             {
-                //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
-                //System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-
                 using (WebClient webClient = new WebClient())
-                {
-                    /*System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };*/
-                    
+                {                   
                     using (var stream = webClient.OpenRead(Utils.serviceAddress))
                     {
                         stream.Close();

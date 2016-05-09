@@ -1,0 +1,17 @@
+{
+name: 'Flow between decision node and activity should contain guard',
+element: {
+             type: 'ControlFlow',
+             stereotype: '*'
+	 },
+attribute: {
+  	     type: 'TransitionGuard',
+	     stereotype: '-'
+	   },
+content: {
+		 defectMsg: 'Chybajuci GUARD pre prechod, ktory smeruje do aktivity "{0}".',
+	     valid: 'getTransitionGuard',
+	     correct: 'setTransitionGuard(podmienka)',
+		 cond: 'Connector.getSrcType(Decision)&Connector.getTargetType(Activity)'
+	 }
+}

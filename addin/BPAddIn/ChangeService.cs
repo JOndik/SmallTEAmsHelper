@@ -16,7 +16,6 @@ namespace BPAddIn
     {
         public static string userToken = "";
         public static readonly AutoResetEvent newEvent = new AutoResetEvent(true);
-        //public static ManualResetEvent newEvent = new ManualResetEvent(false);
 
         public void saveChange(ModelChange change)
         {
@@ -31,10 +30,7 @@ namespace BPAddIn
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void startActivityDispatcher()
@@ -75,8 +71,6 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString());
-                //Thread.Sleep(sleepTime);
                 newEvent.WaitOne(sleepTime);
                 startActivityDispatcher();
             }
@@ -116,7 +110,6 @@ namespace BPAddIn
                     {
                         webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
                         dtoWrapper.modelChange = change;
-                        //data = Encoding.UTF8.GetString(Encoding.Unicode.GetBytes(dtoWrapper.serialize()));
                         data = EncodeNonAsciiCharacters(dtoWrapper.serialize());
                         result = webClient.UploadString(Utils.serviceAddress + "/changes", data);
 
@@ -139,7 +132,6 @@ namespace BPAddIn
             catch (Exception ex)
             {
                 throw new Exception();
-                //MessageBox.Show(ex.ToString());
             }
         }
 

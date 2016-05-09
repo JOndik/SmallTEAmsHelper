@@ -294,16 +294,6 @@ namespace BPAddIn.SynchronizationPackage
                     return "Event";
                 case 19:
                     return "Event";
-              /*  case 20:
-                    return "InteractionFragment";
-                case 21:
-                    return "InteractionFragment";
-                case 22:
-                    return "InteractionFragment";
-                case 23:
-                    return "InteractionFragment";
-                case 24:
-                    return "Sequence";*/
                 case 25:
                     return "Component";
                 case 26:
@@ -312,12 +302,8 @@ namespace BPAddIn.SynchronizationPackage
                     return "Actor";
                 case 45:
                     return "Note";
-            /*    case 46:
-                    return "InteractionOccurrence";*/
                 case 47:
                     return "Requirement";
-              /*  case 48:
-                    return "Interaction";*/
                 case 49:
                     return "StateMachine";
                 default:
@@ -386,14 +372,6 @@ namespace BPAddIn.SynchronizationPackage
                     return 1;
                 case 19:
                     return 0;
-              /*  case 20:
-                    return 0;
-                case 21:
-                    return 1;
-                case 22:
-                    return 2;
-                case 23:
-                    return 4;*/
                 default:
                     return -1;
             }
@@ -451,8 +429,6 @@ namespace BPAddIn.SynchronizationPackage
                     return "ControlFlow";
                 case 77:
                     return "StateFlow";
-               /* case 78:
-                    return "Sequence";*/
                 case 79:
                     return "Dependency";
                 default:

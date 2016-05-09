@@ -43,10 +43,7 @@ namespace BPAddIn
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void startActivityDispatcher()
@@ -87,7 +84,6 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString());
                 Thread.Sleep(sleepTime);
             }
         }
@@ -121,7 +117,6 @@ namespace BPAddIn
                     {
                         webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
                         defectReport.userToken = userToken;
-                        //data = Encoding.UTF8.GetString(Encoding.Unicode.GetBytes(dtoWrapper.serialize()));
                         data = EncodeNonAsciiCharacters(defectReport.serialize());
                         result = webClient.UploadString(Utils.serviceAddress + "/defectReports", data);
 
@@ -141,10 +136,7 @@ namespace BPAddIn
 
                 uploadReports();
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public static string EncodeNonAsciiCharacters(string value)

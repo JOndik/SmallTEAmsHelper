@@ -1,0 +1,17 @@
+{
+name: 'Association between classes should not be missing',
+element: {
+             type: 'StateFlow',
+             stereotype: '*'
+	 },
+attribute: {
+  	     type: 'Name',
+	     stereotype: '-'
+	   },
+content: {
+		 defectMsg: 'Chybajuci nazov prechodu medzi stavmi "{0}" a "{1}".',
+	     valid: 'getName',
+	     correct: 'setName(prechod)',
+		 cond: 'Connector.getSrcType(State)&Connector.getTargetType(State)'
+	 }
+}

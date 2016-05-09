@@ -1,0 +1,16 @@
+{
+name: 'Name of activity diagram initial node should be defined',
+element: {
+             type: 'StateNode',
+             stereotype: '*'
+	 },
+attribute: {
+  	     type: 'Name',
+	     stereotype: '-'
+	   },
+content: {
+		 defectMsg: 'Chybajuci nazov uzla.',
+	     valid: 'getName',
+	     correct: 'setName(pociatocny uzol)',
+	 }
+}

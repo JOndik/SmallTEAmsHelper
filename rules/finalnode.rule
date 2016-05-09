@@ -1,0 +1,16 @@
+{
+name: 'There should be at least one initial node in activity diagram',
+element: {
+             type: 'Activity',
+             stereotype: '*'
+	 },
+attribute: {
+  	     type: 'FinalNode',
+	     stereotype: '-'
+	   },
+content: {
+		 defectMsg: 'Chybajuci koncovy uzol v diagrame "{0}".',
+	     valid: 'checkFinalNode',
+	     correct: 'createFinalNode'
+	 }
+}

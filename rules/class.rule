@@ -1,0 +1,16 @@
+{
+name: 'Class name should be noun',
+element: {
+             type: 'Class',
+             stereotype: '*'
+	 },
+attribute: {
+  	     type: 'Name',
+	     stereotype: '-'
+	   },
+content: {
+		 defectMsg: 'Nespravny nazov pre triedu "{0}".',
+	     valid: 'dict.getWord(Name).isNoun',
+	     correct: 'setName(dict.getBaseNoun(Name))'
+	 }
+}

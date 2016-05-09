@@ -1,0 +1,16 @@
+{
+name: 'Use case extension points should be equal to amount of connectors with extension relationship',
+element: {
+             type: 'UseCase',
+             stereotype: '*'
+	 },
+attribute: {
+  	     type: 'ExtensionPoints',
+	     stereotype: '-'
+	   },
+content: {
+		 defectMsg: 'Varovanie: Chybajuce body rozsirenia v pripade pouzitia "{0}".',
+	     valid: 'getExtensionPointsCount=Connector.getStereotypeCount(extend)',
+	     correct: 'setExtensionPointsCount(Connector.getStereotypeCount(extend))'
+	 }
+}

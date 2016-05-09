@@ -1,0 +1,17 @@
+{
+name: 'Include relation should be referenced in scenario steps',
+element: {
+             type: 'UseCase',
+             stereotype: '*'
+	 },
+attribute: {
+  	     type: 'Scenarios',
+	     stereotype: '-'
+	   },
+content: {
+		 defectMsg: 'Chybajuca referencia na vztah include z pripadu pouzitia "{0}" na pripad pouzitia "{1}".',
+	     valid: 'checkIncludeInScenario',
+	     correct: 'addIncludeToScenario',
+		 cond: 'Scenario.hasAny'
+	 }
+}

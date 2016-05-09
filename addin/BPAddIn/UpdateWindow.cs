@@ -56,13 +56,6 @@ namespace BPAddInTry
             }
 
             string arguments = string.Format("\"{0}\"", addInPath);
-            //Process proc = new Process();
-            /*proc.StartInfo.WorkingDirectory = string.Format(extractPath);
-            proc.StartInfo.FileName = "update.bat";
-            proc.StartInfo.CreateNoWindow = false;
-            //proc.StartInfo.Arguments = string.Format("\"{0}\"\\", addInPath);
-            proc.StartInfo.UseShellExecute = true;
-            proc.StartInfo.Verb = "runas";*/
             Process.Start(string.Format(extractPath) + "\\update.bat", arguments);
 
             Process.GetProcessesByName("EA")[0].CloseMainWindow();

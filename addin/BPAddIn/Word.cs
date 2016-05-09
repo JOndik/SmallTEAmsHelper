@@ -19,6 +19,16 @@ namespace BPAddIn
         public string word { get; set; }
 
         [Column(name: "flags")]
-        public string flag { get; set; }
+        public string flags { get; set; }
+
+        public bool hasFlag(char flag)
+        {
+            if (flag == 'N')
+            {
+                return flags[0] == 'S';
+            }
+
+            return flags[0] == flag;
+        }
     }
 }

@@ -40,7 +40,6 @@ namespace BPAddIn.SynchronizationPackage
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            //progressBar1.BeginInvoke((MethodInvoker)delegate() { progressBar1.Visible = true; });
             btnStart.Visible = false;
             btnBack.Visible = false;
             lbSend.Visible = false;
@@ -48,20 +47,12 @@ namespace BPAddIn.SynchronizationPackage
             lbWait.Text = "Prosím, počkajte. Prebieha posielanie dát o modeli.";
             lbWait.Refresh();
 
-            //new Thread( () => synchronizationService.sendDataAboutModel(this, repository)).Start(); 
             synchronizationService.sendDataAboutModel(this, repository);
-
-            //progressBar1.BeginInvoke((MethodInvoker)delegate() { progressBar1.Visible = false; });
-            
-            //btnConfirm.Visible = true;
         }
 
         public void setVisible(bool visible)
         {
             btnConfirm.BeginInvoke((MethodInvoker)delegate() { btnConfirm.Visible = visible; });
-            lbWait.BeginInvoke((MethodInvoker)delegate() { lbWait.Text = "Posielanie dát bolo úspešne ukončené."; });
-            //progressBar1.BeginInvoke((MethodInvoker)delegate() { progressBar1.Visible = visible; });
-            //progressBar1.BeginInvoke((MethodInvoker)delegate() { progressBar1.Visible = false; });
         }
 
         public void showMessage()
