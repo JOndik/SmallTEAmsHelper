@@ -39,16 +39,6 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
-       /* public void addStep()
-        {
-            progressBar.BeginInvoke((MethodInvoker)delegate () { progressBar.PerformStep(); });
-        }
-
-        public void setMaximum(int number)
-        {
-            progressBar.BeginInvoke((MethodInvoker)delegate() { progressBar.Maximum = number; });
-        }*/
-
         private void btnOK_Click(object sender, EventArgs e)
         {
             this.Close();

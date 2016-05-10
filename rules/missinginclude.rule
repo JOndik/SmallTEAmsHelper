@@ -1,0 +1,17 @@
+{
+name: 'Referenced include dependency should be shown with connector',
+element: {
+             type: 'UseCase',
+             stereotype: '*'
+	 },
+attribute: {
+  	     type: 'Scenarios',
+	     stereotype: '-'
+	   },
+content: {
+		 defectMsg: 'Chybajuci vztah include z pripadu pouzitia "{0}" na pripad pouzitia "{1}".',
+	     valid: 'checkIncludeDependency',
+	     correct: 'addIncludeDependency',
+		 cond: 'Scenario.hasAny'
+	 }
+}

@@ -55,9 +55,9 @@ namespace BPAddIn
                     {
                         if (isAdmin() == true)
                         {
-                                //MessageBox.Show("admin - chcete aktualizovat? " + Path.GetTempPath() + " " + AppDomain.CurrentDomain.BaseDirectory);
-                                DialogResult dialogResult = MessageBox.Show("K dispozícii je update. Chcete ho nainštalovať?", 
-                                "Update rozšírenia", MessageBoxButtons.YesNo);
+                                DialogResult dialogResult = MessageBox.Show("K dispozícii je update. Chcete ho nainštalovať?",
+                                    "Update rozšírenia", MessageBoxButtons.YesNo);
+
                                 if (dialogResult == DialogResult.Yes)
                                 {
                                     string addInPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -85,20 +85,8 @@ namespace BPAddIn
                                     }
 
                                     string arguments = string.Format("\"{0}\"", addInPath);
-                                    //Process proc = new Process();
-                                    /*proc.StartInfo.WorkingDirectory = string.Format(extractPath);
-                                    proc.StartInfo.FileName = "update.bat";
-                                    proc.StartInfo.CreateNoWindow = false;
-                                    //proc.StartInfo.Arguments = string.Format("\"{0}\"\\", addInPath);
-                                    proc.StartInfo.UseShellExecute = true;
-                                    proc.StartInfo.Verb = "runas";*/
                                     Process.Start(string.Format(extractPath) + "\\update.bat", arguments);
-
                                     Process.GetProcessesByName("EA")[0].CloseMainWindow();
-
-                                    /*UpdateWindow updateWindow = new UpdateWindow();
-                                    updateWindow.Show();
-                                    updateWindow.startDownload();*/
                                 }
                                 else
 	                            {
@@ -114,11 +102,7 @@ namespace BPAddIn
                         MessageBox.Show("Používate aktuálnu verziu rozšírenia.");
                     }           
                 }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show("Vyskytol sa problém. Skontrolujte internetové pripojenie.");
-                    //MessageBox.Show(ex.ToString());
-                }                             
+                catch (Exception ex) { }                             
             }
         }
 
@@ -225,10 +209,7 @@ namespace BPAddIn
                     this.editVersion(newVersion);
                 }
             }
-            catch(Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch(Exception ex) { }
         }
 
         public void editVersion(double actualVersion)

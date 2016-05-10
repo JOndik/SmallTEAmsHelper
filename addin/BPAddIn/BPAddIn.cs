@@ -27,9 +27,6 @@ namespace BPAddIn
             
         Dictionary dict;
 
-        // the control to add to the add-in window
-        //private MyEAControl eaControl;
-
         ContextWrapper contextWrapper;
         SynchronizationChanges synchronizationChanges;
         UpdateService updateService;
@@ -46,9 +43,8 @@ namespace BPAddIn
         public BPAddIn() : base()
         {                                                   
             this.menuHeader = menuName;
-            this.menuOptions = new string[] { menuSynchronization, menuJoining, menuEndJoining, menuSynchronizationWindow, menuDbTest, menuLoginWindow, /*menuClassNamesValidation,*/ menuUpdate, /*menuOpenProperties*/ };
+            this.menuOptions = new string[] { menuSynchronization, menuJoining, menuEndJoining, menuSynchronizationWindow, menuDbTest, menuLoginWindow, menuUpdate };
             this.dict = new Dictionary();
-            //this.defectsWindow = new DefectsWindow();
         }
         /// <summary>
         /// EA_Connect events enable Add-Ins to identify their type and to respond to Enterprise Architect start up.
@@ -138,30 +134,20 @@ namespace BPAddIn
         public override void EA_MenuClick(EA.Repository Repository, string Location, string MenuName, string ItemName)
         {
             switch (ItemName)
-            {
-                // user has clicked the menuHello menu option
-                
+            {              
                 case menuJoining:
                     this.showJoinWindow();
                     break;    
                 case menuEndJoining:
                     joinService.isConnectedInternet();
                     break;
-                /*case menuOpenProperties:
-                    this.testPropertiesDialog(Repository);
-                    break;*/
                 case menuDbTest:
-                    //MessageBox.Show(dict.testSelect());
                     if (defectsWindow == null)
                     {
                         defectsWindow = Repository.AddWindow("Detekované chyby", "BPAddIn.DefectsWindow") as DefectsWindow;
                     }
                     Repository.ShowAddinWindow("Detekované chyby");
                     break;
-                /*case menuClassNamesValidation:
-                    //MessageBox.Show(Location);
-                    traverseModel(Repository);
-                    break;*/
                 case menuLoginWindow:
                     showLoginWindow();
                     break;                               
@@ -169,7 +155,6 @@ namespace BPAddIn
                     updateService.isConnected();
                     break;               
                 case menuSynchronization:
-                    //showSynchronizationWindow(Repository);
                     synchronizationService.checkInternetConnection(Repository);
                     break;
                 case menuSynchronizationWindow:
@@ -228,12 +213,10 @@ namespace BPAddIn
                     return;
                 }
 
-                //if (ot == ObjectType.otElement || ot == ObjectType.otDiagram || ot == ObjectType.otPackage || ot == ObjectType.otConnector) {
                 if (changesAllowed)
                 {
                     contextWrapper.handleContextItemChange(Repository, GUID, ot);
                 }
-                //}
             }
             catch (Exception) { }
         }
@@ -252,28 +235,19 @@ namespace BPAddIn
         public override void EA_OnNotifyContextItemModified(EA.Repository Repository, string GUID, EA.ObjectType ot)
         {
             try {
-                //MessageBox.Show(GUID + " " + Repository.GetElementByGuid(GUID).Type);
-
-                //MessageBox.Show(ot.ToString());
                 if (changesAllowed)
                 {
                     contextWrapper.handleChange(Repository, GUID, ot);
                     contextWrapper.broadcastEvent(Repository, GUID, ot);
                 }
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
         public override bool EA_OnPostNewConnector(Repository Repository, EventProperties Info)
         {
             try {
                 EventProperty connectorID = Info.Get("ConnectorID");
-                //if (synchronizationService.changesAllowed)
-               // {
-                    contextWrapper.handleConnectorCreation(Repository, Convert.ToInt32(connectorID.Value.ToString()));
-               // }
+                contextWrapper.handleConnectorCreation(Repository, Convert.ToInt32(connectorID.Value.ToString()));
             }
             catch (Exception) { }
 

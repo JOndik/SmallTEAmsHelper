@@ -30,7 +30,6 @@ namespace BPAddIn
         Dictionary<string, string> currentExtensionPoints { get; set; }
         Dictionary<string, EA.Attribute> currentAttributes { get; set; }
         Dictionary<int, string> currentDiagramObjectPositions { get; set; }
-        //Dictionary<int, int> currentDiagramObjectSequences { get; set; }
         public string currentAuthor { get; set; }
         private ChangeService changeService;
         private RuleService ruleService;
@@ -55,9 +54,7 @@ namespace BPAddIn
                 switch (ot)
                 {
                     case ObjectType.otElement:
-                        //this.currentItem = (Wrapper.Element)model.selectedElement;
                         this.currentItem = repository.GetElementByGuid(GUID);
-                        //this.currentConstraints = currentItem.Constraints;
 
                         if (currentItem.Type == "Class")
                         {
@@ -101,7 +98,6 @@ namespace BPAddIn
                         currentAuthor = repository.GetElementByGuid(GUID).Author;
                         break;
                     case ObjectType.otPackage:
-                        //this.currentItem = (Wrapper.Element)model.selectedElement;
                         this.currentItem = repository.GetElementByGuid(GUID);
                         this.currentConnector = null;
                         this.currentDiagram = null;
@@ -121,59 +117,40 @@ namespace BPAddIn
                         changed = false;
                         currentAuthor = ((EA.Diagram)repository.GetDiagramByGuid(GUID)).Author;
                         currentParent = currentDiagram.ParentID.ToString();
-                        /*if (currentDiagram.Type == "Use Case")
-                        {*/
-                            currentExtensionPoints = new Dictionary<string, string>();
-                            currentDiagramObjectPositions = new Dictionary<int, string>();
-                            foreach (EA.DiagramObject diagramObject in currentDiagram.DiagramObjects)
-                            {
-                                try
-                                {
-                                    EA.Collection col = repository.GetElementSet("" + diagramObject.ElementID, 1);
-                                    //EA.Element element = repository.GetElementByID(diagramObject.ElementID);
-                                    EA.Element element = (EA.Element)col.GetAt(0);
 
-                                    if (element.Type == "UseCase")
-                                    {
-                                        currentExtensionPoints.Add(element.ElementGUID, element.ExtensionPoints);
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    //MessageBox.Show(ex.ToString());
-                                }
-
-                                string coordinates = "";
-                                coordinates += "l=" + diagramObject.left + ";";
-                                coordinates += "r=" + diagramObject.right + ";";
-                                coordinates += "t=" + diagramObject.top + ";";
-                                coordinates += "b=" + diagramObject.bottom + ";";
-                                currentDiagramObjectPositions.Add(diagramObject.ElementID, coordinates);
-
-                                //currentDiagramObjectSequences.Add(diagramObject.ElementID, diagramObject.Sequence);
-                            }
-                        //}
-
-                        
-                        /*foreach (EA.DiagramObject diagramObject in currentDiagram.DiagramObjects)
+                        currentExtensionPoints = new Dictionary<string, string>();
+                        currentDiagramObjectPositions = new Dictionary<int, string>();
+                        foreach (EA.DiagramObject diagramObject in currentDiagram.DiagramObjects)
                         {
+                            try
+                            {
+                                EA.Collection col = repository.GetElementSet("" + diagramObject.ElementID, 1);
+                                EA.Element element = (EA.Element)col.GetAt(0);
+
+                                if (element.Type == "UseCase")
+                                {
+                                    currentExtensionPoints.Add(element.ElementGUID, element.ExtensionPoints);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                            }
+
                             string coordinates = "";
                             coordinates += "l=" + diagramObject.left + ";";
                             coordinates += "r=" + diagramObject.right + ";";
                             coordinates += "t=" + diagramObject.top + ";";
                             coordinates += "b=" + diagramObject.bottom + ";";
                             currentDiagramObjectPositions.Add(diagramObject.ElementID, coordinates);
-                        }*/
+
+                        }
                         break;
                     default:
                         return;
                 }
             }
             catch (NullReferenceException nEx) { }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
 
         }
 
@@ -193,10 +170,8 @@ namespace BPAddIn
                         coordinates += "t=" + diagramObject.top + ";";
                         coordinates += "b=" + diagramObject.bottom + ";";
 
-                       // MessageBox.Show(diagramObject.ElementID.ToString());
                         if (currentDiagramObjectPositions[diagramObject.ElementID] != coordinates)
                         {
-                           // MessageBox.Show("if");
                             EA.Element element = model.getWrappedModel().GetElementByID(diagramObject.ElementID);
 
                             PropertyChange propertyChange = new PropertyChange();
@@ -211,30 +186,9 @@ namespace BPAddIn
 
                             currentDiagramObjectPositions[diagramObject.ElementID] = coordinates;
                         }
-
-                        /*if (currentDiagramObjectSequences[diagramObject.ElementID] != diagramObject.Sequence)
-                        {
-                            // MessageBox.Show("if");
-                            EA.Element element = model.getWrappedModel().GetElementByID(diagramObject.ElementID);
-
-                            PropertyChange propertyChange = new PropertyChange();
-                            propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
-                            propertyChange.itemGUID = element.ElementGUID;
-                            propertyChange.elementType = itemTypes.getElementType(element.ElementGUID);
-                            propertyChange.propertyType = 406;
-                            propertyChange.propertyBody = diagramObject.Sequence.ToString();
-                            propertyChange.oldPropertyBody = GUID;
-
-                            changeService.saveChange(propertyChange);
-
-                            currentDiagramObjectSequences[diagramObject.ElementID] = diagramObject.Sequence;
-                        }*/
                     }
                 }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show(ex.ToString());
-                }
+                catch (Exception ex) { }
 
                 try
                 {
@@ -280,10 +234,7 @@ namespace BPAddIn
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show(ex.ToString());
-                }
+                catch (Exception ex) { }
 
                 
             }
@@ -294,29 +245,19 @@ namespace BPAddIn
                 {
                     handleAttributeChange(GUID);
                     handleElementChange(GUID);
-                    //currentItem = null;
-                    //this.changed = true;
                 }
                 catch (NullReferenceException ex2) { }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show(ex.ToString());
-                }
+                catch (Exception ex) { }
             }
 
             if (GUID != null && changed == false && currentDiagram != null)
             {
                 try
                 {
-                    handleDiagramChange(GUID);
-                    //currentDiagram = null;
-                    //this.changed = true;                        
+                    handleDiagramChange(GUID);                       
                 }
                 catch (NullReferenceException ex2) { }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show(ex.ToString());
-                }
+                catch (Exception ex) { }
             }
 
             if (GUID != null && changed == false && currentConnector != null)
@@ -324,14 +265,9 @@ namespace BPAddIn
                 try
                 {
                     handleConnectorChange(GUID);
-                    //currentConnector = null;
-                    //this.changed = true;
                 }
                 catch (NullReferenceException ex2) { }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show(ex.ToString());
-                }
+                catch (Exception ex) { }
             }
         }
 
@@ -339,7 +275,7 @@ namespace BPAddIn
         {
             EA.Element changedElement = model.getWrappedModel().GetElementByGuid(GUID);
             EA.Element changedPositionElement = model.getWrappedModel().GetElementByGuid(currentItem.ElementGUID);
-            //MessageBox.Show(changedElement.Name);
+
             //check move
             if ((currentItem.PackageID != changedPositionElement.PackageID) || (currentItem.ParentID != changedPositionElement.ParentID))
             {
@@ -349,7 +285,6 @@ namespace BPAddIn
 
                 if (changedPositionElement.ParentID == 0)
                 {
-                    //MessageBox.Show("tu");
                     EA.Package targetPackage = model.getWrappedModel().GetPackageByID(changedPositionElement.PackageID);
                     propertyChange.itemGUID = changedPositionElement.ElementGUID;
                     propertyChange.elementType = itemTypes.getElementType(changedPositionElement.ElementGUID);
@@ -358,14 +293,12 @@ namespace BPAddIn
                 }
                 else
                 { 
-                    /*MessageBox.Show(changedPositionElement.Name + " " + currentItem.Name);
-                    MessageBox.Show("tu2");*/
                     EA.Element targetElement = model.getWrappedModel().GetElementByID(changedPositionElement.ParentID);
                     propertyChange.itemGUID = changedPositionElement.ElementGUID;
                     propertyChange.propertyType = 402;
                     propertyChange.propertyBody = targetElement.ElementGUID;
                 }
-                //MessageBox.Show("save");
+
                 changeService.saveChange(propertyChange);
                 return;
             }
@@ -373,7 +306,6 @@ namespace BPAddIn
             // check name
             if (currentItem.Name != changedElement.Name)
             {
-                //MessageBox.Show("element change");
                 PropertyChange propertyChange = new PropertyChange();
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.itemGUID = GUID;
@@ -385,9 +317,7 @@ namespace BPAddIn
                 changeService.saveChange(propertyChange); 
             }
 
-            // check author
-            //EA.Element chngElement = model.getWrappedModel().GetElementByGuid(GUID);
-            
+            // check author            
             if (currentItem.Author != changedElement.Author)
             {
                 PropertyChange propertyChange = new PropertyChange();
@@ -402,8 +332,6 @@ namespace BPAddIn
             }
 
             // check stereotype
-            //string changedElemStereotype = changedElement.stereotypes.Count > 0 ? changedElement.stereotypes.ElementAt(0).name : "";
-            //string currentElemStereotype = currentItem.stereotypes.Count > 0 ? currentItem.stereotypes.ElementAt(0).name : "";
             string changedElemStereotype = changedElement.Stereotype;
             string currentElemStereotype = currentItem.Stereotype;
 
@@ -452,10 +380,7 @@ namespace BPAddIn
             {
                 handleUseCaseChanges(GUID, changedElement);
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
 
             currentItem = changedElement;
         }
@@ -467,6 +392,7 @@ namespace BPAddIn
             foreach (EA.Attribute attr in changedElement.Attributes)
             {
                 EA.Attribute currentAttribute = currentAttributes[attr.AttributeGUID];
+
                 // check name
                 if (currentAttribute.Name != attr.Name)
                 {
@@ -512,24 +438,6 @@ namespace BPAddIn
                     currentAttributes[attr.AttributeGUID].Visibility = attr.Visibility;
                 }
             }
-
-            
-
-            //check visibility
-            /*if (currentAttribute.Visibility != changedAttribute.Visibility)
-            {
-                PropertyChange propertyChange = new PropertyChange();
-                propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
-                propertyChange.itemGUID = GUID;
-                propertyChange.elementType = 90;
-                propertyChange.propertyType = 300;
-                propertyChange.propertyBody = changedAttribute.Visibility;
-                propertyChange.oldPropertyBody = currentAttribute.Visibility;
-
-                changeService.saveChange(propertyChange);
-            }*/
-
-            //currentAttribute = changedAttribute;
         }
 
         public void handleDiagramObjectCreation(Repository repository, int elementID, int diagramID, string DUID)
@@ -537,29 +445,6 @@ namespace BPAddIn
             try
             {
                 changed = false;
-                /*string sqlGetDiagram = @"select do.Diagram_ID from t_diagramobjects do
-                                            inner join t_object o on do.Object_ID = o.Object_ID
-                                            where o.Object_ID=" + elementID;
-
-                List<Wrapper.Diagram> diagrams = model.getDiagramsByQuery(sqlGetDiagram);
-
-                if (diagrams.Count > 0)
-                {
-                    Wrapper.Diagram diagram = diagrams.ElementAt(0);
-                    EA.Diagram diag = diagram.wrappedDiagram;
-                    EA.DiagramObject diagObj = diag.GetDiagramObjectByID(elementID, "");
-                    EA.Element element = repository.GetElementByID(diagObj.ElementID);
-
-                    ItemCreation itemCreation = new ItemCreation();
-                    itemCreation.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
-                    itemCreation.itemGUID = element.ElementGUID;
-                    itemCreation.elementType = itemTypes.getElementType(element.ElementGUID);
-                    itemCreation.author = element.Author;
-                    itemCreation.name = element.Name;
-                    itemCreation.parentGUID = "0";
-
-                    changeService.saveChange(itemCreation);
-                }*/
 
                 EA.Element el = repository.GetElementByID(elementID);
                 EA.Diagram diag = repository.GetDiagramByID(diagramID);
@@ -574,8 +459,6 @@ namespace BPAddIn
                 coordinates += "t=" + cur.top + ";";
                 coordinates += "b=" + cur.bottom + ";";
                 currentDiagramObjectPositions.Add(cur.ElementID, coordinates);
-
-                //EA.DiagramObject cur = diagram.GetDiagramObjectByID(elementID, "");
 
                 ItemCreation itemCreation = new ItemCreation();
                 itemCreation.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
@@ -599,23 +482,14 @@ namespace BPAddIn
                     }
                 }
 
-                /*itemCreation.elementType = itemTypes.getElementType(element.ElementGUID);
-                itemCreation.author = element.Author;
-                itemCreation.name = element.Name;
-                itemCreation.parentGUID = "0";*/
-
                 changeService.saveChange(itemCreation);
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void handleElementCreation(Repository repository, int elementID)
         {
             try {
-                //MessageBox.Show("element creation");
                 changed = false;
                 EA.Element el = repository.GetElementByID(elementID);
                 currentItem = el;
@@ -647,28 +521,6 @@ namespace BPAddIn
                     itemCreation.packageGUID = package.PackageGUID;
                 }
 
-                /*string sqlGetDiagram = @"select do.Diagram_ID from t_diagramobjects do
-                                        inner join t_object o on do.Object_ID = o.Object_ID
-                                        where o.Object_ID="+el.ElementID;
-
-                List<Wrapper.Diagram> diagrams = model.getDiagramsByQuery(sqlGetDiagram);
-
-                if (diagrams.Count > 0)
-                {
-                    Wrapper.Diagram diagram = diagrams.ElementAt(0);
-                    //MessageBox.Show(diagram.name);
-
-                    itemCreation.diagramGUID = diagram.diagramGUID;
-                    Wrapper.ElementWrapper elWrapper = new Wrapper.ElementWrapper(model, el);
-                    DiagramObject cur = diagram.getdiagramObjectForElement(elWrapper);
-                    string coordinates = "";
-                    coordinates += "l=" + cur.left + ";";
-                    coordinates += "r=" + cur.right + ";";
-                    coordinates += "t=" + cur.top + ";";
-                    coordinates += "b=" + cur.bottom + ";";
-                    itemCreation.coordinates = coordinates;
-                }*/
-
                 changeService.saveChange(itemCreation);
 
                 if (el.Type == "UseCase")
@@ -676,21 +528,13 @@ namespace BPAddIn
                     currentExtensionPoints.Add(el.ElementGUID, el.ExtensionPoints);
                 }
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void handleDiagramChange(string GUID)
         {
             EA.Diagram changedDiagram = (EA.Diagram)model.getWrappedModel().GetDiagramByGuid(GUID);
             EA.Diagram changedPositionDiagram = (EA.Diagram)model.getWrappedModel().GetDiagramByGuid(currentDiagram.DiagramGUID);
-            //MessageBox.Show(changedElement.Name);
-            //check move
-            /*MessageBox.Show(currentDiagram.PackageID.ToString() + " " + changedDiagram.PackageID.ToString() + " " 
-                + currentDiagram.ParentID.ToString() + " " + changedDiagram.ParentID.ToString()
-                + " " + changedPositionDiagram.ParentID.ToString() + " " + changedPositionDiagram.PackageID.ToString());*/
 
             if ((currentDiagram.PackageID != changedDiagram.PackageID) || (currentDiagram.ParentID != changedDiagram.ParentID) ||
                 (currentParent != changedDiagram.ParentID.ToString()))
@@ -699,10 +543,6 @@ namespace BPAddIn
                 propertyChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 propertyChange.elementType = 0;
 
-                /*if (changedPositionDiagram.ParentID == 0)
-                {*/
-                    //MessageBox.Show("tu");
-                //MessageBox.Show(changedPositionDiagram.ParentID.ToString());
                 EA.Package targetPackage = model.getWrappedModel().GetPackageByID(changedDiagram.PackageID);
 
                 if (changedDiagram.ParentID != 0)
@@ -719,18 +559,6 @@ namespace BPAddIn
                     propertyChange.propertyBody = targetPackage.PackageGUID;
                 }
 
-            
-                /*}
-                else
-                {
-                    /*MessageBox.Show(changedPositionElement.Name + " " + currentItem.Name);
-                    MessageBox.Show("tu2");
-                    EA.Element targetElement = model.getWrappedModel().GetElementByID(changedPositionDiagram.ParentID);
-                    propertyChange.itemGUID = changedPositionDiagram.DiagramGUID;
-                    propertyChange.propertyType = 404;
-                    propertyChange.propertyBody = targetElement.ElementGUID;*/
-                //}
-                //MessageBox.Show("save");
                 changeService.saveChange(propertyChange);
             }
 
@@ -828,10 +656,7 @@ namespace BPAddIn
 
                 changeService.saveChange(itemCreation);
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void handleAttributeCreation(Repository repository, int attributeID)
@@ -854,10 +679,7 @@ namespace BPAddIn
 
                 currentAttributes.Add(attribute.AttributeGUID, attribute);
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void handlePackageDeletion(Repository repository, int packageID)
@@ -875,10 +697,7 @@ namespace BPAddIn
 
                 changeService.saveChange(modelChange);
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void handleAttributeDeletion(Repository repository, int attributeID)
@@ -898,10 +717,7 @@ namespace BPAddIn
 
                 currentAttributes.Remove(attribute.AttributeGUID);
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void handleDiagramDeletion(Repository repository, int diagramID)
@@ -919,10 +735,7 @@ namespace BPAddIn
 
                 changeService.saveChange(modelChange);
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void handleDiagramObjectDeletion(Repository repository, int elementID)
@@ -930,31 +743,6 @@ namespace BPAddIn
             try
             {
                 changed = false;
-
-                /*string sqlGetDiagram = @"select do.Diagram_ID from t_diagramobjects do
-                                        inner join t_object o on do.Object_ID = o.Object_ID
-                                        where o.Object_ID=" + diagramObjectID;
-
-                List<Wrapper.Diagram> diagrams = model.getDiagramsByQuery(sqlGetDiagram);
-
-                if (diagrams.Count > 0)
-                {
-                    Wrapper.Diagram diagram = diagrams.ElementAt(0);
-                    //MessageBox.Show(diagram.name);
-                    for (short i = 0; i < diagram.diagramElements.Count; i++)
-                    {
-                        EA.DiagramObject diagramObject = (EA.DiagramObject)diagram.diagramElements
-                    }
-                    //itemCreation.diagramGUID = diagram.diagramGUID;
-                    //Wrapper.ElementWrapper elWrapper = new Wrapper.ElementWrapper(model, el);
-                    DiagramObject cur = diagram.getdiagramObjectForElement(elWrapper);
-                    string coordinates = "";
-                    coordinates += "l=" + cur.left + ";";
-                    coordinates += "r=" + cur.right + ";";
-                    coordinates += "t=" + cur.top + ";";
-                    coordinates += "b=" + cur.bottom + ";";
-                    itemCreation.coordinates = coordinates;
-                }*/
 
                 EA.Element element = repository.GetElementByID(elementID);
                 EA.Diagram diagram = repository.GetCurrentDiagram();
@@ -970,10 +758,7 @@ namespace BPAddIn
 
                 currentDiagramObjectPositions.Remove(element.ElementID);
             }
-            catch (Exception ex)
-            {
-               //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void handleElementDeletion(Repository repository, int elementID)
@@ -996,10 +781,7 @@ namespace BPAddIn
                     currentExtensionPoints.Remove(element.ElementGUID);
                 }
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void handleConnectorDeletion(Repository repository, int connectorID)
@@ -1010,31 +792,14 @@ namespace BPAddIn
                 EA.Connector connector = repository.GetConnectorByID(connectorID);
                 EA.Element sourceElement = (EA.Element)repository.GetElementByID(connector.ClientID);
 
-                /*string sqlGetDiagram = @"select do.Diagram_ID from t_diagramobjects do
-                                        inner join t_object o on do.Object_ID = o.Object_ID
-                                        where o.Object_ID="+sourceElement.ElementID;
-
-                Wrapper.Model model = new Wrapper.Model(repository);
-                List<Wrapper.Diagram> diagrams = model.getDiagramsByQuery(sqlGetDiagram);*/
-
                 PropertyChange modelChange = new PropertyChange();
                 modelChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
                 modelChange.itemGUID = connector.ConnectorGUID;
                 modelChange.elementType = itemTypes.getConnectorType(connector.ConnectorGUID);
                 modelChange.elementDeleted = 1;
-
-                /*if (diagrams.Count > 0)
-                {
-                    Wrapper.Diagram diagram = diagrams.ElementAt(0);
-                    modelChange.propertyBody = diagram.diagramGUID;
-                }*/
-
                 changeService.saveChange(modelChange);
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void handlePackageCreation(Repository repository, int packageID)
@@ -1053,15 +818,6 @@ namespace BPAddIn
                 itemCreation.name = package.Name;
                 itemCreation.parentGUID = "0";
 
-                /*if (package.ParentID != 0)
-                {
-                    EA.Element parent = repository.GetElementByID(package.ParentID);
-                    if (parent != null)
-                    {
-                        itemCreation.parentGUID = parent.ElementGUID;
-                    }
-                }*/
-
                 EA.Package parentPackage = repository.GetPackageByID(package.ParentID);
                 if (parentPackage != null)
                 {
@@ -1070,10 +826,7 @@ namespace BPAddIn
 
                 changeService.saveChange(itemCreation);
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void handleConnectorChange(string GUID)
@@ -1247,28 +1000,9 @@ namespace BPAddIn
                 itemCreation.srcGUID = repository.GetElementByID(connector.ClientID).ElementGUID;
                 itemCreation.targetGUID = repository.GetElementByID(connector.SupplierID).ElementGUID;
 
-                /*string sqlGetDiagram = @"select do.Diagram_ID from t_diagramlinks do
-                                        inner join t_object o on do.Object_ID = o.Object_ID
-                                        where o.Object_ID="+connector.ConnectorID;
-
-                List<Wrapper.Diagram> diagrams = model.getDiagramsByQuery(sqlGetDiagram);
-
-                if (diagrams.Count > 0)
-                {
-                    Wrapper.Diagram diagram = diagrams.ElementAt(0);
-                    //MessageBox.Show(diagram.name);
-
-                    itemCreation.diagramGUID = diagram.diagramGUID;
-                }*/
-
-                //itemCreation.diagramGUID = repository.GetDiagramByID(connector.DiagramID).DiagramGUID;
-
                 changeService.saveChange(itemCreation);
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public void handleUseCaseChanges(string GUID, EA.Element changedElement)
@@ -1388,36 +1122,6 @@ namespace BPAddIn
                         scenarioChange.state = eaScenario.XMLContent;
 
                         changeService.saveChange(scenarioChange);
-
-                        // pridaj jeho kroky
-                        /*foreach (EA.ScenarioStep step in eaScenario.Steps)
-                        {
-                            StepChange stepChange = new StepChange();
-                            stepChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
-                            stepChange.itemGUID = GUID;
-                            stepChange.elementType = itemTypes.getElementType(GUID);
-                            stepChange.position = step.Pos;
-                            stepChange.stepType = step.StepType.ToString();
-                            stepChange.status = 1;
-                            stepChange.name = step.Name;
-                            stepChange.scenarioGUID = eaScenario.ScenarioGUID;
-                            stepChange.stepGUID = step.StepGUID;
-                            stepChange.uses = step.Uses;
-                            stepChange.results = step.Results;
-                            stepChange.state = step.State;
-                            stepChange.extensionGUID = "";
-                            stepChange.joiningStepGUID = "";
-                            stepChange.joiningStepPosition = "";
-
-                            foreach (EA.ScenarioExtension ext in step.Extensions)
-                            {
-                                stepChange.extensionGUID += ext.ExtensionGUID + ",";
-                                stepChange.joiningStepGUID += ext.Join + ",";
-                                stepChange.joiningStepPosition += ext.JoiningStep == null ? "" : ext.JoiningStep.Pos + ",";
-                            }
-
-                            changeService.saveChange(stepChange);
-                        }*/
                     }
                     else
                     {
@@ -1437,15 +1141,6 @@ namespace BPAddIn
                             changedScenario.name = eaChangedScenario.Name;
                             changedScenario.stepType = eaChangedScenario.Type;
                             changedScenario.state = eaChangedScenario.XMLContent;
-
-                            /*ScenarioChange currentScenario = new ScenarioChange();
-                            currentScenario.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
-                            currentScenario.itemGUID = GUID;
-                            currentScenario.elementType = getElementType(GUID);
-                            currentScenario.name = eaCurrentScenario.Name;
-                            currentScenario.type = eaCurrentScenario.Type;
-                            currentScenario.status = 4;
-                            currentScenario.scenarioGUID = eaCurrentScenario.ScenarioGUID;*/
 
                             if (eaChangedScenario.Name != eaCurrentScenario.Name)
                             {
@@ -1467,193 +1162,10 @@ namespace BPAddIn
 
                             if (wasChanged)
                             {
-                                //changeService.saveChange(currentScenario);
                                 changeService.saveChange(changedScenario);
-                            }
-
-                            /*Dictionary<string, EA.ScenarioStep> changedSteps = new Dictionary<string, ScenarioStep>();
-                            foreach (EA.ScenarioStep step in eaChangedScenario.Steps)
-                            {
-                                if (!changedSteps.ContainsKey(step.StepGUID))
-                                {
-                                    changedSteps.Add(step.StepGUID, step);
-                                }
-                            }
-
-                            Dictionary<string, EA.ScenarioStep> currentSteps = new Dictionary<string, EA.ScenarioStep>();
-                            foreach (EA.ScenarioStep step in currentScenarioStepList[eaCurrentScenario.ScenarioGUID])
-                            {
-                                if (!currentSteps.ContainsKey(step.StepGUID))
-                                {
-                                    currentSteps.Add(step.StepGUID, step);
-                                }
-                            }
-
-                            // step delete
-                            foreach (KeyValuePair<string, EA.ScenarioStep> step in currentSteps)
-                            {
-                                if (!changedSteps.ContainsKey(step.Key))
-                                {
-                                    StepChange stepChange = new StepChange();
-                                    stepChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
-                                    stepChange.itemGUID = GUID;
-                                    stepChange.elementType = itemTypes.getElementType(GUID);
-                                    stepChange.status = 0;
-                                    stepChange.scenarioGUID = scenario.Value.scenario.ScenarioGUID;
-                                    stepChange.stepGUID = step.Value.StepGUID;
-
-                                    changeService.saveChange(stepChange);
-                                }
-                            }
-
-                            // step add
-                            foreach (KeyValuePair<string, EA.ScenarioStep> stepD in changedSteps)
-                            {
-                                if (!currentSteps.ContainsKey(stepD.Key))
-                                {
-                                    EA.ScenarioStep step = stepD.Value;
-                                    StepChange stepChange = new StepChange();
-                                    stepChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
-                                    stepChange.itemGUID = GUID;
-                                    stepChange.elementType = itemTypes.getElementType(GUID);
-                                    stepChange.status = 1;
-                                    stepChange.stepGUID = step.StepGUID;
-                                    stepChange.scenarioGUID = scenario.Value.scenario.ScenarioGUID;
-                                    stepChange.name = step.Name;
-                                    stepChange.position = step.Pos;
-                                    stepChange.stepType = step.StepType.ToString();
-                                    stepChange.uses = step.Uses;
-                                    stepChange.results = step.Results;
-                                    stepChange.state = step.State;
-                                    stepChange.extensionGUID = "";
-                                    stepChange.joiningStepGUID = "";
-                                    stepChange.joiningStepPosition = "";
-
-                                    foreach (EA.ScenarioExtension ext in step.Extensions)
-                                    {
-                                        stepChange.extensionGUID += ext.ExtensionGUID + ",";
-                                        stepChange.joiningStepGUID += ext.Join + ",";
-                                        stepChange.joiningStepPosition += ext.JoiningStep == null ? "" : ext.JoiningStep.Pos + ",";
-                                    }
-
-                                    changeService.saveChange(stepChange);
-                                }
-                            }
-                            
-                            // step modify
-                            foreach (KeyValuePair<string, EA.ScenarioStep> stepD in changedSteps)
-                            {
-                                if (currentSteps.ContainsKey(stepD.Key))
-                                {
-                                    wasChanged = false;
-                                    EA.ScenarioStep changedStep = stepD.Value;
-                                    if (!currentSteps.ContainsKey(stepD.Key))
-                                    {
-                                        break;
-                                    }
-                                    EA.ScenarioStep currentStep = currentSteps[stepD.Key]; 
-                                    StepChange stepChange = new StepChange();
-                                    stepChange.modelGUID = model.getWrappedModel().GetPackageByID(1).PackageGUID;
-                                    stepChange.itemGUID = GUID;
-                                    stepChange.elementType = itemTypes.getElementType(GUID);
-                                    stepChange.status = 2;
-                                    stepChange.stepGUID = changedStep.StepGUID;
-                                    stepChange.scenarioGUID = scenario.Value.scenario.ScenarioGUID;
-                                    stepChange.name = currentStep.Name;
-                                    stepChange.stepType = currentStep.StepType.ToString();
-                                    stepChange.position = currentStep.Pos;
-                                    stepChange.uses = currentStep.Uses;
-                                    stepChange.results = currentStep.Results;
-                                    stepChange.state = currentStep.State;
-
-                                    if (changedStep.Name != currentStep.Name)
-                                    {
-                                        wasChanged = true;
-                                        stepChange.name = changedStep.Name;
-                                    }
-
-                                    if (changedStep.Pos != currentStep.Pos)
-                                    {
-                                        wasChanged = true;
-                                        stepChange.position = changedStep.Pos;
-                                    }
-
-                                    if (changedStep.StepType != currentStep.StepType)
-                                    {
-                                        wasChanged = true;
-                                        stepChange.stepType = changedStep.StepType.ToString();
-                                    }
-
-                                    if (changedStep.Uses != currentStep.Uses)
-                                    {
-                                        wasChanged = true;
-                                        stepChange.uses = changedStep.Uses;
-                                    }
-
-                                    if (changedStep.Results != currentStep.Results)
-                                    {
-                                        wasChanged = true;
-                                        stepChange.results = changedStep.Results;
-                                    }
-
-                                    if (changedStep.State != currentStep.State)
-                                    {
-                                        wasChanged = true;
-                                        stepChange.state = changedStep.State;
-                                    }
-
-                                    string changedExtensionGUID = "";
-                                    string changedJoiningStepGUID = "";
-                                    string changedJoiningStepPosition = "";
-
-                                    foreach (EA.ScenarioExtension ext in changedStep.Extensions)
-                                    {
-                                        changedExtensionGUID += ext.ExtensionGUID + ",";
-                                        changedJoiningStepGUID += ext.Join + ",";
-                                        changedJoiningStepPosition += ext.JoiningStep == null ? "" : ext.JoiningStep.Pos + ",";
-                                    }
-
-
-                                    string otherExtensionGUID = "";
-                                    string otherJoiningStepGUID = "";
-                                    string otherJoiningStepPosition = "";
-
-                                    foreach (EA.ScenarioExtension ext in currentStep.Extensions)
-                                    {
-                                        otherExtensionGUID += ext.ExtensionGUID + ",";
-                                        otherJoiningStepGUID += ext.Join + ",";
-                                        otherJoiningStepPosition += ext.JoiningStep == null ? "" : ext.JoiningStep.Pos + ",";
-                                    }
-
-                                    if (changedExtensionGUID != otherExtensionGUID)
-                                    {
-                                        wasChanged = true;
-                                        stepChange.extensionGUID = changedExtensionGUID;
-                                    }
-
-                                    if (changedJoiningStepGUID != otherJoiningStepGUID)
-                                    {
-                                        wasChanged = true;
-                                        stepChange.joiningStepGUID = changedJoiningStepGUID;
-                                    }
-
-                                    if (changedJoiningStepPosition != otherJoiningStepPosition)
-                                    {
-                                        wasChanged = true;
-                                        stepChange.joiningStepPosition = changedJoiningStepPosition;
-                                    }
-
-                                    if (wasChanged)
-                                    {
-                                        changeService.saveChange(stepChange);
-                                    }
-                                }
-                            }*/
+                            }                       
                         }
-                        catch (Exception ex)
-                        {
-                            //MessageBox.Show(ex.ToString());
-                        }
+                        catch (Exception ex) { }
                     }                    
                 }
             }
@@ -1675,12 +1187,13 @@ namespace BPAddIn
 
         public void broadcastEvent(EA.Repository Repository, string GUID, EA.ObjectType ot)
         {
-            ruleService.broadcastEvent(model, Repository, GUID, ot);
-        }
-
-        public void broadcastEvent(EA.Repository Repository, long ID)
-        {
-            ruleService.broadcastEvent(model, Repository, ID);
+            try {
+                ruleService.broadcastEvent(model, Repository, GUID, ot);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         public string printCurrentItem()

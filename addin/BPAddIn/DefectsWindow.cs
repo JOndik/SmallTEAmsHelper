@@ -2,6 +2,8 @@
 using System.Runtime.InteropServices;
 using BPAddInTry;
 using System;
+using BPAddIn.Rules;
+using TSF.UmlToolingFramework.Wrappers.EA;
 
 namespace BPAddIn
 {
@@ -10,8 +12,6 @@ namespace BPAddIn
     [ComVisible(true)]
     public partial class DefectsWindow : UserControl
     {
-
-        // functions/properties and events can be added as you like
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DefectsWindow"/> class.
@@ -26,7 +26,7 @@ namespace BPAddIn
             for (int i = listBox2.Items.Count - 1; i >= 0; i--)
             {
                 try {
-                    if (((Rule)((ListBoxObject)listBox2.Items[i]).Object).ruleGUID == ruleGUID)
+                    if (((RuleEntry)((ListBoxObject)listBox2.Items[i]).Object).GUID == ruleGUID)
                     {
                         return 1;
                     }
@@ -42,7 +42,8 @@ namespace BPAddIn
             listBox1.BeginInvoke((MethodInvoker)delegate () {
                 for (int i = listBox2.Items.Count - 1; i >= 0; i--)
                 {
-                    if (((Rule)((ListBoxObject)listBox2.Items[i]).Object).objGUID == ((Rule)((ListBoxObject)objekt).Object).objGUID)
+                    if (((RuleEntry)((ListBoxObject)listBox2.Items[i]).Object).GUID == ((RuleEntry)((ListBoxObject)objekt).Object).GUID ||
+                            ((RuleEntry)((ListBoxObject)listBox2.Items[i]).Object).name == ((RuleEntry)((ListBoxObject)objekt).Object).name)
                     {
                         return;
                     }
@@ -50,9 +51,9 @@ namespace BPAddIn
 
                 for (int i = listBox1.Items.Count - 1; i >= 0; i--)
                 {
-                    if (((Rule)((ListBoxObject)listBox1.Items[i]).Object).objGUID == ((Rule)((ListBoxObject)objekt).Object).objGUID)
+                    if (((RuleEntry)((ListBoxObject)listBox1.Items[i]).Object).GUID == ((RuleEntry)((ListBoxObject)objekt).Object).GUID ||
+                            ((RuleEntry)((ListBoxObject)listBox1.Items[i]).Object).name == ((RuleEntry)((ListBoxObject)objekt).Object).name)
                     {
-                        //((Rule)((ListBoxObject)listBox1.Items[i]).Object).defectDescription = ((Rule)((ListBoxObject)objekt).Object).defectDescription;
                         listBox1.Items.RemoveAt(i);
                         listBox1.Items.Insert(i, objekt);
                         return;
@@ -70,9 +71,9 @@ namespace BPAddIn
             listBox2.BeginInvoke((MethodInvoker)delegate () {
                 for (int i = listBox2.Items.Count - 1; i >= 0; i--)
                 {
-                    if (((Rule)((ListBoxObject)listBox2.Items[i]).Object).objGUID == ((Rule)((ListBoxObject)objekt).Object).objGUID)
+                    if (((RuleEntry)((ListBoxObject)listBox2.Items[i]).Object).GUID == ((RuleEntry)((ListBoxObject)objekt).Object).GUID ||
+                            ((RuleEntry)((ListBoxObject)listBox2.Items[i]).Object).name == ((RuleEntry)((ListBoxObject)objekt).Object).name)
                     {
-                        //((Rule)((ListBoxObject)listBox1.Items[i]).Object).defectDescription = ((Rule)((ListBoxObject)objekt).Object).defectDescription;
                         listBox2.Items.RemoveAt(i);
                         listBox2.Items.Insert(i, objekt);
                         return;
@@ -91,7 +92,8 @@ namespace BPAddIn
                 for (int i = listBox1.Items.Count - 1; i >= 0; i--)
                 {
                     try {
-                        if (((Rule)((ListBoxObject)listBox1.Items[i]).Object).objGUID == ((Rule)((ListBoxObject)objekt).Object).objGUID)
+                        if (((RuleEntry)((ListBoxObject)listBox1.Items[i]).Object).GUID == ((RuleEntry)((ListBoxObject)objekt).Object).GUID ||
+                            ((RuleEntry)((ListBoxObject)listBox1.Items[i]).Object).name == ((RuleEntry)((ListBoxObject)objekt).Object).name)
                         {
                             listBox1.Items.RemoveAt(i);
                         }
@@ -111,7 +113,8 @@ namespace BPAddIn
                 {
                     try
                     {
-                        if (((Rule)((ListBoxObject)listBox2.Items[i]).Object).objGUID == ((Rule)((ListBoxObject)objekt).Object).objGUID)
+                        if (((RuleEntry)((ListBoxObject)listBox2.Items[i]).Object).GUID == ((RuleEntry)((ListBoxObject)objekt).Object).GUID ||
+                            ((RuleEntry)((ListBoxObject)listBox2.Items[i]).Object).name == ((RuleEntry)((ListBoxObject)objekt).Object).name)
                         {
                             listBox2.Items.RemoveAt(i);
                         }
@@ -127,7 +130,7 @@ namespace BPAddIn
             {
                 for (int i = listBox1.Items.Count - 1; i >= 0; i--)
                 {
-                    if (((ListBoxObject)listBox1.Items[i]).Object == ((RuleClass) objekt))
+                    if (((ListBoxObject)listBox1.Items[i]).Object == ((RuleEntry) objekt))
                     {
                         listBox1.Items.RemoveAt(i);
                     }
@@ -140,7 +143,7 @@ namespace BPAddIn
                 {
                     try
                     {
-                        if (((Rule)((ListBoxObject)listBox2.Items[i]).Object).objGUID == ((Rule)((ListBoxObject)objekt).Object).objGUID)
+                        if (((RuleEntry)((ListBoxObject)listBox2.Items[i]).Object).GUID == ((RuleEntry)((ListBoxObject)objekt).Object).GUID)
                         {
                             listBox2.Items.RemoveAt(i);
                         }
@@ -154,10 +157,14 @@ namespace BPAddIn
 
         private void zvyrazniVDiagrameToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            //ListBox lb = (ListBox)sender;
-            //Rule rule = (Rule)sender;
             try {
-                selectedError.selectInDiagram();
+                if (selectedError.rule.elementType == "Class")
+                {
+                    ElementWrapper elementWrapper = new ElementWrapper(selectedError.model, selectedError.model.getWrappedModel().GetElementByGuid(selectedError.elGUID));
+                    elementWrapper.select();
+                    elementWrapper.selectInCurrentDiagram();
+                }
+
             }
             catch (Exception ex) { }
         }
@@ -172,7 +179,7 @@ namespace BPAddIn
                     listBox1.SelectedIndex = idx;
                     contextMenuStrip1.Show(listBox1, e.Location);
                     ListBoxObject item = (ListBoxObject)listBox1.SelectedItem;
-                    selectedError = (Rule)item.Object;
+                    selectedError = (RuleEntry)item.Object;
                 }
             }
         }
@@ -187,14 +194,25 @@ namespace BPAddIn
                     listBox2.SelectedIndex = idx;
                     contextMenuStrip2.Show(listBox2, e.Location);
                     ListBoxObject item = (ListBoxObject)listBox2.SelectedItem;
-                    selectedError = (Rule)item.Object;
+                    selectedError = (RuleEntry)item.Object;
                 }
             }
         }
 
         private void opravChybuToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            selectedError.correct();
+            try
+            {
+                if (selectedError.rule.correct(selectedError.element, selectedError.model))
+                {
+                    removeFromList(selectedError.listBoxObject);
+                    removeFromHiddenList(selectedError.listBoxObject);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void skryChybuToolStripMenuItem_Click(object sender, System.EventArgs e)

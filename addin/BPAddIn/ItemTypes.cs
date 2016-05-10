@@ -87,26 +87,6 @@ namespace BPAddIn
                         return 19;
                     }
                     return -1;
-             /*   case "InteractionFragment":
-                    if (element.Subtype == 0)           //alt
-                    {
-                        return 20;
-                    }
-                    if (element.Subtype == 1)           //opt
-                    {
-                        return 21;
-                    }
-                    if (element.Subtype == 2)           //break
-                    {
-                        return 22;
-                    }
-                    if (element.Subtype == 4)           //loop
-                    {
-                        return 23;
-                    }
-                    return -1;
-                case "Sequence":                        //lifeline
-                    return 24;*/
                 case "Component":
                     return 25;
                 case "Screen":
@@ -173,12 +153,8 @@ namespace BPAddIn
                     return -1;
                 case "Note":
                     return 45;
-              /*  case "InteractionOccurrence":
-                    return 46;*/
                 case "Requirement":
                     return 47;
-              /*  case "Interaction":
-                    return 48;*/
                 case "StateMachine":
                     return 49;
                 default:
@@ -256,8 +232,6 @@ namespace BPAddIn
                     return 76;
                 case "StateFlow":
                     return 77;
-               /* case "Sequence":
-                    return 78;*/
                 case "Dependency":
                     return 79;
                 default:
@@ -309,16 +283,6 @@ namespace BPAddIn
                     return "príjemcu";
                 case 19:
                     return "odosielateľa";
-              /*  case 20:
-                    return "fragmentu typu alt";
-                case 21:
-                    return "fragmentu typu opt";
-                case 22:
-                    return "fragmentu typu break";
-                case 23:
-                    return "fragmentu typu loop";
-                case 24:
-                    return "čiary života";*/
                 case 25:
                     return "komponentu";
                 case 26:
@@ -355,12 +319,8 @@ namespace BPAddIn
                     return "horizontálnej čiary";
                 case 45:
                     return "poznámky";
-              /*  case 46:
-                    return "elementu typu InteractionOccurrence";*/
                 case 47:
                     return "požiadavky";
-            /*    case 48:
-                    return "interakcie";*/
                 case 49:
                     return "elementu typu StateMachine";
                 case 50:
@@ -401,8 +361,6 @@ namespace BPAddIn
                     return "vzťahu typu ControlFlow";
                 case 77:
                     return "udalosti";
-              /*  case 78:
-                    return "správy";*/
                 case 79:
                     return "závislosti";
                 case 90:

@@ -522,3 +522,6 @@ C:\Users\Martin\IdeaProjects\BakalarskaPraca\SmallTEAmsHelper-master\SmallTEAmsH
 C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.SynchronizationPackage.SynchronizationProgressWindow.resources
 C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.SynchronizationPackage.SynchronizationWindow.resources
 C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.SynchronizationPackage.SendingDataWindow.resources
+D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.SynchronizationPackage.SendingDataWindow.resources
+D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.SynchronizationPackage.SynchronizationProgressWindow.resources
+D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.SynchronizationPackage.SynchronizationWindow.resources

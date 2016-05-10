@@ -66,16 +66,6 @@ namespace BPAddIn.SynchronizationPackage
 
                 saveCreate(itemCreation, repository);
 
-                /*if (package.Notes != "")
-                {
-                    PropertyChange propertyChange = new PropertyChange();
-                    propertyChange.itemGUID = package.PackageGUID;
-                    propertyChange.elementType = 3;
-                    propertyChange.propertyType = 2;
-                    propertyChange.propertyBody = package.Notes;
-                    saveCreate(propertyChange, repository);
-                }*/
-
                 if (package.Packages.Count > 0)
                 {
                     traversePackages(repository, package.Packages);
@@ -387,18 +377,14 @@ namespace BPAddIn.SynchronizationPackage
                 itemCreation.name = element.Name;
                 itemCreation.parentGUID = "0";
 
-                /*if (itemTypes.getElementType(element.ElementGUID) != 6 &&
-                    (itemTypes.getElementType(element.ElementGUID) < 30 || itemTypes.getElementType(element.ElementGUID) > 44))
-                {*/
-                    if (element.ParentID != 0)
+                if (element.ParentID != 0)
+                {
+                    EA.Element parent = repository.GetElementByID(element.ParentID);
+                    if (parent != null)
                     {
-                        EA.Element parent = repository.GetElementByID(element.ParentID);
-                        if (parent != null)
-                        {
-                            itemCreation.parentGUID = parent.ElementGUID;
-                        }
+                        itemCreation.parentGUID = parent.ElementGUID;
                     }
-                //}
+                }
 
                 EA.Package package = repository.GetPackageByID(element.PackageID);
                 if (package != null)

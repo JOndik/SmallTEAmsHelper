@@ -1,0 +1,16 @@
+{
+name: 'There should be at least one initial node in activity diagram',
+element: {
+             type: 'Activity',
+             stereotype: '*'
+	 },
+attribute: {
+  	     type: 'InitialNode',
+	     stereotype: '-'
+	   },
+content: {
+		 defectMsg: 'Chybajuci pociatocny uzol v diagrame "{0}".',
+	     valid: 'checkInitialNode',
+	     correct: 'createInitialNode'
+	 }
+}

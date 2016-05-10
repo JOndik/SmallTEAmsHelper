@@ -18,6 +18,4 @@ namespace BPAddIn
             return JsonConvert.SerializeObject(this);
         }
     }
-
-
 }

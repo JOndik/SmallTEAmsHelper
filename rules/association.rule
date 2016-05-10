@@ -1,0 +1,17 @@
+{
+name: 'Association between classes should not be missing',
+element: {
+             type: 'Association',
+             stereotype: '*'
+	 },
+attribute: {
+  	     type: 'Name',
+	     stereotype: '-'
+	   },
+content: {
+		 defectMsg: 'Chybajuci nazov asociace medzi triedami "{0}" a "{1}".',
+	     valid: 'getName',
+	     correct: 'setName(vztah)',
+		 cond: 'Connector.getSrcType(Class)&Connector.getTargetType(Class)'
+	 }
+}

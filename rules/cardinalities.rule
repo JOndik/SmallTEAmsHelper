@@ -1,0 +1,17 @@
+{
+name: 'Association cardinalities between classes should not be missing',
+element: {
+             type: 'Association',
+             stereotype: '*'
+	 },
+attribute: {
+  	     type: 'Cardinality',
+	     stereotype: '-'
+	   },
+content: {
+		 defectMsg: 'Chybajuce kardinality medzi triedami "{0}" a "{1}".',
+	     valid: 'getCardinalities',
+	     correct: 'setCardinalities(*)',
+		 cond: 'Connector.getSrcType(Class)&Connector.getTargetType(Class)'
+	 }
+}

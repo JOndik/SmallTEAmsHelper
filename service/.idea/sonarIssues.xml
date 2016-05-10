@@ -13,6 +13,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/sthService/config/MongoConfiguration.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/sthService/controller/AuthorizationController.java">
           <value>
             <set />
@@ -24,6 +29,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/sthService/controller/DefectReportController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/sthService/controller/UpdateController.java">
           <value>
             <set />
           </value>
@@ -73,12 +83,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/sthService/repository/PairRequestRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/sthService/service/DefectReportService.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/sthService/service/ModelChangeService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/sthService/service/PairRequestService.java">
           <value>
             <set />
           </value>

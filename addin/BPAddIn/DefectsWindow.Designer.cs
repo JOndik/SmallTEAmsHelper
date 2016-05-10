@@ -1,4 +1,5 @@
-﻿using BPAddInTry;
+﻿using BPAddIn.Rules;
+using BPAddInTry;
 using System.Windows.Forms;
 
 namespace BPAddIn
@@ -10,7 +11,7 @@ namespace BPAddIn
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        private Rule selectedError;
+        private RuleEntry selectedError;
 
         /// <summary> 
         /// Clean up any resources being used.
