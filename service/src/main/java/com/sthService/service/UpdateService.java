@@ -24,6 +24,10 @@ public class UpdateService {
 
     private final Logger log = LoggerFactory.getLogger(ModelChangeService.class);
 
+    /**
+     * method finds version of EA Add-In
+     * @return double value of version
+     */
     public Double findVersion() {
         try {
             Version version = updateRepository.findAll().get(0);

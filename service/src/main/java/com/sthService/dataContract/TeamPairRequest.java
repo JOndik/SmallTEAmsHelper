@@ -3,6 +3,9 @@ package com.sthService.dataContract;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * class used for storing request on addition of new team member
+ */
 @Document
 public class TeamPairRequest {
 

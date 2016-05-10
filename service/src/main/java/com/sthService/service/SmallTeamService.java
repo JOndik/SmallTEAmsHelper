@@ -15,14 +15,27 @@ public class SmallTeamService {
     @Inject
     private SmallTeamRepository smallTeamRepository;
 
+    /**
+     * method finds small team by ID of its member
+     * @param id ID of user
+     * @return found small team
+     */
     public SmallTeam getByUserId(String id) {
         return smallTeamRepository.findByNestedUserId(id);
     }
 
+    /**
+     * method updates small team
+     * @param team small team to be updated
+     */
     public void updateTeam(SmallTeam team) {
         smallTeamRepository.save(team);
     }
 
+    /**
+     * method creates new small team
+     * @param id ID of first team member
+     */
     public void createSmallTeam(String id) {
         SmallTeam smallTeam = new SmallTeam();
         smallTeam.setTeamMembersId(new ArrayList<>());
@@ -32,6 +45,10 @@ public class SmallTeamService {
         smallTeamRepository.save(smallTeam);
     }
 
+    /**
+     * method removes small team
+     * @param smallTeam small team to be removed
+     */
     public void deleteSmallTeam(SmallTeam smallTeam){
         smallTeamRepository.delete(smallTeam);
     }

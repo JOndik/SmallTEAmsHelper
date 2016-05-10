@@ -5,6 +5,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+/**
+ * repository of class SmallTeam
+ */
 @Repository
 public interface SmallTeamRepository extends MongoRepository<SmallTeam, String> {
 

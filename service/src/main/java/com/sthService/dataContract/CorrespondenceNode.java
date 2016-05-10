@@ -8,6 +8,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+/**
+ * class used for representing node of correspondence model
+ */
 @Document
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CorrespondenceNode {

@@ -5,6 +5,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+/**
+ * class used for storing information about small teams
+ */
 @Document
 public class SmallTeam {
 

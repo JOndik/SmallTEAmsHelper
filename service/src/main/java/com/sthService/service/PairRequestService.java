@@ -21,22 +21,39 @@ public class PairRequestService {
     @Inject
     AISMailService aisMailService;
 
+    /**
+     * method saves pair request
+     * @param request pair request
+     */
     public void savePairRequest(TeamPairRequest request) {
-        log.info("IDEM ULOZIT\n");
+        log.info("saving request\n");
         pairRequestRepository.save(request);
-        log.info("IDEM POSLAT MAIL\n");
+        log.info("sending email\n");
         aisMailService.sendPairRequestEmail(request.getMemberName(), request.getToken());
     }
 
+    /**
+     * method finds pair request by pair request token
+     * @param pairToken pair request token
+     * @return pair request
+     */
     public TeamPairRequest getPairRequest(String pairToken) {
         return pairRequestRepository.findByToken(pairToken);
     }
 
+    /**
+     * method finds pair request by member name
+     * @param memberName name of team member
+     * @return pair request
+     */
     public TeamPairRequest getPairRequestByMemberName(String memberName) {
         return pairRequestRepository.findByMemberName(memberName);
     }
 
-
+    /**
+     * method remove pair request
+     * @param request pair request
+     */
     public void deleteRequest(TeamPairRequest request) {
         pairRequestRepository.delete(request);
     }

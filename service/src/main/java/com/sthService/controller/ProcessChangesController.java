@@ -36,6 +36,11 @@ public class ProcessChangesController {
     @Inject
     private CorrespondenceNodeService corrNodeService;
 
+    /**
+     * method processes change
+     * @param modelChange new model change
+     * @param user user that made change
+     */
     public void processChange(ModelChange modelChange, User user){
         SmallTeam smallTeam = smallTeamService.getByUserId(user.getId());
         ChangesForSynchronization changesForSynchronization = changesForSynchronizationService.findChangesForSynchronization(user.getName(), smallTeam.getId());
@@ -68,14 +73,21 @@ public class ProcessChangesController {
         }
 
         else if (modelChange instanceof StepChange && ((StepChange) modelChange).getStatus() == 2){
-            processScenarioChange((StepChange)modelChange, userChangeIDs, smallTeam, user);
+            processScenarioChange((StepChange)modelChange, smallTeam, user);
         }
 
         else if (modelChange instanceof StepChange && ((StepChange) modelChange).getStatus() == 0){
-            processScenarioDelete((StepChange)modelChange, userChangeIDs, smallTeam, user);
+            processScenarioDelete((StepChange)modelChange, smallTeam, user);
         }
     }
 
+    /**
+     * method processes property change of model item
+     * @param modelChange model change
+     * @param userChangeIDs ID of synchronization changes of user
+     * @param smallTeam small team where user is member
+     * @param user user that made change
+     */
     public void processPropertyChange(PropertyChange modelChange, List<String> userChangeIDs, SmallTeam smallTeam, User user){
         User currentUser;
         boolean found = false;
@@ -145,16 +157,8 @@ public class ProcessChangesController {
             }
         }
 
-            /*((PropertyChange) currentModelChange).setPropertyBody(((PropertyChange) modelChange).getPropertyBody());
-            modelChangeRepository.save(currentModelChange);
-            log.info("Zmena PropertyBody v liste " + modelChange.getUserName() + " u zmeny " + ((PropertyChange) currentModelChange).getPropertyBody());
-            found = true;*/
-
-        //else if (((PropertyChange) modelChange).getPropertyType() == 302){*/
-
-
-        if (modelChange.getElementDeleted() == 0){                                                                  //pride zmena vlastnosti
-            for (Iterator<String> iterator = userChangeIDs.iterator(); iterator.hasNext();){                        //neulozenie zmeny ostatnym, ak prvok mam vymazat
+        if (modelChange.getElementDeleted() == 0){
+            for (Iterator<String> iterator = userChangeIDs.iterator(); iterator.hasNext();){
                 ModelChange currentModelChange = modelChangeService.getChangeById(iterator.next());
                 if (currentModelChange.getElementDeleted() == 1){
                     elementGUID = getElementGUIDForSynchronization(currentModelChange.getUserName(), currentModelChange.getItemGUID(), smallTeam, user);
@@ -165,8 +169,8 @@ public class ProcessChangesController {
                 }
             }
             found = false;
-            for (String id : smallTeam.getTeamMembersId()) {                                        //zmena propertyBody u rovnakych zmien v ostatnych listoch
-                currentUser = authorizationService.getUserById(id);                                 //ak sa nenajde rovnaka zmena, prida sa do listu
+            for (String id : smallTeam.getTeamMembersId()) {
+                currentUser = authorizationService.getUserById(id);
 
                 if (!currentUser.getName().equals(user.getName())) {
                     changesForSynchronization = changesForSynchronizationService.findChangesForSynchronization(currentUser.getName(), smallTeam.getId());
@@ -176,7 +180,6 @@ public class ProcessChangesController {
                         ModelChange currentModelChange = modelChangeService.getChangeById(iterator.next());
 
                         if (currentModelChange instanceof PropertyChange){
-                            //elementGUID = getElementGUIDForSynchronization(currentModelChange.getUserName(), currentModelChange.getItemGUID(), smallTeam, user);
 
                             if (modelChange.getItemGUID().equals(currentModelChange.getItemGUID())
                                     && (modelChange.getPropertyType() == ((PropertyChange) currentModelChange).getPropertyType())){
@@ -200,6 +203,14 @@ public class ProcessChangesController {
 
     }
 
+    /**
+     * method processes deletion of item
+     * @param modelChange change of model
+     * @param userChangeIDs ID of synchronization changes of user
+     * @param smallTeam small team where user is member
+     * @param user user that made change
+     * @param myChangesForSynchronization changes for synchronization of user
+     */
     public void processDelete(PropertyChange modelChange, List<String> userChangeIDs, SmallTeam smallTeam, User user, ChangesForSynchronization myChangesForSynchronization){
         boolean found = false;
         ModelChange currentModelChange;
@@ -208,7 +219,7 @@ public class ProcessChangesController {
         String elementGUID, connectorGUID = "", srcGUID, targetGUID;
         ChangesForSynchronization changesForSynchronization;
 
-        for (String id : smallTeam.getTeamMembersId()) {                                   //zmazanie zmien v liste kolegov po mojom vymazani prvku a ulozenie delete, ak nebol create
+        for (String id : smallTeam.getTeamMembersId()) {
             currentUser = authorizationService.getUserById(id);
 
             if (!currentUser.getName().equals(user.getName())) {
@@ -221,10 +232,10 @@ public class ProcessChangesController {
 
                     if (modelChange.getItemGUID().equals(currentModelChange.getItemGUID())) {
 
-                        if (modelChange.getElementType() == 700) {                              //diagram objekt
+                        if (modelChange.getElementType() == 700) {
 
                             if (currentModelChange instanceof PropertyChange && ((PropertyChange) currentModelChange).getPropertyType() == 405
-                                    && modelChange.getPropertyBody().equals(((PropertyChange) currentModelChange).getOldPropertyBody())) {       //len zmeny suradnic v danom diagrame
+                                    && modelChange.getPropertyBody().equals(((PropertyChange) currentModelChange).getOldPropertyBody())) {
 
                                 if (modelChange.getPropertyBody().equals(((PropertyChange) currentModelChange).getOldPropertyBody())) {
                                     log.info("processDelete: Deletion of diagram object movement in the list of " + modelChange.getUserName() + " after deletion of " + modelChange.getItemGUID() + " by " + modelChange.getUserName());
@@ -232,14 +243,14 @@ public class ProcessChangesController {
                                     changesForSynchronizationService.updateChangesForSynchronization(changesForSynchronization);
                                 }
 
-                            } else if (currentModelChange instanceof ItemCreation && currentModelChange.getElementType() == 700) {              //len vytvorenia diagram objektov
+                            } else if (currentModelChange instanceof ItemCreation && currentModelChange.getElementType() == 700) {
                                 iterator.remove();
                                 changesForSynchronizationService.updateChangesForSynchronization(changesForSynchronization);
                                 log.info("processDelete: Creation found - do not save delete to the list of " + currentUser.getName() + " because noSync and there is creation in the list of " + modelChange.getUserName());
                                 found = true;
                             }
 
-                        } else if (modelChange.getPropertyType() != 11){                    //ostatne okrem obmedzeni
+                        } else if (modelChange.getPropertyType() != 11){
 
                             log.info("processDelete: Others: Deletion of change in the list of " + currentUser.getName() + " after deletion of " + modelChange.getItemGUID() + " by " + modelChange.getUserName());
                             iterator.remove();
@@ -252,7 +263,7 @@ public class ProcessChangesController {
                         }
 
                     } else if (modelChange.getElementType() >= 0 && modelChange.getElementType() < 50 && currentModelChange instanceof ItemCreation && currentModelChange.getElementType() >= 70
-                            && currentModelChange.getElementType() <= 79){                                                      //vymazanie spojenia po vymazani elementu
+                            && currentModelChange.getElementType() <= 79){
 
                         if (((ItemCreation) currentModelChange).getSrcGUID().equals(modelChange.getItemGUID()) || ((ItemCreation) currentModelChange).getTargetGUID().equals(modelChange.getItemGUID())){
 
@@ -263,7 +274,7 @@ public class ProcessChangesController {
 
                         }
 
-                    } else if (connectorGUID.equals(currentModelChange.getItemGUID())){                 //ostatne zmeny spojenia, ak sa nasiel vytvoreny v predoslom
+                    } else if (connectorGUID.equals(currentModelChange.getItemGUID())){
 
                         log.info("processDelete: Connector: Delete of creation in the list " + currentUser.getName() + " after deletion of " + modelChange.getItemGUID() + " by " + modelChange.getUserName());
                         iterator.remove();
@@ -279,15 +290,15 @@ public class ProcessChangesController {
             }
         }
 
-        for (Iterator<String> iterator = userChangeIDs.iterator(); iterator.hasNext();){            //zmazanie zmien v mojom liste po mojom vymazani prvku
+        for (Iterator<String> iterator = userChangeIDs.iterator(); iterator.hasNext();){
             currentModelChange = modelChangeService.getChangeById(iterator.next());
             elementGUID = getElementGUIDForSynchronization(currentModelChange.getUserName(), currentModelChange.getItemGUID(), smallTeam, user);
 
             if (modelChange.getItemGUID().equals(elementGUID)) {
 
-                if (modelChange.getElementType() == 700) {                              //diagram objekt
+                if (modelChange.getElementType() == 700) {
 
-                    if (currentModelChange instanceof PropertyChange && ((PropertyChange) currentModelChange).getPropertyType() == 405) {       //len zmeny suradnic
+                    if (currentModelChange instanceof PropertyChange && ((PropertyChange) currentModelChange).getPropertyType() == 405) {
 
                         if (modelChange.getPropertyBody().equals(((PropertyChange) currentModelChange).getOldPropertyBody())) {
                             log.info("processDelete2: Delete of diagram object movement in the list of " + modelChange.getUserName() + " after deletion of " + modelChange.getItemGUID() + " by " + modelChange.getUserName());
@@ -295,14 +306,14 @@ public class ProcessChangesController {
                             changesForSynchronizationService.updateChangesForSynchronization(myChangesForSynchronization);
                         }
 
-                    } else if (currentModelChange instanceof ItemCreation && currentModelChange.getElementType() == 700) {              //len vytvorenia diagram objektov
+                    } else if (currentModelChange instanceof ItemCreation && currentModelChange.getElementType() == 700) {
                         iterator.remove();
                         changesForSynchronizationService.updateChangesForSynchronization(myChangesForSynchronization);
                         log.info(String.valueOf(currentModelChange.getElementType()));
                         log.info("processDelete2: Creation found - do not save delete to the list of " + user.getName() + " because noSync and there is creation in the list of " + modelChange.getUserName());
                     }
 
-                } else if (modelChange.getPropertyType() != 11){                    //ostatne okrem obmedzeni
+                } else if (modelChange.getPropertyType() != 11){
 
                     log.info("processDelete2: Others: Deletion of change in the list of " + user.getName() + " after deletion of " + modelChange.getItemGUID() + " by " + modelChange.getUserName());
                     iterator.remove();
@@ -311,7 +322,7 @@ public class ProcessChangesController {
                 }
 
             } else if (modelChange.getElementType() >= 0 && modelChange.getElementType() < 50 && currentModelChange instanceof ItemCreation && currentModelChange.getElementType() >= 70
-                    && currentModelChange.getElementType() <= 79){                                                      //vymazanie spojenia po vymazani elementu
+                    && currentModelChange.getElementType() <= 79){
 
                 srcGUID = getElementGUIDForSynchronization(currentModelChange.getUserName(), ((ItemCreation) currentModelChange).getSrcGUID(), smallTeam, user);
                 targetGUID = getElementGUIDForSynchronization(currentModelChange.getUserName(), ((ItemCreation) currentModelChange).getTargetGUID(), smallTeam, user);
@@ -325,7 +336,7 @@ public class ProcessChangesController {
 
                 }
 
-            } else if (connectorGUID.equals(currentModelChange.getItemGUID())){                 //ostatne zmeny spojenia, ak sa nasiel vytvoreny v predoslom
+            } else if (connectorGUID.equals(currentModelChange.getItemGUID())){
 
                 log.info("processDelete2:Connector: Deletion of change in the list of " + user.getName() + " after deletion of " + modelChange.getItemGUID() + " by " + modelChange.getUserName());
                 iterator.remove();
@@ -335,6 +346,14 @@ public class ProcessChangesController {
         }
     }
 
+    /**
+     * method finds corresponding item GUID in correspondence node
+     * @param userName name of user
+     * @param elementGUID item GUID
+     * @param smallTeam small team
+     * @param user user
+     * @return corresponding item GUID or empty String when corresponding item is not found
+     */
     public String getElementGUIDForSynchronization(String userName, String elementGUID, SmallTeam smallTeam, User user){
         User authorOfChange = authorizationService.getUserByName(userName);
         CorrespondenceNodePart currentCorrNodePart;
@@ -350,15 +369,20 @@ public class ProcessChangesController {
         for (String ID : correspondenceNode.getCorrespondenceNodePartIDs()){
             currentCorrNodePart = corrNodePartService.getCorrNodePartById(ID);
             if (user.getName().equals(currentCorrNodePart.getUserName())) {
-                log.info("getElementGUID");
-                log.info(currentCorrNodePart.getElementGUID());
+                log.info("elementGUID: " + currentCorrNodePart.getElementGUID());
                 return currentCorrNodePart.getElementGUID();
             }
         }
         return "";
     }
 
-    public void processScenarioChange(StepChange scenarioChange, List<String> userChangeIDs, SmallTeam smallTeam, User user){
+    /**
+     * method processes scenario changes
+     * @param scenarioChange change of scenario
+     * @param smallTeam small team where user is member
+     * @param user user that made change
+     */
+    public void processScenarioChange(StepChange scenarioChange, SmallTeam smallTeam, User user){
         ChangesForSynchronization changesForSynchronization;
         for (String id : smallTeam.getTeamMembersId()){
             User currentUser = authorizationService.getUserById(id);
@@ -370,7 +394,13 @@ public class ProcessChangesController {
         }
     }
 
-    public void processScenarioDelete(StepChange scenarioChange, List<String> userChangeIDs, SmallTeam smallTeam, User user){
+    /**
+     * method process deletion of scenario
+     * @param scenarioChange deletion of scenario
+     * @param smallTeam small team where user is member
+     * @param user user that made change
+     */
+    public void processScenarioDelete(StepChange scenarioChange, SmallTeam smallTeam, User user){
         ChangesForSynchronization changesForSynchronization;
         for (String id : smallTeam.getTeamMembersId()){
             User currentUser = authorizationService.getUserById(id);

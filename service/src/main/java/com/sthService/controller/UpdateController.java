@@ -19,8 +19,10 @@ public class UpdateController {
     @Inject
     private UpdateService updateService;
 
-    private final Logger log = LoggerFactory.getLogger(UpdateController.class);
-
+    /**
+     * method finds version of our Add-In
+     * @return ResponseEntity with status CREATED and String value of add-in version
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<String> getVersion() {
         Double version = updateService.findVersion();

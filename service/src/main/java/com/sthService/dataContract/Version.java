@@ -7,6 +7,9 @@ import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * class used for storing version of our EA Add-In
+ */
 @Document
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Version {

@@ -4,6 +4,9 @@ import com.sthService.dataContract.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * repository of class User
+ */
 @Repository
 public interface AuthorizationRepository extends MongoRepository<User, String> {
 
@@ -13,6 +16,5 @@ public interface AuthorizationRepository extends MongoRepository<User, String> {
 
     User findById(String id);
 
-    //List<ModelChange> findByTimestampGreaterThan(String time);
 }
 

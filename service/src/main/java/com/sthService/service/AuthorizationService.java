@@ -27,6 +27,11 @@ public class AuthorizationService {
     @Inject
     private AuthorizationRepository authorizationRepository;
 
+    /**
+     * method creates new user
+     * @param name name of user
+     * @param token token of user
+     */
     public void createUser(String name, String token){
         User user = new User();
         user.setName(name);
@@ -36,22 +41,46 @@ public class AuthorizationService {
         authorizationRepository.save(user);
     }
 
+    /**
+     * method finds user by his token
+     * @param token token of user
+     * @return found user
+     */
     public User getUser(String token) {
         return authorizationRepository.findByToken(token);
     }
 
+    /**
+     * method finds user by his name
+     * @param name name of user
+     * @return found user
+     */
     public User getUserByName(String name) {
         return authorizationRepository.findByName(name);
     }
 
+    /**
+     * method finds user by his id
+     * @param id id of user
+     * @return found user
+     */
     public User getUserById(String id){
         return authorizationRepository.findById(id);
     }
 
+    /**
+     * method finds user by his token
+     * @param token token of user
+     * @return found user
+     */
     public User getUserByToken(String token){
         return authorizationRepository.findByToken(token);
     }
 
+    /**
+     * method updates user
+     * @param user user to be updated
+     */
     public void updateUser(User user){
         authorizationRepository.save(user);
     }

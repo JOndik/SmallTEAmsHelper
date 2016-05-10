@@ -4,6 +4,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * class used for storing changes of item properties
+ */
 @Document
 public class PropertyChange extends ModelChange {
 

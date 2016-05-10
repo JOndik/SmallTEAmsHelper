@@ -6,6 +6,9 @@ import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * class used for storing information about user
+ */
 @Document
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {

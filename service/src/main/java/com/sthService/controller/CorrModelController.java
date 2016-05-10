@@ -40,6 +40,11 @@ public class CorrModelController {
     @Inject
     private ChangesForSynchronizationService changesForSynchronizationService;
 
+    /**
+     * method creates new correspondence node in correspondence model
+     * @param newCorrespondenceNode correspondence node that consists of user names and GUID of their items
+     * @return ResponseEntity OK
+     */
     @RequestMapping(value = "/createNode", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> postNewCorrespondenceNode(@RequestBody NewCorrespondenceNode newCorrespondenceNode) {
         String corrNodePartId;
@@ -70,6 +75,15 @@ public class CorrModelController {
         return new ResponseEntity<>("", HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param firstUser
+     * @param secondUser
+     * @param smallTeam
+     * @param firstUserItemGUID
+     * @param secondUserItemGUID
+     * @return
+     */
     public boolean compareNodes(User firstUser, User secondUser, SmallTeam smallTeam, String firstUserItemGUID, String secondUserItemGUID) {
         CorrespondenceNodePart corrNodePart = corrNodePartService.getCorrNodePart(firstUser.getName(),
                 firstUserItemGUID, firstUser.getModelGUID(), smallTeam.getId());
@@ -94,6 +108,11 @@ public class CorrModelController {
         return false;
     }
 
+    /**
+     * method checks if other team members have sent data about model
+     * if other team member has sent data about model, these data are compared and add to correspondence model
+     * @param currentUser user that has just sent data about model
+     */
     public void checkOtherTeamMembers(User currentUser){
         SmallTeam smallTeam = smallTeamService.getByUserId(currentUser.getId());
         List<String> teamMembersIds = smallTeam.getTeamMembersId();
@@ -110,6 +129,12 @@ public class CorrModelController {
         }
     }
 
+    /**
+     * method compares data about model and creates new correspondence node in correspondence model
+     * @param smallTeam small team that consists of currentUser and user
+     * @param currentUser user that has just sent data about model
+     * @param user other user that sent data about model earlier
+     */
     public void addDataToCorrespondenceModel(SmallTeam smallTeam, User currentUser, User user){
         boolean corrModelID = smallTeam.isCorrespondenceModel();
         int index;
@@ -145,7 +170,7 @@ public class CorrModelController {
 
         log.info("AddDataToCorrModel: " + currentUser.getName() + " " + String.valueOf(currentUserChanges.size()) + " " + user.getName() + " " + String.valueOf(userChanges.size()));
 
-        if (!corrModelID){                                                               //neexistuje CM
+        if (!corrModelID){                                                               //no correspondence model
 
             saveNewNode(smallTeam.getId(), currentUser.getName(), currentUser.getModelGUID(), user.getName(), user.getModelGUID());
 
@@ -353,6 +378,14 @@ public class CorrModelController {
         }
     }
 
+    /**
+     * method for creation of new correspondence node in correspondence model
+     * @param smallTeamId ID of small team
+     * @param firstUserName name of the first user
+     * @param firstItemGUID GUID of item in the model of the first user
+     * @param secondUserName name of the second user
+     * @param secondItemGUID GUID of item in the model of the second user
+     */
     public void saveNewNode(String smallTeamId, String firstUserName, String firstItemGUID, String secondUserName, String secondItemGUID){
         User firstUser = authorizationService.getUserByName(firstUserName);
         User secondUser = authorizationService.getUserByName(secondUserName);
@@ -363,25 +396,5 @@ public class CorrModelController {
         firstId = corrNodePartService.createCorrNodePart(firstUserName, firstItemGUID, firstUser.getModelGUID(), smallTeamId);
         secondId = corrNodePartService.createCorrNodePart(secondUserName, secondItemGUID, secondUser.getModelGUID(), smallTeamId);
         correspondenceNodeService.createCorrespondenceNode(firstId, secondId);
-
-        /*CorrespondenceNodePart correspondenceNodePart1 = new CorrespondenceNodePart();
-        correspondenceNodePart1.setSmallTeamID(smallTeamId);
-        correspondenceNodePart1.setElementGUID(firstItemGUID);
-        correspondenceNodePart1.setUserName(firstUserName);
-        correspondenceNodePart1.setModelGUID(firstUser.getModelGUID());
-        corrNodePartRepository.save(correspondenceNodePart1);*/
-
-        /*CorrespondenceNodePart correspondenceNodePart2 = new CorrespondenceNodePart();
-        correspondenceNodePart2.setSmallTeamID(smallTeamId);
-        correspondenceNodePart2.setElementGUID(secondItemGUID);
-        correspondenceNodePart2.setUserName(secondUserName);
-        correspondenceNodePart2.setModelGUID(secondUser.getModelGUID());
-        corrNodePartRepository.save(correspondenceNodePart2);*/
-
-       /* CorrespondenceNode newCorrNode = new CorrespondenceNode();
-        newCorrNode.setCorrespondenceNodePartIDs(new ArrayList<>());
-        newCorrNode.getCorrespondenceNodePartIDs().add(correspondenceNodePart1.getId());
-        newCorrNode.getCorrespondenceNodePartIDs().add(correspondenceNodePart2.getId());
-        correspondenceNodeRepository.save(newCorrNode);*/
     }
 }

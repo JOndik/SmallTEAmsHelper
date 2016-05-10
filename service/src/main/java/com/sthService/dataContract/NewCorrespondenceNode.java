@@ -1,5 +1,8 @@
 package com.sthService.dataContract;
 
+/**
+ * class used for transfer of new correspondence node
+ */
 public class NewCorrespondenceNode {
 
     private String firstUsername;

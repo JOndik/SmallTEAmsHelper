@@ -6,6 +6,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * class used for storing all model changes
+ */
 @Document
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,

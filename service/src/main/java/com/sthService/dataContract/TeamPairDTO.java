@@ -1,5 +1,8 @@
 package com.sthService.dataContract;
 
+/**
+ * class used for representing node of correspondence model
+ */
 public class TeamPairDTO {
 
     private String token;

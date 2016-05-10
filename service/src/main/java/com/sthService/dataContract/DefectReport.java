@@ -8,6 +8,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * class used for report defects in models
+ */
 @Document
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefectReport {

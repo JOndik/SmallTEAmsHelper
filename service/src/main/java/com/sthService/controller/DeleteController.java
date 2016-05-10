@@ -35,6 +35,13 @@ public class DeleteController {
     @Inject
     private CorrespondenceNodeService correspondenceNodeService;
 
+    /**
+     * method removes small team, its correspondence nodes and data about models
+     * @param token token of user that wants to remove small team
+     * @return  ResponseEntity OK
+     *          ResponseEntity with status UNAUTHORIZED - user was not found
+     *          ResponseEntity with status NOT_FOUND - user is not member of any small team
+     */
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteSmallTeam(@RequestBody String token) {
         User user = authorizationService.getUserByToken(token);

@@ -5,7 +5,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+/**
+ * repository of class CorrespondenceNodePart
+ */
 @Repository
 public interface CorrNodePartRepository extends MongoRepository<CorrespondenceNodePart, String>{
 

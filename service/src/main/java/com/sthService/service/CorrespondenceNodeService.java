@@ -15,6 +15,11 @@ public class CorrespondenceNodeService {
     @Inject
     private CorrespondenceNodeRepository correspondenceNodeRepository;
 
+    /**
+     * method creates new correspondence node
+     * @param firstId ID of correspondence node part
+     * @param secondId ID of correspondence node part
+     */
     public void createCorrespondenceNode(String firstId, String secondId){
         CorrespondenceNode newCorrNode = new CorrespondenceNode();
         newCorrNode.setCorrespondenceNodePartIDs(new ArrayList<>());
@@ -23,14 +28,27 @@ public class CorrespondenceNodeService {
         correspondenceNodeRepository.save(newCorrNode);
     }
 
+    /**
+     * method finds correspondence node by ID of correspondence node part
+     * @param id ID of correspondence node part
+     * @return found correspondence node
+     */
     public CorrespondenceNode getCorrNodeByCorrNodePartId(String id){
         return correspondenceNodeRepository.findByNestedCorrespondenceNodePartId(id);
     }
 
+    /**
+     * method updates correspondence node
+     * @param correspondenceNode correspondence node to be updated
+     */
     public void updateCorrespondenceNode(CorrespondenceNode correspondenceNode){
         correspondenceNodeRepository.save(correspondenceNode);
     }
 
+    /**
+     * method removes correspondence node
+     * @param correspondenceNode correspondence node to be deleted
+     */
     public void deleteCorrespondenceNode(CorrespondenceNode correspondenceNode){
         correspondenceNodeRepository.delete(correspondenceNode);
     }

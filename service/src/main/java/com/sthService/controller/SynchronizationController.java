@@ -36,6 +36,17 @@ public class SynchronizationController {
 
     private final Logger log = LoggerFactory.getLogger(SynchronizationController.class);
 
+    /**
+     * method checks which fase is synchronization process in
+     * @param modelInformation information about model (token of user and GUID of model)
+     * @return  ResponseEntity with status OK
+     *          ResponseEntity with status UNAUTHORIZED - user was not found
+     *          ResponseEntity with status BAD_REQUEST - user is not member of any small team
+     *          ResponseEntity with status METHOD_NOT_ALLOWED - user wants to synchronize wrong model
+     *          ResponseEntity with status FORBIDDEN - synchronization is not yet allowed
+     *          ResponseEntity with status NOT_FOUND - user has not sent data about model
+     *          ResponseEntity with status NOT_ACCEPTABLE - small team does not have all members
+     */
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> checkSynchronization(@RequestBody ModelInformation modelInformation) {
         User currentUser = authorizationService.getUser(modelInformation.getToken());
@@ -45,24 +56,24 @@ public class SynchronizationController {
         SmallTeam smallTeam = smallTeamService.getByUserId(currentUser.getId());
         if(smallTeam == null){
             log.info(currentUser.getName() + " is not joined to any team");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);      // "noJoin";
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
             if (smallTeam.getTeamMembersId().size() > 1) {
                 log.info(String.valueOf(currentUser.isAllModelData()));
-                if (currentUser.isAllModelData()) {                                  //ak uz poslal cely model
+                if (currentUser.isAllModelData()) {
                     if (smallTeam.isSynchronizationAllowed()) {
-                        if (currentUser.getModelGUID().equals(modelInformation.getModelGUID())) {            // ak uz prebieha sync a poslal zo spravneho modelu
+                        if (currentUser.getModelGUID().equals(modelInformation.getModelGUID())) {
                             log.info("Synchronization starts: " + smallTeam.getId() + " user " + currentUser.getName());
                             return new ResponseEntity<>(HttpStatus.OK);
-                        } else {                                                    // ak uz prebieha sync ale neposlal zo spravneho modelu
+                        } else {
                             log.info("Synchronization from the wrong model " + smallTeam.getId() + " user " + currentUser.getName());
-                            return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);     //bad request / wrong
+                            return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
                         }
-                    } else {                                                        //ak este neprebieha sync
+                    } else {
                         log.info("Synchronization is not running "  + smallTeam.getId() + " user " + currentUser.getName());
-                        return new ResponseEntity<>(HttpStatus.FORBIDDEN);        //forbidden / noSync
+                        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
                     }
-                } else {                                                            //ak este neposlal model
+                } else {
                     log.info("User " + currentUser.getName() + " has not sent data of model");
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 }
@@ -73,6 +84,14 @@ public class SynchronizationController {
         }
     }
 
+    /**
+     * method send change to client that has to be made in synchronization process
+     * @param token token of user that wants to synchronize
+     * @return  ResponseEntity with status OK
+     *          ResponseEntity with status UNAUTHORIZED - user was not found
+     *          ResponseEntity with status BAD_REQUEST - user is not member of any small team
+     *          ResponseEntity with status NOT_FOUND - list of changes for synchronization of this user was not found
+     */
     @RequestMapping(value = "/changes", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ModelChange> sendChangeForSynchronization(@RequestBody String token) {
         ModelChange modelChange = null;
@@ -105,6 +124,14 @@ public class SynchronizationController {
         }
     }
 
+    /**
+     * method finds number of changes that have to be made in synchronization
+     * @param token token of user that wants to synchronize
+     * @return  ResponseEntity with status OK
+     *          ResponseEntity with status UNAUTHORIZED - user was not found
+     *          ResponseEntity with status BAD_REQUEST - user is not member of any small team
+     *          ResponseEntity with status NOT_FOUND - list of changes for synchronization of this user was not found
+     */
     @RequestMapping(value = "/getNumber", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getNumberOfChangesForSynchronization(@RequestBody String token) {
         User user = authorizationService.getUserByToken(token);
@@ -129,6 +156,11 @@ public class SynchronizationController {
         }
     }
 
+    /**
+     * method find change that has to be made in synchronization
+     * @param token token of user that wants to synchronize
+     * @return model change with modified GUIDs
+     */
     public ModelChange getChangeForSynchronization(String token){
         String elementGUID, srcGUID, targetGUID, diagramGUID, endElementGUID, packageGUID, parentGUID, scenarioGUID;
         User user = authorizationService.getUserByToken(token);
@@ -144,16 +176,16 @@ public class SynchronizationController {
             changesForSyncService.updateChangesForSynchronization(changesForSynchronization);
             if (modelChange instanceof ItemCreation) {
 
-                if (modelChange.getElementType() == 3) {                                                //pridanie balika
+                if (modelChange.getElementType() == 3) {
                     return changeParentOrPackageGUID(modelChange, smallTeam, user);
 
-                } else if (modelChange.getElementType() >= 50 && modelChange.getElementType() < 70){           //pridanie diagramu
+                } else if (modelChange.getElementType() >= 50 && modelChange.getElementType() < 70){
                     return changeParentOrPackageGUID(modelChange, smallTeam, user);
 
-                } else if (modelChange.getElementType() >= 0 && modelChange.getElementType() < 50){                                          //pridanie elementu
+                } else if (modelChange.getElementType() >= 0 && modelChange.getElementType() < 50){
                     return changeParentOrPackageGUID(modelChange, smallTeam, user);
 
-                } else if (modelChange.getElementType() >= 70 && modelChange.getElementType() <= 79){           //pridanie spojenia
+                } else if (modelChange.getElementType() >= 70 && modelChange.getElementType() <= 79){
                     srcGUID = getElementGUIDForSynchronization(modelChange.getUserName(), ((ItemCreation) modelChange).getSrcGUID(), smallTeam, user);
                     targetGUID = getElementGUIDForSynchronization(modelChange.getUserName(), ((ItemCreation) modelChange).getTargetGUID(), smallTeam, user);
                     if (!("").equals(srcGUID) && !("").equals(targetGUID)){
@@ -165,7 +197,7 @@ public class SynchronizationController {
                     } else {
                         return null;
                     }
-                } else if (modelChange.getElementType() == 90){                                                 //pridanie atributu
+                } else if (modelChange.getElementType() == 90){
                     parentGUID = getElementGUIDForSynchronization(modelChange.getUserName(), ((ItemCreation) modelChange).getParentGUID(), smallTeam, user);
                     if (!("").equals(parentGUID)){
                         log.info("getChangeForSynchronization");
@@ -190,7 +222,7 @@ public class SynchronizationController {
                 }
 
             } else if (modelChange instanceof PropertyChange) {
-                if (modelChange.getElementDeleted() == 1 && modelChange.getElementType() == 700) {     //vymazanie spojenia a DO
+                if (modelChange.getElementDeleted() == 1 && modelChange.getElementType() == 700) {
                     elementGUID = getElementGUIDForSynchronization(modelChange.getUserName(), modelChange.getItemGUID(), smallTeam, user);
                     diagramGUID = getElementGUIDForSynchronization(modelChange.getUserName(), ((PropertyChange) modelChange).getPropertyBody(), smallTeam, user);
                     if (!("").equals(elementGUID) && !("").equals(diagramGUID)) {
@@ -202,7 +234,7 @@ public class SynchronizationController {
                     } else {
                         return null;
                     }
-                } else if (((PropertyChange) modelChange).getPropertyType() >= 301 && ((PropertyChange) modelChange).getPropertyType() <= 302){     //zmena v spojeni (zdroj / ciel)
+                } else if (((PropertyChange) modelChange).getPropertyType() >= 301 && ((PropertyChange) modelChange).getPropertyType() <= 302){
                     elementGUID = getElementGUIDForSynchronization(modelChange.getUserName(), modelChange.getItemGUID(), smallTeam, user);
                     endElementGUID = getElementGUIDForSynchronization(modelChange.getUserName(), ((PropertyChange) modelChange).getPropertyBody(), smallTeam, user);
                     if (!("").equals(elementGUID) && !("").equals(endElementGUID)) {
@@ -214,7 +246,7 @@ public class SynchronizationController {
                     } else {
                         return null;
                     }
-                } else if (((PropertyChange) modelChange).getPropertyType() >= 401 && ((PropertyChange) modelChange).getPropertyType() <= 404) {            //presuvanie
+                } else if (((PropertyChange) modelChange).getPropertyType() >= 401 && ((PropertyChange) modelChange).getPropertyType() <= 404) {
                     elementGUID = getElementGUIDForSynchronization(modelChange.getUserName(), modelChange.getItemGUID(), smallTeam, user);
                     packageGUID = getElementGUIDForSynchronization(modelChange.getUserName(), ((PropertyChange) modelChange).getPropertyBody(), smallTeam, user);
                     if (!("").equals(elementGUID) && !("").equals(packageGUID)) {
@@ -226,7 +258,7 @@ public class SynchronizationController {
                     } else {
                         return null;
                     }
-                } else if (((PropertyChange) modelChange).getPropertyType() == 405) {            //presuvanie v diagrame
+                } else if (((PropertyChange) modelChange).getPropertyType() == 405) {
                     elementGUID = getElementGUIDForSynchronization(modelChange.getUserName(), modelChange.getItemGUID(), smallTeam, user);
                     diagramGUID = getElementGUIDForSynchronization(modelChange.getUserName(), ((PropertyChange) modelChange).getOldPropertyBody(), smallTeam, user);
                     if (!("").equals(elementGUID) && !("").equals(diagramGUID)) {
@@ -239,7 +271,6 @@ public class SynchronizationController {
                         return null;
                     }
                 } else {
-                    //ina lubovolna zmena
                     elementGUID = getElementGUIDForSynchronization(modelChange.getUserName(), modelChange.getItemGUID(), smallTeam, user);
                     if (!("").equals(elementGUID)) {
                         log.info("getChangeForSynchronization");
@@ -279,6 +310,13 @@ public class SynchronizationController {
         return null;
     }
 
+    /**
+     * method changes parent or package GUID of model change
+     * @param modelChange model change to be synchronized
+     * @param smallTeam small team where user is member
+     * @param user user that wants to synchronize
+     * @return modified model change
+     */
     public ModelChange changeParentOrPackageGUID(ModelChange modelChange, SmallTeam smallTeam, User user){
         String elementGUID;
         elementGUID = getElementGUIDForSynchronization(modelChange.getUserName(), ((ItemCreation) modelChange).getPackageGUID(),smallTeam, user);
@@ -302,6 +340,14 @@ public class SynchronizationController {
         return modelChange;
     }
 
+    /**
+     * method finds item GUID in model of user
+     * @param userName name of user that wants to synchronize
+     * @param elementGUID item GUID
+     * @param smallTeam small team where user is member
+     * @param user user that wants to synchronize
+     * @return item GUID in model of user or empty String
+     */
     public String getElementGUIDForSynchronization(String userName, String elementGUID, SmallTeam smallTeam, User user){
         User authorOfChange = authorizationService.getUserByName(userName);
         CorrespondenceNodePart currentCorrNodePart;

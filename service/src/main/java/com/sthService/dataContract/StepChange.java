@@ -2,6 +2,9 @@ package com.sthService.dataContract;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * class used for storing addition, change and deletion of scenario step
+ */
 @Document
 public class StepChange extends ModelChange {
 

@@ -14,18 +14,16 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.security.GeneralSecurityException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * controller used for user authorization
+ */
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthorizationController {
@@ -44,42 +42,20 @@ public class AuthorizationController {
 
     private final Logger log = LoggerFactory.getLogger(AuthorizationController.class);
 
+    /**
+     * method checks AIS log in name and password by communication with AIS
+     * @param user user which has sent AIS log in name and password
+     * @return  ResponseEntity with status UNAUTHORIZED - AIS log in name or password is incorrect
+     *          ResponseEntity with status OK - AIS log in name and password are correct
+     *          ResponseEntity with status INTERNAL_SERVER_ERROR - problem with HTTPS connection
+     */
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> checkLogInData(@RequestBody User user) {
-        /*TrustManager[] trustAllCerts = new TrustManager[] {
-                new X509TrustManager() {
-                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                        return new X509Certificate[0];
-                    }
-                    public void checkClientTrusted(
-                            java.security.cert.X509Certificate[] certs, String authType) {
-                    }
-                    public void checkServerTrusted(
-                            java.security.cert.X509Certificate[] certs, String authType) {
-                    }
-                }
-        };
-
-        // Install the all-trusting trust manager
-        try {
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new java.security.SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-        } catch (GeneralSecurityException e) {
-            log.error("SSLContext was not created successfully: " + e.toString());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        // Now you can access an https URL without having the certificate in the truststore
-
-        HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);*/
-        //log.info(logIn.getName() + " " + logIn.getPassword());
         URL url;
 
         try {
             url = new URL("https://maya.fiit.stuba.sk/LDAPAuth/api/auth?username=" + user.getName());
 
-            //String urlString = "https://maya.fiit.stuba.sk/LDAPAuth/api/auth?username=" + logIn.getName();
-            //URL url = new URL(urlString);
             HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
 
             conn.setRequestMethod("POST");
@@ -148,6 +124,17 @@ public class AuthorizationController {
 
     }
 
+    /**
+     * method saves request for joining new member to small team
+     * @param teamPair teamPair containing token of user and new member name
+     * @return  ResponseEntity with status OK
+     *          ResponseEntity with status UNAUTHORIZED - user was not found
+     *          ResponseEntity with status METHOD_NOT_ALLOWED -
+     *          ResponseEntity with status FORBIDDEN - user wanted to add himself to team
+     *          ResponseEntity with status NOT_ACCEPTABLE - number of team members is 2
+     *          ResponseEntity with status BAD_REQUEST - new member of small team was not recognized
+     *          ResponseEntity with status CONFLICT - new team member is already in team
+     */
     @RequestMapping(value = "/pair", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> pairMembers(@RequestBody TeamPairDTO teamPair) {
         log.info("spajam " + teamPair.getToken());
@@ -169,7 +156,6 @@ public class AuthorizationController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
-        log.info("tu som2");
         SmallTeam smallTeam = smallTeamService.getByUserId(requester.getId());
 
         if (smallTeam == null) {
@@ -200,7 +186,6 @@ public class AuthorizationController {
 
         //
         smallTeam = smallTeamService.getByUserId(requester.getId());
-        //smallTeam.getTeamMembersId().add(newMember.getId());        ////////
         smallTeamService.updateTeam(smallTeam);
         //
 
@@ -232,6 +217,13 @@ public class AuthorizationController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * method adds new team member after his clicking of link in email
+     * @param pairToken token of pair request
+     * @return  ResponseEntity with status OK
+     *          ResponseEntity with status BAD_REQUEST - pair request was not found
+     *          ResponseEntity with status BAD_GATEWAY - new team member was not found
+     */
     @RequestMapping(value = "/pair/{pairToken}", method = RequestMethod.GET)
     public ResponseEntity<?> confirmPair(@PathVariable String pairToken) {
         log.info("confirm pair");
@@ -253,11 +245,11 @@ public class AuthorizationController {
             return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
         }
 
-        log.info("pridaj clena");
+        log.info("add team member");
         smallTeam.getTeamMembersId().add(user.getId());
         smallTeamService.updateTeam(smallTeam);
 
-        log.info("nastav changesForSync");
+        log.info("set changesForSync");
         ChangesForSynchronization changesForSynchronization = changesForSynchronizationService.findChangesForSynchronization(user.getName(), smallTeam.getId());
         if (changesForSynchronization == null) {
             changesForSynchronizationService.createChangesForSynchronization(user.getName(), smallTeam.getId());
@@ -268,10 +260,16 @@ public class AuthorizationController {
 
         log.info("delete request");
         pairRequestService.deleteRequest(pairRequest);
-        log.info("koniec sparovania");
         return new ResponseEntity<>("Sparovanie dokoncene", HttpStatus.OK);
     }
 
+    /**
+     * method checks if user is member of a team
+     * @param token token of user
+     * @return  ResponseEntity with status OK
+     *          ResponseEntity with status UNAUTHORIZED - user was not found
+     *          ResponseEntity with status NOT_FOUND - user is not member of any small team
+     */
     @RequestMapping(value = "/checkJoining", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> checkJoining(@RequestBody String token) {
         User user = authorizationService.getUserByToken(token);
@@ -287,6 +285,10 @@ public class AuthorizationController {
         }
     }
 
+    /**
+     * method generates token for new user
+     * @return generated token
+     */
     public String generateToken(){
         String uuid;
         while(true) {

@@ -8,6 +8,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+/**
+ * class used for storing changes that have to be made in next model synchronization
+ */
 @Document
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ChangesForSynchronization {

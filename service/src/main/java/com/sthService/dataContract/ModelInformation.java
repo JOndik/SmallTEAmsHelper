@@ -1,5 +1,8 @@
 package com.sthService.dataContract;
 
+/**
+ * class used for transfer of model information
+ */
 public class ModelInformation {
 
     private String token;

@@ -4,6 +4,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * class used for storing item addition
+ */
 @Document
 public class ItemCreation extends ModelChange {
 

@@ -4,7 +4,9 @@ import com.sthService.dataContract.CorrespondenceNode;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
-
+/**
+ * repository of class CorrespondenceNode
+ */
 @Repository
 public interface CorrespondenceNodeRepository extends MongoRepository<CorrespondenceNode, String> {
 
