@@ -1,11 +1,16 @@
 package com.sthService.service;
 
+import com.sthService.controller.AuthorizationController;
 import com.sthService.dataContract.User;
 import com.sthService.repository.AuthorizationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.security.util.Password;
 
 import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
@@ -27,6 +32,107 @@ public class AuthorizationService {
     @Inject
     private AuthorizationRepository authorizationRepository;
 
+    @Inject
+    private PasswordEncoder passwordEncoder;
+
+    private final Logger log = LoggerFactory.getLogger(AuthorizationController.class);
+
+    public String checkUserCredentials(User authUser) {
+        User user = getUserByName(authUser.getName());
+
+        if (user == null) {
+            return null;
+        }
+
+        if (passwordEncoder.matches(authUser.getPassword(), user.getPassword())) {
+            String token = generateToken();
+
+            log.info("Token " + token + " was generated");
+            log.info("User " + user.getName() + " is in database");
+
+            user.setToken(token);
+            authorizationRepository.save(user);
+
+            log.info("Token of user " + user.getName() + " was set to " + token);
+            return token;
+        }
+
+        return null;
+    }
+
+    public String checkAISUser(User user) {
+        URL url;
+
+        try {
+            url = new URL("https://maya.fiit.stuba.sk/LDAPAuth/api/auth?username=" + user.getName());
+
+            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty("Content-Length", Integer.toString(user.getPassword().getBytes().length));
+            conn.setRequestProperty("Host", "maya.fiit.stuba.sk");
+            conn.setDoOutput(true);
+
+            DataOutputStream writer = new DataOutputStream(conn.getOutputStream());
+            writer.writeBytes("=" + user.getPassword());
+            writer.flush();
+            writer.close();
+
+            int responseCode = conn.getResponseCode();
+
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                log.info(response.toString());
+                if (("true").equals(response.toString())) {
+
+                    log.info("AIS data of user " + user.getName() + " are correct");
+
+                    User foundUserByName = getUserByName(user.getName()); //authorizationRepository.findByName(user.getName());
+                    String token = generateToken();
+
+                    log.info("Token " + token + " was generated");
+
+                    if (foundUserByName == null){
+                        log.info("User " + user.getName() + " is not in database");
+
+                        createUser(user.getName(), token);
+
+                        log.info("User " + user.getName() + " was inserted to database");
+
+                    } else {
+                        log.info("User " + user.getName() + " is in database");
+
+                        foundUserByName.setToken(token);
+                        authorizationRepository.save(user);
+
+                        log.info("Token of user " + user.getName() + " was changed to " + token);
+                    }
+
+                    return token;
+
+                } else {
+                    log.info("AIS data of user " + user.getName() + " are incorrect");
+                    return null;
+                }
+            } else {
+                log.error("ResponseCode does not equal HTTP_OK, responseCode: " + responseCode);
+                return null;
+            }
+        } catch (Exception e) {
+            log.error("HttpsURLConnection was not created successfully: " + e.toString());
+            return null;
+        }
+    }
+
     /**
      * method creates new user
      * @param name name of user
@@ -40,6 +146,14 @@ public class AuthorizationService {
         user.setAllModelData(false);
         authorizationRepository.save(user);
     }
+
+    public void createInternalUser(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setModelGUID("");
+        user.setAllModelData(false);
+        authorizationRepository.save(user);
+    }
+
 
     /**
      * method finds user by his token
@@ -83,5 +197,22 @@ public class AuthorizationService {
      */
     public void updateUser(User user){
         authorizationRepository.save(user);
+    }
+
+
+    /**
+     * method generates token for new user
+     * @return generated token
+     */
+    public String generateToken(){
+        String uuid;
+        while(true) {
+            uuid = UUID.randomUUID().toString();
+            log.info(uuid);
+            User user = getUserByToken(uuid);
+            if(user == null){
+                return uuid;
+            }
+        }
     }
 }

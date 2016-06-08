@@ -53,11 +53,11 @@ public class ChangesController {
         if (newChange.getModelChange().getElementType() != 777) {
             modelChangeService.saveChange(user.getName(), newChange.getModelChange());
             SmallTeam smallTeam = smallTeamService.getByUserId(user.getId());
-            if ((newChange.getModelChange().getModelGUID()).equals(user.getModelGUID()) && smallTeam != null){
+            if ((newChange.getModelChange().getModelGUID()).equals(user.getModelGUID()) && smallTeam != null) {
                 processChangesController.processChange(newChange.getModelChange(), user);
             }
         } else {
-            if (user.isAllModelData()){
+            if (user.isAllModelData()) {
                 return new ResponseEntity<>(HttpStatus.OK);
             }
             user.setAllModelData(true);
