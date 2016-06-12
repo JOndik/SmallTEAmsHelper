@@ -39,6 +39,6 @@ public class UpdateController {
 
     @RequestMapping(value = "/installer", method = RequestMethod.GET)
     public ResponseEntity<?> getInstaller() {
-        return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/updates/SmallTEAmsHelper.msi").build();
+        return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/FSE/updates/SmallTEAmsHelper.msi").build();
     }
 }
