@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4a18d54-28b6-4323-806a-7a79159db46d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/resources/static/updates/SmallTEAmsHelper.msi" afterPath="$PROJECT_DIR$/service/src/main/resources/static/updates/SmallTEAmsHelper.msi" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/com/sthService/controller/ChangesController.java" afterPath="$PROJECT_DIR$/service/src/main/java/com/sthService/controller/ChangesController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/com/sthService/repository/ModelChangeRepository.java" afterPath="$PROJECT_DIR$/service/src/main/java/com/sthService/repository/ModelChangeRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/com/sthService/service/ModelChangeService.java" afterPath="$PROJECT_DIR$/service/src/main/java/com/sthService/service/ModelChangeService.java" />
     </list>
     <ignored path="SmallTEAmsHelper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,8 +28,8 @@
       <file leaf-file-name="ChangesController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/service/src/main/java/com/sthService/controller/ChangesController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="165" column="65" selection-start-line="165" selection-start-column="65" selection-end-line="165" selection-end-column="65" />
+            <state relative-caret-position="268">
+              <caret line="130" column="56" selection-start-line="130" selection-start-column="56" selection-end-line="130" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -764,12 +760,12 @@
       <workItem from="1465373463101" duration="15000" />
       <workItem from="1465717714027" duration="107000" />
       <workItem from="1465717856530" duration="4179000" />
-      <workItem from="1465755051254" duration="2699000" />
+      <workItem from="1465755051254" duration="2809000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7000000" />
+    <option name="totallyTimeSpent" value="7110000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1051,8 +1047,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/service/src/main/java/com/sthService/controller/ChangesController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="165" column="65" selection-start-line="165" selection-start-column="65" selection-end-line="165" selection-end-column="65" />
+        <state relative-caret-position="268">
+          <caret line="130" column="56" selection-start-line="130" selection-start-column="56" selection-end-line="130" selection-end-column="56" />
           <folding />
         </state>
       </provider>
