@@ -12,6 +12,7 @@ namespace BPAddIn
         //public const string serviceAddress = "http://localhost:8080";
         //public const string serviceAddress = "http://192.168.1.138:8080";
         //public const string serviceAddress = "http://192.168.137.21:8080";
-        public const string serviceAddress = "http://localhost:8080";
+        //public const string serviceAddress = "https://ichiban.fiit.stuba.sk:8443/testing";
+        public const string serviceAddress = "https://ichiban.fiit.stuba.sk:8443/FSE";
     }
 }

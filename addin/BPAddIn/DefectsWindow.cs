@@ -209,10 +209,7 @@ namespace BPAddIn
                     removeFromHiddenList(selectedError.listBoxObject);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         private void skryChybuToolStripMenuItem_Click(object sender, System.EventArgs e)

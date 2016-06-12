@@ -23,8 +23,8 @@ namespace BPAddIn.SynchronizationPackage
             package.Name = name;
             package.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Zmena názvu balíka '" + name + "' - pôvodný názov: '" + oldName + 
-                "' (Umiestnenie balíka: " + itemTypes.getLocationOfItem(Repository, package.ParentID, 0));
+            BPAddIn.synchronizationWindow.addToList("Change of name of package '" + name + "' - former name: '" + oldName + 
+                "' (Location of package: " + itemTypes.getLocationOfItem(Repository, package.ParentID, 0));
         }
 
         public void changePackageAuthor(EA.Repository Repository, string packageGUID, string author, string oldAuthor)
@@ -34,8 +34,8 @@ namespace BPAddIn.SynchronizationPackage
             packageElement.Author = author;
             package.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Zmena autora balíka '" + package.Name + "' - pôvodný autor: '" + oldAuthor +
-                 "', aktuálny autor: '" + author + "' (Umiestnenie balíka: " + itemTypes.getLocationOfItem(Repository, package.ParentID, 0));
+            BPAddIn.synchronizationWindow.addToList("Change of author of package '" + package.Name + "' - former author: '" + oldAuthor +
+                 "', current author: '" + author + "' (Location of package: " + itemTypes.getLocationOfItem(Repository, package.ParentID, 0));
         }
 
         public void changePackageNotes(EA.Repository Repository, string packageGUID, string notes)
@@ -44,8 +44,8 @@ namespace BPAddIn.SynchronizationPackage
             package.Notes = notes;
             package.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Zmena poznámok balíka '" + package.Name +
-                "' (Umiestnenie balíka: " + itemTypes.getLocationOfItem(Repository, package.ParentID, 0));
+            BPAddIn.synchronizationWindow.addToList("Change of notes of package '" + package.Name +
+                "' (Location of package: " + itemTypes.getLocationOfItem(Repository, package.ParentID, 0));
         }
 
         public void changeDiagramName(EA.Repository Repository, string diagramGUID, string name, string oldName, int elementType)
@@ -54,9 +54,9 @@ namespace BPAddIn.SynchronizationPackage
             diagram.Name = name;
             diagram.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Zmena názvu " + itemTypes.getElementTypeInSlovak(elementType) + " '" + 
-                name + "' - pôvodný názov: '" + oldName +
-                "' (Umiestnenie diagramu: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Change of name of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + 
+                name + "' - former name: '" + oldName +
+                "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
         public void changeDiagramAuthor(EA.Repository Repository, string diagramGUID, string author, string oldAuthor, int elementType)
@@ -65,9 +65,9 @@ namespace BPAddIn.SynchronizationPackage
             diagram.Author = author;
             diagram.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Zmena autora " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-              diagram.Name + "' - pôvodný autor: '" + oldAuthor + "', aktuálny autor: '" + author +
-              "' (Umiestnenie diagramu: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Change of author " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+              diagram.Name + "' - former author: '" + oldAuthor + "', current autor: '" + author +
+              "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
         public void changeDiagramNotes(EA.Repository Repository, string diagramGUID, string notes, int elementType)
@@ -76,8 +76,8 @@ namespace BPAddIn.SynchronizationPackage
             diagram.Notes = notes;
             diagram.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Zmena poznámok " + itemTypes.getElementTypeInSlovak(elementType) + " '" + diagram.Name +
-                 "' (Umiestnenie diagramu: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Change of notes of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + diagram.Name +
+                 "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
         public void changeDiagramStereotype(EA.Repository Repository, string diagramGUID, string stereotype, string oldStereotype, int elementType)
@@ -86,9 +86,9 @@ namespace BPAddIn.SynchronizationPackage
             diagram.Stereotype = stereotype;
             diagram.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Zmena stereotypu " + itemTypes.getElementTypeInSlovak(elementType) + " '" + diagram.Name
-                + "' - pôvodný stereotyp: '" + oldStereotype + "', aktuálny stereotyp: '" + stereotype +
-                 "' (Umiestnenie diagramu: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Change of stereotype of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + diagram.Name
+                + "' - former stereotype: '" + oldStereotype + "', current stereotype: '" + stereotype +
+                 "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
         public void changeElementName(EA.Repository Repository, string elementGUID, string name, string oldName, int elementType)
@@ -97,9 +97,9 @@ namespace BPAddIn.SynchronizationPackage
             element.Name = name;
             element.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Zmena názvu " + itemTypes.getElementTypeInSlovak(elementType) + " '" + 
-                name + "' - pôvodný názov: '" + oldName +
-                 "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Change of name of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + 
+                name + "' - former name: '" + oldName +
+                 "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
         public void changeElementAuthor(EA.Repository Repository, string elementGUID, string author, string oldAuthor, int elementType)
@@ -108,9 +108,9 @@ namespace BPAddIn.SynchronizationPackage
             element.Author = author;
             element.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Zmena autora " + itemTypes.getElementTypeInSlovak(elementType) + " '" + 
-                element.Name + "' - pôvodný autor: '" + oldAuthor + "', aktuálny autor: '" + author +
-                  "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Change of author of" + itemTypes.getElementTypeInSlovak(elementType) + " '" + 
+                element.Name + "' - former author: '" + oldAuthor + "', current author: '" + author +
+                  "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
         public void changeElementNotes(EA.Repository Repository, string elementGUID, string notes, int elementType)
@@ -119,8 +119,8 @@ namespace BPAddIn.SynchronizationPackage
             element.Notes = notes;
             element.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Zmena poznámok " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-                element.Name + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Change of notes of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+                element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
         public void changeElementStereotype(EA.Repository Repository, string elementGUID, string stereotype, string oldStereotype, int elementType)
@@ -129,9 +129,9 @@ namespace BPAddIn.SynchronizationPackage
             element.Stereotype = stereotype;
             element.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Zmena stereotypu " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-                element.Name + "' - pôvodný stereotyp: '" + oldStereotype + "', aktuálny stereotyp: '" + stereotype +
-                  "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Change of stereotype of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+                element.Name + "' - former stereotype: '" + oldStereotype + "', current stereotype: '" + stereotype +
+                  "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
         public void changeConnectorName(EA.Repository Repository, string connectorGUID, string name, string oldName, int elementType)
@@ -143,8 +143,8 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Zmena názvu " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' - pôvodný názov: '" + oldName + "' (Vzťah medzi elementom '" + srcElement.Name + "' a elementom '" + targetElement.Name + "')");
+            BPAddIn.synchronizationWindow.addToList("Change of name of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+               connector.Name + "' - former name: '" + oldName + "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
         public void changeConnectorNotes(EA.Repository Repository, string connectorGUID, string notes, int elementType)
@@ -156,8 +156,8 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Zmena poznámok " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' (Vzťah medzi elementom '" + srcElement.Name + "' a elementom '" + targetElement.Name + "')");
+            BPAddIn.synchronizationWindow.addToList("Change of notes of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+               connector.Name + "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
         public void changeConnectorStereotype(EA.Repository Repository, string connectorGUID, string stereotype, string oldStereotype, int elementType)
@@ -169,9 +169,9 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Zmena stereotypu " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' - pôvodný stereotyp: '" + oldStereotype + "', aktuálny stereotyp: '" + stereotype + 
-               "' (Vzťah medzi elementom '" + srcElement.Name + "' a elementom '" + targetElement.Name + "')");
+            BPAddIn.synchronizationWindow.addToList("Change of stereotype of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+               connector.Name + "' - former stereotype: '" + oldStereotype + "', current stereotype: '" + stereotype +
+               "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
         public void changeConnectorSource(EA.Repository Repository, string connectorGUID, string sourceGUID, string oldSourceGUID, int elementType)
@@ -185,9 +185,9 @@ namespace BPAddIn.SynchronizationPackage
 
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Zmena zdrojového elementu " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' - pôvodný zdrojový element: '" + oldSourceElement.Name + "', aktuálny zdrojový element: '" + sourceElement.Name +
-               "' (Vzťah medzi elementom '" + sourceElement.Name + "' a elementom '" + targetElement.Name + "')");
+            BPAddIn.synchronizationWindow.addToList("Change of source element of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+               connector.Name + "' - former source element: '" + oldSourceElement.Name + "', current source element: '" + sourceElement.Name +
+               "' (Connector between element '" + sourceElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
         public void changeConnectorTarget(EA.Repository Repository, string connectorGUID, string targetGUID, string oldTargetGUID, int elementType)
@@ -201,9 +201,9 @@ namespace BPAddIn.SynchronizationPackage
 
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
 
-            BPAddIn.synchronizationWindow.addToList("Zmena cieľového elementu " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' - pôvodný cieľový element: '" + oldTargetElement.Name + "', aktuálny cieľový element: '" + targetElement.Name +
-               "' (Vzťah medzi elementom '" + srcElement.Name + "' a elementom '" + targetElement.Name + "')");
+            BPAddIn.synchronizationWindow.addToList("Change of target element of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+               connector.Name + "' - former target element: '" + oldTargetElement.Name + "', current target element: '" + targetElement.Name +
+               "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
         public void changeConnectorSourceCardinality(EA.Repository Repository, string connectorGUID, string cardinality, string oldCardinality, int elementType)
@@ -215,9 +215,9 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Zmena kardinality " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' pri zdrojovom elemente - pôvodná kardinalita: '" + oldCardinality + "', aktuálna kardinalita: '" + cardinality +
-               "' (Vzťah medzi elementom '" + srcElement.Name + "' a elementom '" + targetElement.Name + "')");
+            BPAddIn.synchronizationWindow.addToList("Change of cardinality of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+               connector.Name + "' at source element - former cardinality: '" + oldCardinality + "', current cardinality: '" + cardinality +
+               "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
         public void changeConnectorTargetCardinality(EA.Repository Repository, string connectorGUID, string cardinality, string oldCardinality, int elementType)
@@ -229,9 +229,9 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Zmena kardinality " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' pri cieľovom elemente - pôvodná kardinalita: '" + oldCardinality + "', aktuálna kardinalita: '" + cardinality +
-               "' (Vzťah medzi elementom '" + srcElement.Name + "' a elementom '" + targetElement.Name + "')");
+            BPAddIn.synchronizationWindow.addToList("Change of cardinality of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+               connector.Name + "' at target element - former cardinality: '" + oldCardinality + "', current cardinality: '" + cardinality +
+               "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
         public void changeConnectorGuard(EA.Repository Repository, string connectorGUID, string guard, string oldGuard, int elementType)
@@ -243,9 +243,9 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Zmena strážiacej podmienky " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' - pôvodná strážiaca podmienka: '" + oldGuard + "', aktuálna strážiaca podmienka: '" + guard +
-               "' (Vzťah medzi elementom '" + srcElement.Name + "' a elementom '" + targetElement.Name + "')");
+            BPAddIn.synchronizationWindow.addToList("Change of guard of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+               connector.Name + "' - former guard: '" + oldGuard + "', current guard: '" + guard +
+               "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
         public void changeConnectorDirection(EA.Repository Repository, string connectorGUID, string direction, string oldDirection, int elementType)
@@ -257,9 +257,9 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Zmena smeru " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' - pôvodný smer: '" + oldDirection + "', aktuálny smer: '" + direction +
-               "' (Vzťah medzi elementom '" + srcElement.Name + "' a elementom '" + targetElement.Name + "')");
+            BPAddIn.synchronizationWindow.addToList("Change of direction of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+               connector.Name + "' - former direction: '" + oldDirection + "', current direction: '" + direction +
+               "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
         public void setExtensionPoints(EA.Repository Repository, string elementGUID, string extensionPoints, int elementType)
@@ -268,8 +268,8 @@ namespace BPAddIn.SynchronizationPackage
             element.ExtensionPoints = extensionPoints;
             element.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Zmena bodov rozšírenia " + itemTypes.getElementTypeInSlovak(elementType)
-                + " '" + element.Name + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Change of extension points of " + itemTypes.getElementTypeInSlovak(elementType)
+                + " '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
         public void changeAttributeName(EA.Repository Repository, string attributeGUID, string name, string oldName)
@@ -280,9 +280,9 @@ namespace BPAddIn.SynchronizationPackage
 
             EA.Element element = (EA.Element)Repository.GetElementByID(attribute.ParentID);
 
-            BPAddIn.synchronizationWindow.addToList("Zmena názvu atribútu '" +
-               attribute.Name + "' - pôvodný názov: '" + oldName + "', aktuálny názov: '" + name +
-               "' (Atribút elementu '" + element.Name + "', umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Change of name of attribute '" +
+               attribute.Name + "' - former name: '" + oldName + "', current name: '" + name +
+               "' (Attribute of element '" + element.Name + "', location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
         public void changeAttributeVisibility(EA.Repository Repository, string attributeGUID, string scope, string oldScope)
@@ -293,9 +293,9 @@ namespace BPAddIn.SynchronizationPackage
 
             EA.Element element = (EA.Element)Repository.GetElementByID(attribute.ParentID);
 
-            BPAddIn.synchronizationWindow.addToList("Zmena viditeľnosti atribútu '" +
-               attribute.Name + "' - pôvodná viditeľnosť: '" + oldScope + "', aktuálna viditeľnosť: '" + scope +
-               "' (Atribút elementu '" + element.Name + "', umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Change of scope of attribute '" +
+               attribute.Name + "' - former scope: '" + oldScope + "', current scope: '" + scope +
+               "' (Attribute of element '" + element.Name + "', location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
         public void changeScenario(EA.Repository repository, string scenarioGUID, string elementGUID, string name, string type, string XMLContent, int elementType)
@@ -315,8 +315,8 @@ namespace BPAddIn.SynchronizationPackage
             }
             element.Scenarios.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Zmena scenára '" + name + "' typu '" + type + "' "
-                + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Change of scenario '" + name + "' of type '" + type + "' "
+                + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(repository, element.PackageID, element.ParentID));
         }
 
         public void addConstraint(EA.Repository repository, string elementGUID, string name, string type, int elementType)
@@ -329,8 +329,8 @@ namespace BPAddIn.SynchronizationPackage
             constraint.Update();
             element.Constraints.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Pridanie obmedzenia '" + name.Substring(0, index - 8) + "' typu '" + type + "' do "
-               + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Addition of constraint '" + name.Substring(0, index - 8) + "' of type '" + type + "' to "
+               + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(repository, element.PackageID, element.ParentID));
         }
     }
 }

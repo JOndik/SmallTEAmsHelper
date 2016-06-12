@@ -28,8 +28,8 @@ namespace BPAddIn.SynchronizationPackage
             newPackage.Update();
 
             parentPackage.Packages.Refresh();
-            BPAddIn.synchronizationWindow.addToList("Pridanie balíka '" + name + "' do balíka '" + parentPackage.Name
-                   + "' - autor: '" + author + "'");
+            BPAddIn.synchronizationWindow.addToList("Addition of package '" + name + "' to package '" + parentPackage.Name
+                   + "' - author: '" + author + "'");
 
             return newPackage.PackageGUID;
         }
@@ -59,14 +59,14 @@ namespace BPAddIn.SynchronizationPackage
             EA.Package parentPackage = (EA.Package)Repository.GetPackageByGuid(packageGUID);
             if (parentGUID == "0")
             {              
-                BPAddIn.synchronizationWindow.addToList("Pridanie " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
-                    "' do balíka '" + parentPackage.Name + "' - autor: '" + author + "'");
+                BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+                    "' to package '" + parentPackage.Name + "' - author: '" + author + "'");
             }
             else
             {
                 EA.Element parentElement = (EA.Element)Repository.GetElementByGuid(parentGUID);
-                BPAddIn.synchronizationWindow.addToList("Pridanie " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
-                    "' do elementu '" + parentElement.Name + "' v balíku '" + parentPackage.Name + "' - autor: '" + author + "'");
+                BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+                    "' to element '" + parentElement.Name + "' in package '" + parentPackage.Name + "' - author: '" + author + "'");
             }
 
             return newDiagram.DiagramGUID;           
@@ -115,14 +115,14 @@ namespace BPAddIn.SynchronizationPackage
             EA.Package parentPackage = (EA.Package)Repository.GetPackageByGuid(packageGUID);
             if (parentGUID == "0")
             {
-                BPAddIn.synchronizationWindow.addToList("Pridanie " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
-                    "' do balíka '" + parentPackage.Name + "' - autor: '" + author + "'");
+                BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+                    "' to package '" + parentPackage.Name + "' - author: '" + author + "'");
             }
             else
             {
                 EA.Element parentElement = (EA.Element)Repository.GetElementByGuid(parentGUID);
-                BPAddIn.synchronizationWindow.addToList("Pridanie " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
-                    "' do elementu '" + parentElement.Name + "' v balíku '" + parentPackage.Name + "' - autor: '" + author + "'");
+                BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+                    "' to element '" + parentElement.Name + "' in package '" + parentPackage.Name + "' - author: '" + author + "'");
             }
                         
             return newElement.ElementGUID;
@@ -177,15 +177,15 @@ namespace BPAddIn.SynchronizationPackage
             EA.Package parentPackage = (EA.Package)Repository.GetPackageByID(diagram.PackageID);
             if (diagram.ParentID == 0)
             {
-                BPAddIn.synchronizationWindow.addToList("Pridanie elementu '" + element.Name + "' do diagramu '"
-                    + diagram.Name + "' (Umiestnenie diagramu: balík '" + parentPackage.Name + "')");
+                BPAddIn.synchronizationWindow.addToList("Addition of element '" + element.Name + "' to diagram '"
+                    + diagram.Name + "' (Location of diagram: package '" + parentPackage.Name + "')");
             }
             else
             {
                 EA.Element parentElement = (EA.Element)Repository.GetElementByID(diagram.ParentID);
-                BPAddIn.synchronizationWindow.addToList("Pridanie elementu '" + element.Name + "' do diagramu '"
-                   + diagram.Name + "' (Umiestnenie diagramu: element '" + parentElement.Name
-                   + "' v balíku '" + parentPackage.Name + "')");
+                BPAddIn.synchronizationWindow.addToList("Addition of element '" + element.Name + "' to diagram '"
+                   + diagram.Name + "' (Location of diagram: element '" + parentElement.Name
+                   + "' in package '" + parentPackage.Name + "')");
             }
         }
 
@@ -211,8 +211,8 @@ namespace BPAddIn.SynchronizationPackage
             newConnector.Update();
             source.Connectors.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Pridanie " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
-                   "' medzi elementom '" + source.Name + "' a elementom '" + target.Name + "'");
+            BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+                   "' between element '" + source.Name + "' and element '" + target.Name + "'");
 
             return newConnector.ConnectorGUID;
         }     
@@ -226,8 +226,8 @@ namespace BPAddIn.SynchronizationPackage
             scenario.Update();
             element.Scenarios.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Pridanie scenára '" + name + "' typu '" + type + "' do " 
-                + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Addition of scenario '" + name + "' of type '" + type + "' to " 
+                + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
 
             return scenario.ScenarioGUID;
         }
@@ -242,8 +242,8 @@ namespace BPAddIn.SynchronizationPackage
 
             element.Attributes.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Pridanie atribútu '" + name + "' s viditeľnosťou '" + scope 
-                + "' do triedy '" + element.Name + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Addition of attribute '" + name + "' with scope '" + scope 
+                + "' to element '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
 
             return attribute.AttributeGUID;
         }

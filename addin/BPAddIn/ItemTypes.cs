@@ -195,8 +195,6 @@ namespace BPAddIn
                         return 59;
                     }
                     return -1;
-                case "Package":
-                    return 60;
                 default:
                     return -1;
             }
@@ -343,8 +341,6 @@ namespace BPAddIn
                     return "diagramu používateľského rozhrania";
                 case 59:
                     return "diagramu požiadaviek";
-                case 60:
-                    return "diagramu balíkov";
                 case 70:
                     return "asociácie";
                 case 71:

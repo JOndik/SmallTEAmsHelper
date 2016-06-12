@@ -35,12 +35,12 @@
             // 
             // btnConfirmNames
             // 
-            this.btnConfirmNames.Location = new System.Drawing.Point(207, 80);
-            this.btnConfirmNames.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConfirmNames.Location = new System.Drawing.Point(219, 81);
+            this.btnConfirmNames.Margin = new System.Windows.Forms.Padding(4);
             this.btnConfirmNames.Name = "btnConfirmNames";
             this.btnConfirmNames.Size = new System.Drawing.Size(132, 48);
             this.btnConfirmNames.TabIndex = 0;
-            this.btnConfirmNames.Text = "Potvrdiť";
+            this.btnConfirmNames.Text = "Confirm";
             this.btnConfirmNames.UseVisualStyleBackColor = true;
             this.btnConfirmNames.Click += new System.EventHandler(this.clickOnBtnConfirm);
             // 
@@ -50,29 +50,29 @@
             this.label1.Location = new System.Drawing.Point(25, 36);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(268, 17);
+            this.label1.Size = new System.Drawing.Size(190, 17);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Prihlasovacie meno vášho kolegu do AIS:";
+            this.label1.Text = "Username of your colleague:";
             // 
             // tfSecondMember
             // 
-            this.tfSecondMember.Location = new System.Drawing.Point(310, 36);
-            this.tfSecondMember.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tfSecondMember.Location = new System.Drawing.Point(241, 36);
+            this.tfSecondMember.Margin = new System.Windows.Forms.Padding(4);
             this.tfSecondMember.Name = "tfSecondMember";
-            this.tfSecondMember.Size = new System.Drawing.Size(196, 22);
+            this.tfSecondMember.Size = new System.Drawing.Size(287, 22);
             this.tfSecondMember.TabIndex = 2;
             // 
             // JoinWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 154);
+            this.ClientSize = new System.Drawing.Size(562, 154);
             this.Controls.Add(this.tfSecondMember);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnConfirmNames);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "JoinWindow";
-            this.Text = "Pridanie kolegu do tímu";
+            this.Text = "Add your colleague to team";
             this.ResumeLayout(false);
             this.PerformLayout();
 

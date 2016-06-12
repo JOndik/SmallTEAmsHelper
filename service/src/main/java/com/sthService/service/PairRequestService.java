@@ -1,6 +1,7 @@
 package com.sthService.service;
 
 import com.sthService.dataContract.TeamPairRequest;
+import com.sthService.dataContract.User;
 import com.sthService.repository.PairRequestRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,17 +20,21 @@ public class PairRequestService {
     PairRequestRepository pairRequestRepository;
 
     @Inject
-    AISMailService aisMailService;
+    MailService mailService;
 
     /**
      * method saves pair request
-     * @param request pair request
+     * @param request pair request to be saved
      */
-    public void savePairRequest(TeamPairRequest request) {
+    public void savePairRequest(TeamPairRequest request, User newMember) {
         log.info("saving request\n");
         pairRequestRepository.save(request);
         log.info("sending email\n");
-        aisMailService.sendPairRequestEmail(request.getMemberName(), request.getToken());
+        if (newMember.getPassword() == null) {
+            mailService.sendPairRequestEmailToAIS(request.getMemberName(), request.getToken());
+        } else {
+            mailService.sendPairRequestEmail(request.getMemberName(), request.getToken());
+        }
     }
 
     /**
@@ -52,7 +57,7 @@ public class PairRequestService {
 
     /**
      * method remove pair request
-     * @param request pair request
+     * @param request pair request to be removed
      */
     public void deleteRequest(TeamPairRequest request) {
         pairRequestRepository.delete(request);

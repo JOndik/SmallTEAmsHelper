@@ -47,7 +47,7 @@ namespace BPAddIn.SynchronizationPackage
             {
                 BPAddIn.changesAllowed = true;
                 MessageBox.Show(e.Message + "\n" + e.StackTrace + "\n" + e.InnerException);
-                MessageBox.Show("Server je nedostupný. Skontrolujte si internetové pripojenie.");
+                MessageBox.Show("Server is unavailable. Check your internet connection.");
             }
         }
 
@@ -82,7 +82,7 @@ namespace BPAddIn.SynchronizationPackage
 
                 if (number == 0)
                 {
-                    BPAddIn.synchronizationWindow.addToList("Žiadne zmeny.");
+                    BPAddIn.synchronizationWindow.addToList("No modifications.");
                     BPAddIn.changesAllowed = true;
                     return;
                 }
@@ -182,7 +182,7 @@ namespace BPAddIn.SynchronizationPackage
             }
             catch (Exception e)
             {
-                MessageBox.Show("Server je nedostupný. Skontrolujte si internetové pripojenie.");
+                MessageBox.Show("Server is unavailable. Check your internet connection.");
             }
         }
 
@@ -191,7 +191,7 @@ namespace BPAddIn.SynchronizationPackage
             User user = getLoggedUser();
             if (user == null)
             {
-                MessageBox.Show("Najprv sa musíte prihlásiť a spojiť s kolegom v tíme.");
+                MessageBox.Show("First you must log in and add your colleague to team.");
                 return;
             }
             using (WebClient webClient = new WebClient())
@@ -218,23 +218,23 @@ namespace BPAddIn.SynchronizationPackage
                     int code = (int)response.StatusCode;
                     if (code == 401)
                     {
-                        MessageBox.Show("Prihláste sa ešte raz.");
+                        MessageBox.Show("Please, log in once again.");
                     }
                     else if (code == 400)
                     {
-                        MessageBox.Show("Aktuálne nie ste v žiadnom tíme. Vyberte možnosť Pridanie kolegu do tímu.");
+                        MessageBox.Show("Currently, you are not a member of any team. First, add your colleague to team.");
                     }
                     else if (code == 405)
                     {
-                        MessageBox.Show("Synchronizácia z tohto modelu nie je možná.");
+                        MessageBox.Show("Synchronization of this model in your team is not allowed.");
                     }
                     else if (code == 403)
                     {
-                        MessageBox.Show("Pre synchronizáciu je potrebné, aby váš kolega poslal dáta o modeli.");
+                        MessageBox.Show("Your colleague in team has not sent data about model yet.");
                     }
                     else if (code == 404)
                     {
-                        DialogResult resultWindow = MessageBox.Show("Chcete synchronizovať práve otvorený model? Zmena modelu nebude možná.", "Výber modelu pre synchronizáciu", MessageBoxButtons.YesNo);
+                        DialogResult resultWindow = MessageBox.Show("Do you want to synchronise currently opened model? Change of model will not be possible.", "Choice of model for synchronization", MessageBoxButtons.YesNo);
                         if (resultWindow == DialogResult.Yes)
                         {
                             SendingDataWindow sendingDataWindow = new SendingDataWindow(repository);
@@ -243,12 +243,12 @@ namespace BPAddIn.SynchronizationPackage
                     }
                     else if (code == 406)
                     {
-                        MessageBox.Show("Pre synchronizáciu je potrebné, aby sa váš kolega pridal do tímu.");
+                        MessageBox.Show("Your colleague has not been added to your team yet.");
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Nastala chyba.");
+                    MessageBox.Show("Unexpected error has occured.");
                 }
             }
         }
@@ -286,7 +286,7 @@ namespace BPAddIn.SynchronizationPackage
             }
             catch (Exception e)
             {
-                MessageBox.Show("Server je nedostupný. Skontrolujte si internetové pripojenie.");
+                MessageBox.Show("Server is unavailable. Check your internet connection.");
             }           
         }
 
@@ -315,7 +315,7 @@ namespace BPAddIn.SynchronizationPackage
                             int code = (int)response.StatusCode;
                             if (code == 401)
                             {
-                                MessageBox.Show("Prihláste sa ešte raz.");
+                                MessageBox.Show("Please, log in once again.");
                             }
                         }
                     }

@@ -179,6 +179,13 @@
     <Compile Include="DataContract\DefectReport.cs" />
     <Compile Include="DefectReportService.cs" />
     <Compile Include="ItemTypes.cs" />
+    <Compile Include="RegistrationService.cs" />
+    <Compile Include="RegistrationWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrationWindow.Designer.cs">
+      <DependentUpon>RegistrationWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Rules\Rule.cs" />
     <Compile Include="Rules\RuleParser.cs" />
     <Compile Include="Rules\RuleEntry.cs" />
@@ -308,6 +315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LogInWindow.resx">
       <DependentUpon>LogInWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrationWindow.resx">
+      <DependentUpon>RegistrationWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SynchronizationPackage\SendingDataWindow.resx">
       <DependentUpon>SendingDataWindow.cs</DependentUpon>

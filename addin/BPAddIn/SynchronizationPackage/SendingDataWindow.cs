@@ -52,6 +52,7 @@ namespace BPAddIn.SynchronizationPackage
 
         public void setVisible(bool visible)
         {
+            lbWait.BeginInvoke((MethodInvoker)delegate() { lbWait.Text = "Posielanie dát bolo úspešne dokončené."; });
             btnConfirm.BeginInvoke((MethodInvoker)delegate() { btnConfirm.Visible = visible; });
         }
 

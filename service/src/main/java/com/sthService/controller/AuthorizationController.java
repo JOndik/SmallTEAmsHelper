@@ -47,6 +47,10 @@ public class AuthorizationController {
     public ResponseEntity<?> createUser(@RequestBody User newUser) {
         User user = authorizationService.getUserByName(newUser.getName());
 
+        if (("").equals(newUser.getPassword()) || ("").equals(newUser.getName())){
+            return new ResponseEntity<>("Name or password has not been filled.", HttpStatus.UNAUTHORIZED);
+        }
+
         if (user != null) {
             return new ResponseEntity<>("Name already in use.", HttpStatus.BAD_REQUEST);
         }
@@ -71,6 +75,7 @@ public class AuthorizationController {
             return new ResponseEntity<>(token, HttpStatus.OK);
         }
 
+        log.info("checking AIS account of student");
         token = authorizationService.checkAISUser(user);
 
         if (token != null) {
@@ -124,7 +129,7 @@ public class AuthorizationController {
 
         User newMember = authorizationService.getUserByName(teamPair.getTeamMemberName());
 
-        if (newMember == null) {
+        if (newMember == null || newMember.getToken() == null) {
             log.info("new Member");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -168,13 +173,13 @@ public class AuthorizationController {
         pairRequest.setToken(requestToken);
         pairRequest.setRequesterId(requester.getId());
 
-        pairRequestService.savePairRequest(pairRequest);
+        pairRequestService.savePairRequest(pairRequest, newMember);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
-     * method adds new team member after his clicking of link in email
+     * method adds new team member after his clicking on link in email
      * @param pairToken token of pair request
      * @return  ResponseEntity with status OK
      *          ResponseEntity with status BAD_REQUEST - pair request was not found

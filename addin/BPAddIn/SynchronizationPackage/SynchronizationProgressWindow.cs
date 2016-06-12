@@ -53,7 +53,7 @@ namespace BPAddIn.SynchronizationPackage
 
             synchronizationService.checkConnectionForSynchronization(repository);
 
-            lbSync.Text = "Synchronizácia prebehla úspešne.";
+            lbSync.Text = "Synchronization has been successful.";
             btnOK.Visible = true;
             BPAddIn.changesAllowed = true;
         }

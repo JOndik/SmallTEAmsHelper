@@ -42,21 +42,23 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabPage);
             this.tabControl.ItemSize = new System.Drawing.Size(42, 18);
-            this.tabControl.Location = new System.Drawing.Point(3, 3);
+            this.tabControl.Location = new System.Drawing.Point(4, 4);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(700, 240);
+            this.tabControl.Size = new System.Drawing.Size(933, 295);
             this.tabControl.TabIndex = 1;
             // 
             // tabPage
             // 
             this.tabPage.Controls.Add(this.listBox);
             this.tabPage.Location = new System.Drawing.Point(4, 22);
+            this.tabPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage.Name = "tabPage";
-            this.tabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage.Size = new System.Drawing.Size(692, 214);
+            this.tabPage.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage.Size = new System.Drawing.Size(925, 269);
             this.tabPage.TabIndex = 1;
-            this.tabPage.Text = "Vykonané zmeny synchronizáciou";
+            this.tabPage.Text = "Synchronized modifications";
             this.tabPage.UseVisualStyleBackColor = true;
             // 
             // listBox
@@ -65,18 +67,21 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox.FormattingEnabled = true;
-            this.listBox.Location = new System.Drawing.Point(-4, 0);
+            this.listBox.ItemHeight = 16;
+            this.listBox.Location = new System.Drawing.Point(-5, 0);
+            this.listBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(691, 212);
+            this.listBox.Size = new System.Drawing.Size(920, 260);
             this.listBox.TabIndex = 0;
             // 
             // SynchronizationWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabControl);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "SynchronizationWindow";
-            this.Size = new System.Drawing.Size(706, 246);
+            this.Size = new System.Drawing.Size(941, 303);
             this.tabControl.ResumeLayout(false);
             this.tabPage.ResumeLayout(false);
             this.ResumeLayout(false);

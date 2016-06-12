@@ -33,7 +33,7 @@ namespace BPAddIn.SynchronizationPackage
             }
             parentPackage.Packages.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Odstránenie balíka '" + name + "' z balíka '" + parentPackage.Name + "'");
+            BPAddIn.synchronizationWindow.addToList("Deletion of package '" + name + "' from package '" + parentPackage.Name + "'");
         }
 
         public void deleteDiagram(EA.Repository Repository, string diagramGUID, int elementType)
@@ -64,8 +64,8 @@ namespace BPAddIn.SynchronizationPackage
             }
             diagrams.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Odstránenie " + itemTypes.getElementTypeInSlovak(elementType) + " '" + 
-                name + "' (Pôvodné umiestnenie diagramu: " +
+            BPAddIn.synchronizationWindow.addToList("Deletion of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + 
+                name + "' (Former location of diagram: " +
                 itemTypes.getLocationOfItem(Repository, packageID, parentID));
         }
 
@@ -97,8 +97,8 @@ namespace BPAddIn.SynchronizationPackage
             }
             elements.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Odstránenie " + itemTypes.getElementTypeInSlovak(elementType) + " '" 
-                + name + "' (Pôvodné umiestnenie elementu: " +
+            BPAddIn.synchronizationWindow.addToList("Deletion of " + itemTypes.getElementTypeInSlovak(elementType) + " '" 
+                + name + "' (Former location of element: " +
                 itemTypes.getLocationOfItem(Repository, packageID, parentID));
         }
 
@@ -118,8 +118,8 @@ namespace BPAddIn.SynchronizationPackage
             }
             diagram.DiagramObjects.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Odstránenie elementu '" + element.Name + "' z diagramu '" + diagram.Name + 
-                "' (Umiestnenie diagramu: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Deletion of element '" + element.Name + "' from diagram '" + diagram.Name + 
+                "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
         public void deleteConnector(EA.Repository Repository, string connectorGUID, string diagramGUID, int elementType)
@@ -140,9 +140,9 @@ namespace BPAddIn.SynchronizationPackage
             }
             srcElement.Connectors.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Odstránenie " + itemTypes.getElementTypeInSlovak(elementType) + " '" 
-                + name + "' medzi elementom '" + srcElement.Name +
-                "' a elementom '" + targetElement.Name + "'");
+            BPAddIn.synchronizationWindow.addToList("Deletion of " + itemTypes.getElementTypeInSlovak(elementType) + " '" 
+                + name + "' between element '" + srcElement.Name +
+                "' and element '" + targetElement.Name + "'");
         }
 
         public void deleteScenario(EA.Repository Repository, string scenarioGUID, string elementGUID, int elementType)
@@ -162,9 +162,9 @@ namespace BPAddIn.SynchronizationPackage
             }
             element.Scenarios.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Odstránenie scenára '" + name + "' typu '" + type + 
-                "' z " + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name 
-                + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Deletion of scenario '" + name + "' of type '" + type + 
+                "' from " + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name 
+                + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
         public void deleteAttribute(EA.Repository Repository, string attributeGUID)
@@ -184,8 +184,8 @@ namespace BPAddIn.SynchronizationPackage
             }
             element.Attributes.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Odstránenie atribútu '" + name + "' z elementu '" + element.Name 
-                + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Deletion of attribute '" + name + "' from element '" + element.Name 
+                + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
         public void deleteConstraint(EA.Repository repository, string elementGUID, string name, string type)
@@ -203,8 +203,8 @@ namespace BPAddIn.SynchronizationPackage
             }
             element.Constraints.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Odstránenie obmedzenia '" + name + "' z elementu '" + element.Name 
-                + "' (Umiestnenie elementu: " + itemTypes.getLocationOfItem(repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Deletion of constraint '" + name + "' from element '" + element.Name 
+                + "' (Location of element: " + itemTypes.getLocationOfItem(repository, element.PackageID, element.ParentID));
         }
     }
 }

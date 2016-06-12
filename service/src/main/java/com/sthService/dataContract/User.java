@@ -1,8 +1,11 @@
 package com.sthService.dataContract;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,7 +22,7 @@ public class User {
     @NotNull
     private String name;
 
-    @Transient
+    @NotNull
     private String password;
 
     @NotNull
@@ -39,10 +42,12 @@ public class User {
         this.name = name;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }

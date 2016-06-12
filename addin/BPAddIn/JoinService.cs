@@ -23,7 +23,7 @@ namespace BPAddIn
                         User user = getLoggedUser();
                         if (user == null)
                         {
-                            MessageBox.Show("Aktuálne nie ste prihlásený.");
+                            MessageBox.Show("First, you must log in and create team.");
                             return;
                         }
 
@@ -35,12 +35,12 @@ namespace BPAddIn
                             webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
                             data = user.token;
                             result = webClient.UploadString(Utils.serviceAddress + "/auth/checkJoining", data);
-                            DialogResult dialogResult = MessageBox.Show("Chcete naozaj zrušiť spojenie v tíme?", "Zrušenie tímu", MessageBoxButtons.YesNo);
+                            DialogResult dialogResult = MessageBox.Show("Do you want to delete your current team?", "Deletion of your team", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.Yes)
                             {
                                 webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
                                 result = webClient.UploadString(Utils.serviceAddress + "/delete", data);
-                                MessageBox.Show("Zrušenie spojenia v tíme prebehlo úspešne");
+                                MessageBox.Show("Deletion of your team has been successful.");
                             }
                         }
                         catch (WebException ex)
@@ -49,23 +49,23 @@ namespace BPAddIn
                             int code = (int)response.StatusCode;
                             if (code == 401)
                             {
-                                MessageBox.Show("Prihláste sa ešte raz.");
+                                MessageBox.Show("Please, log in once again.");
                             }
                             else if (code == 404)
                             {
-                                MessageBox.Show("Aktuálne nie ste spojený v žiadnom tíme.");
+                                MessageBox.Show("Currently, you are not member of any team.");
                             }
                         }
                         catch (Exception ex2)
                         {
-                            MessageBox.Show("Nastala chyba.");
+                            MessageBox.Show("Unexpected error has occured.");
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Server je nedostupný. Skontrolujte si internetové pripojenie.");
+                MessageBox.Show("Server is unavailable. Check your internet connection.");
             }
         }
 
@@ -109,7 +109,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Server je nedostupný. Skontrolujte si internetové pripojenie.");
+                MessageBox.Show("Server is unavailable. Check your internet connection.");
             }
         }
 
@@ -135,7 +135,7 @@ namespace BPAddIn
                     if (code == 401) 
                     {
                         joinWindow.closeWindow();
-                        MessageBox.Show("Prihláste sa ešte raz.");
+                        MessageBox.Show("Please, log in once again.");
                     }
                     else if (code == 403)
                     {
@@ -143,6 +143,7 @@ namespace BPAddIn
                     }
                     else if (code == 405)
                     {
+                        joinWindow.closeWindow();
                         MessageBox.Show("Váš kolega vás už pridal do tímu. Pre potvrdenie treba kliknúť na link v správe, ktorá prišla do vášho AIS.");
                     }
                     else if (code == 400)
@@ -161,7 +162,7 @@ namespace BPAddIn
                 } 
                 catch (Exception ex2)
                 {
-                    MessageBox.Show("Nastala chyba.");
+                    MessageBox.Show("Unexpected error has occured.");
                 }
             }
         }

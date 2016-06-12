@@ -33,7 +33,7 @@ namespace BPAddIn.SynchronizationPackage
                     package.ParentID = targetPackage.PackageID;
                     package.Update();
                     targetPackage.Packages.Refresh();
-                    BPAddIn.synchronizationWindow.addToList("Presun balíka '" + package.Name + "' do balíka '" +
+                    BPAddIn.synchronizationWindow.addToList("Movement of package '" + package.Name + "' to package '" +
                     targetPackage.Name + "'");
                 }
             }
@@ -47,7 +47,7 @@ namespace BPAddIn.SynchronizationPackage
                     element.Update();
                     targetPackage.Elements.Refresh();
 
-                    BPAddIn.synchronizationWindow.addToList("Presun elementu '" + element.Name + "' do balíka '" +
+                    BPAddIn.synchronizationWindow.addToList("Movement of element '" + element.Name + "' to package '" +
                     targetPackage.Name + "'");   
                 }        
             }           
@@ -64,7 +64,7 @@ namespace BPAddIn.SynchronizationPackage
                 element.Update();
                 targetElement.Elements.Refresh();
 
-                BPAddIn.synchronizationWindow.addToList("Presun elementu '" + element.Name + "' do elementu '" +
+                BPAddIn.synchronizationWindow.addToList("Movement of element '" + element.Name + "' to element '" +
                    targetElement.Name + "'");
             }
         }
@@ -77,7 +77,7 @@ namespace BPAddIn.SynchronizationPackage
             diagram.Update();
             package.Diagrams.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Presun diagramu '" + diagram.Name + "' do balíka '" +
+            BPAddIn.synchronizationWindow.addToList("Movement of diagram '" + diagram.Name + "' to package '" +
                package.Name + "'");
         }
 
@@ -89,7 +89,7 @@ namespace BPAddIn.SynchronizationPackage
             diagram.Update();
             element.Diagrams.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Presun diagramu '" + diagram.Name + "' do elementu '" +
+            BPAddIn.synchronizationWindow.addToList("Movement of diagram '" + diagram.Name + "' to element '" +
                     element.Name + "'");
         }
 
@@ -162,13 +162,13 @@ namespace BPAddIn.SynchronizationPackage
             EA.Package package = (EA.Package)Repository.GetPackageByID(diagram.PackageID);
             if (parentID == 0)
             {
-                BPAddIn.synchronizationWindow.addToList("Zmena súradníc elementu '" + element.Name + "' v diagrame '" +
-                    diagram.Name + "' (Umiestnenie diagramu: balík '" + package.Name + "')");
+                BPAddIn.synchronizationWindow.addToList("Change of coordinates of element '" + element.Name + "' in diagram '" +
+                    diagram.Name + "' (Location of diagram: package '" + package.Name + "')");
             }
             else {
                 EA.Element parent = (EA.Element)Repository.GetElementByID(parentID);
-                BPAddIn.synchronizationWindow.addToList("Zmena súradníc elementu '" + element.Name + "' v diagrame '" +
-                    diagram.Name + "' (Umiestnenie diagramu: element '" + parent.Name + "' v balíku '" + package.Name + "')");
+                BPAddIn.synchronizationWindow.addToList("Change of coordinates of element '" + element.Name + "' in diagram '" +
+                    diagram.Name + "' (Location of diagram: element '" + parent.Name + "' in package '" + package.Name + "')");
             }
             
             diagram.DiagramObjects.Refresh();

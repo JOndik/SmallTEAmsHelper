@@ -34,28 +34,28 @@ namespace BPAddIn
                 if (("noconnection").Equals(result))
                 {
                     this.Close();
-                    MessageBox.Show("Server je nedostupný. Skontrolujte si internetového pripojenie.");
+                    MessageBox.Show("Server is unavailable. Check your internet connection.");
                 }
                 else if (("false").Equals(result))
                 {
                     pfHeslo.Text = "";
-                    MessageBox.Show("Zadali ste nesprávne údaje.");
+                    MessageBox.Show("Incorrect username or password.");
                 }
                 else if (("error").Equals(result))
                 {
                     this.Close();
-                    MessageBox.Show("Nastala chyba na serveri.");                   
+                    MessageBox.Show("Unexpected error has occured.");                   
                 }
                 else
                 {
                     this.Close();
-                    MessageBox.Show("Boli ste úspešne prihlásený. Pri ďalšom zapnutí EA sa už nemusíte prihlasovať.");
+                    MessageBox.Show("You have been logged in successfully. You do not need to log in after next opening of Enterprise Architect.");
                 }
             }
             else
             {
                 pfHeslo.Text = "";
-                MessageBox.Show("Vyplňte oba údaje.");
+                MessageBox.Show("Fill in both username, and password.");
             }
         }
     }

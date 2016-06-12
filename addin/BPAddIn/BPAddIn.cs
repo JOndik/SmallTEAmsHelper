@@ -15,16 +15,16 @@ namespace BPAddIn
     {
         // define menu constants
         const string menuName = "-&SmallTEAmsHelper";
-        const string menuLoginWindow = "Prihlásenie";
-        const string menuDbTest = "&Zobraz okno s detekciou chýb";
+        const string menuLoginWindow = "Log in";
+        const string menuDbTest = "&Show defects detection window";
         const string menuClassNamesValidation = "&Validácia tried";
-        const string menuJoining = "Pridanie kolegu do tímu";
-        const string menuEndJoining = "Zrušenie tímu";
-        const string menuUpdate = "Aktualizácia";
+        const string menuJoining = "Add your colleague to team";
+        const string menuEndJoining = "Delete your team";
+        const string menuUpdate = "Check for update";
         const string menuOpenProperties = "&Open Properties";
-        const string menuSynchronization = "Synchronizácia";
-        const string menuSynchronizationWindow = "Zobraz okno so synchronizáciou";
-            
+        const string menuSynchronization = "Start synchronization";
+        const string menuSynchronizationWindow = "Show synchronization window";
+        const string menuRegistrationWindow = "Sign up";    
         Dictionary dict;
 
         ContextWrapper contextWrapper;
@@ -43,7 +43,7 @@ namespace BPAddIn
         public BPAddIn() : base()
         {                                                   
             this.menuHeader = menuName;
-            this.menuOptions = new string[] { menuSynchronization, menuJoining, menuEndJoining, menuSynchronizationWindow, menuDbTest, menuLoginWindow, menuUpdate };
+            this.menuOptions = new string[] { menuSynchronization, menuJoining, menuEndJoining, menuSynchronizationWindow, menuDbTest, menuLoginWindow, menuRegistrationWindow, menuUpdate };
             this.dict = new Dictionary();
         }
         /// <summary>
@@ -110,6 +110,9 @@ namespace BPAddIn
                     case menuSynchronizationWindow:
                         IsEnabled = true;
                         break;
+                    case menuRegistrationWindow:
+                        IsEnabled = true;
+                        break;
                     // there shouldn't be any other, but just in case disable it.
                     default:
                         IsEnabled = false;
@@ -150,7 +153,10 @@ namespace BPAddIn
                     break;
                 case menuLoginWindow:
                     showLoginWindow();
-                    break;                               
+                    break;  
+                case menuRegistrationWindow:
+                    showRegistrationWindow();
+                    break;
                 case menuUpdate:
                     updateService.isConnected();
                     break;               
@@ -177,6 +183,12 @@ namespace BPAddIn
         {
             JoinWindow join = new JoinWindow();
             join.ShowDialog();
+        }
+
+        public void showRegistrationWindow()
+        {
+            RegistrationWindow registrationWindow = new RegistrationWindow();
+            registrationWindow.ShowDialog();
         }
         
         /// <summary>

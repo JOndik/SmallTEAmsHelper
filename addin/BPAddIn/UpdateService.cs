@@ -33,7 +33,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Vyskytol sa problém. Skontrolujte internetové pripojenie.");
+                MessageBox.Show("Server is unavailable. Check your internet connection.");
             }
         }
 
@@ -55,8 +55,8 @@ namespace BPAddIn
                     {
                         if (isAdmin() == true)
                         {
-                                DialogResult dialogResult = MessageBox.Show("K dispozícii je update. Chcete ho nainštalovať?",
-                                    "Update rozšírenia", MessageBoxButtons.YesNo);
+                                DialogResult dialogResult = MessageBox.Show("The update of extension is available. Do you want to install it?",
+                                    "Update of SmallTEAmsHelper extension", MessageBoxButtons.YesNo);
 
                                 if (dialogResult == DialogResult.Yes)
                                 {
@@ -94,12 +94,12 @@ namespace BPAddIn
                         }
                         else
                         {
-                            MessageBox.Show("K dispozícii je update. Pre jeho inštaláciu vypnite Enterprise Architect a spustite ho s administrátorskými právami.");
+                            MessageBox.Show("The update of extension is available. Please, close Enterprise Architect and open it with administrator rights.");
                         }                        
                     }
                     else 
                     {
-                        MessageBox.Show("Používate aktuálnu verziu rozšírenia.");
+                        MessageBox.Show("Currently, you use up-to-date version of extension.");
                     }           
                 }
                 catch (Exception ex) { }                             

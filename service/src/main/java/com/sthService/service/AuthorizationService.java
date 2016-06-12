@@ -1,22 +1,15 @@
 package com.sthService.service;
 
-import com.sthService.controller.AuthorizationController;
 import com.sthService.dataContract.User;
 import com.sthService.repository.AuthorizationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.security.util.Password;
 
 import javax.inject.Inject;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
+import javax.net.ssl.*;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -35,7 +28,7 @@ public class AuthorizationService {
     @Inject
     private PasswordEncoder passwordEncoder;
 
-    private final Logger log = LoggerFactory.getLogger(AuthorizationController.class);
+    private final Logger log = LoggerFactory.getLogger(AuthorizationService.class);
 
     public String checkUserCredentials(User authUser) {
         User user = getUserByName(authUser.getName());
@@ -43,6 +36,7 @@ public class AuthorizationService {
         if (user == null) {
             return null;
         }
+        log.info("Heslo: " + user.getName() + " " + user.getPassword());
 
         if (passwordEncoder.matches(authUser.getPassword(), user.getPassword())) {
             String token = generateToken();
@@ -64,6 +58,40 @@ public class AuthorizationService {
         URL url;
 
         try {
+            TrustManager[] trustAllCerts = new TrustManager[] {
+                    new X509TrustManager() {
+                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                            return new X509Certificate[0];
+                        }
+                        public void checkClientTrusted(
+                                java.security.cert.X509Certificate[] certs, String authType) {
+                        }
+                        public void checkServerTrusted(
+                                java.security.cert.X509Certificate[] certs, String authType) {
+                        }
+                    }
+            };
+
+            // Install the all-trusting trust manager
+            try {
+                SSLContext sc = SSLContext.getInstance("SSL");
+                sc.init(null, trustAllCerts, new java.security.SecureRandom());
+                HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+                // Create all-trusting host name verifier
+                HostnameVerifier allHostsValid = new HostnameVerifier() {
+                    public boolean verify(String hostname, SSLSession session) {
+                        return true;
+                    }
+                };
+
+                // Install the all-trusting host verifier
+                HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+            } catch (GeneralSecurityException e) {
+                log.error("SSLContext was not created successfully: " + e.toString());
+                return null;
+            }
+
             url = new URL("https://maya.fiit.stuba.sk/LDAPAuth/api/auth?username=" + user.getName());
 
             HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
@@ -148,6 +176,7 @@ public class AuthorizationService {
     }
 
     public void createInternalUser(User user){
+        log.info("creating internal user");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setModelGUID("");
         user.setAllModelData(false);

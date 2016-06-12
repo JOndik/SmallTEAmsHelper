@@ -33,19 +33,19 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Chyba v databáze.");
+                MessageBox.Show("Unexpected error in database has occured");
             }
             
             if (("false").Equals(token))
             {
-                MessageBox.Show("Musíte sa najprv prihlásiť.");
+                MessageBox.Show("First you must log in.");
                 this.Close();
             }
             else
             {
                 if (("").Equals(tfSecondMember.Text))
                 {
-                    MessageBox.Show("Vyplňte prihlasovacie meno kolegu.");                   
+                    MessageBox.Show("Fill in username of your team colleague.");                   
                 }
                 else
                 {

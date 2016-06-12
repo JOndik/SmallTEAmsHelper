@@ -35,40 +35,44 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(27, 32);
+            this.progressBar1.Location = new System.Drawing.Point(36, 39);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(336, 28);
+            this.progressBar1.Size = new System.Drawing.Size(448, 34);
             this.progressBar1.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(156, 71);
+            this.button1.Location = new System.Drawing.Point(208, 87);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Zrušiť";
+            this.button1.Text = "Cancel";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 16);
+            this.label1.Location = new System.Drawing.Point(32, 20);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.Size = new System.Drawing.Size(69, 17);
             this.label1.TabIndex = 2;
             this.label1.Text = "0 / 0 - 0%";
             // 
             // UpdateWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(401, 108);
+            this.ClientSize = new System.Drawing.Size(535, 133);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.progressBar1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "UpdateWindow";
-            this.Text = "Aktualizácia";
+            this.Text = "Update";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UpdateWindow_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();

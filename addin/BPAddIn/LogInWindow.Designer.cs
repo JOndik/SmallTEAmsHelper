@@ -42,7 +42,7 @@
             this.btnLogIn.Name = "btnLogIn";
             this.btnLogIn.Size = new System.Drawing.Size(132, 49);
             this.btnLogIn.TabIndex = 0;
-            this.btnLogIn.Text = "Prihlásiť sa";
+            this.btnLogIn.Text = "Log in";
             this.btnLogIn.UseVisualStyleBackColor = true;
             this.btnLogIn.Click += new System.EventHandler(this.clickOnBtnLogIn);
             // 
@@ -52,9 +52,9 @@
             this.label1.Location = new System.Drawing.Point(24, 38);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(135, 17);
+            this.label1.Size = new System.Drawing.Size(77, 17);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Prihlasovacie meno:";
+            this.label1.Text = "Username:";
             // 
             // label3
             // 
@@ -62,25 +62,25 @@
             this.label3.Location = new System.Drawing.Point(24, 77);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 17);
+            this.label3.Size = new System.Drawing.Size(73, 17);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Heslo:";
+            this.label3.Text = "Password:";
             // 
             // tfPrihlasMeno
             // 
-            this.tfPrihlasMeno.Location = new System.Drawing.Point(179, 38);
+            this.tfPrihlasMeno.Location = new System.Drawing.Point(127, 38);
             this.tfPrihlasMeno.Margin = new System.Windows.Forms.Padding(4);
             this.tfPrihlasMeno.Name = "tfPrihlasMeno";
-            this.tfPrihlasMeno.Size = new System.Drawing.Size(179, 22);
+            this.tfPrihlasMeno.Size = new System.Drawing.Size(231, 22);
             this.tfPrihlasMeno.TabIndex = 3;
             // 
             // pfHeslo
             // 
-            this.pfHeslo.Location = new System.Drawing.Point(179, 77);
+            this.pfHeslo.Location = new System.Drawing.Point(127, 77);
             this.pfHeslo.Margin = new System.Windows.Forms.Padding(4);
             this.pfHeslo.Name = "pfHeslo";
             this.pfHeslo.PasswordChar = '*';
-            this.pfHeslo.Size = new System.Drawing.Size(179, 22);
+            this.pfHeslo.Size = new System.Drawing.Size(231, 22);
             this.pfHeslo.TabIndex = 4;
             // 
             // LogInWindow
@@ -97,7 +97,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "LogInWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Prihlásenie do AIS";
+            this.Text = "Log in";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -1190,10 +1190,7 @@ namespace BPAddIn
             try {
                 ruleService.broadcastEvent(model, Repository, GUID, ot);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            catch (Exception ex) { }
         }
 
         public string printCurrentItem()
