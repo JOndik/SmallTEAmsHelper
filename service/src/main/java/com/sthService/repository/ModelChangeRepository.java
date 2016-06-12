@@ -17,4 +17,6 @@ public interface ModelChangeRepository extends MongoRepository<ModelChange, Stri
     ModelChange findById(String id);
 
     List<ModelChange> findByTimestamp(String timestamp);
+
+    List<ModelChange> findByUserName(String userName);
 }

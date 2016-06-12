@@ -1,13 +1,24 @@
 package com.sthService.service;
 
+import com.sthService.dataContract.ItemCreation;
 import com.sthService.dataContract.ModelChange;
 import com.sthService.repository.ModelChangeRepository;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import javax.inject.Inject;
+import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -16,6 +27,9 @@ public class ModelChangeService {
 
     @Inject
     private ModelChangeRepository modelChangeRepository;
+
+    @Value("${addin.anonkey}")
+    private String encryptionKey;
 
     /**
      * method saves new change and sets its author
@@ -77,5 +91,43 @@ public class ModelChangeService {
      */
     public void deleteModelChange(ModelChange modelChange){
         modelChangeRepository.delete(modelChange);
+    }
+
+    public List<ModelChange> encryptChanges(List<ModelChange> modelChanges) throws GeneralSecurityException {
+        for (ModelChange modelChange : modelChanges) {
+            if (modelChange.getUserName() != null) {
+                String encryptedUserName = encrypt(modelChange.getUserName());
+                modelChange.setUserName(encryptedUserName);
+            }
+
+            if (modelChange instanceof ItemCreation && ((ItemCreation) modelChange).getAuthor() != null) {
+                String encryptedAuthor = encrypt(((ItemCreation) modelChange).getAuthor());
+                ((ItemCreation) modelChange).setAuthor(encryptedAuthor);
+            }
+        }
+
+        return modelChanges;
+    }
+
+    public List<ModelChange> fetchChangesByUserName(String userName) {
+        return modelChangeRepository.findByUserName(userName);
+    }
+
+    public String encrypt(String data) throws GeneralSecurityException {
+        SecretKeySpec key = new SecretKeySpec(encryptionKey.getBytes(), "AES");
+        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
+        cipher.init(Cipher.ENCRYPT_MODE, key);
+        byte[] encryptedBytes = cipher.doFinal(data.getBytes());
+
+        return Base64.encodeBase64String(encryptedBytes);
+    }
+
+    public String decrypt(String data) throws GeneralSecurityException {
+        SecretKeySpec key = new SecretKeySpec(encryptionKey.getBytes(), "AES");
+        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
+        cipher.init(Cipher.DECRYPT_MODE, key);
+        byte[] decryptedBytes = cipher.doFinal(Base64.decodeBase64(data));
+
+        return new String(decryptedBytes);
     }
 }

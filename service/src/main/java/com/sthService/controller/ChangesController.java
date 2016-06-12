@@ -6,12 +6,19 @@ import com.sthService.service.ModelChangeService;
 import com.sthService.service.SmallTeamService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.HandlerMapping;
 
 import javax.inject.Inject;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -96,7 +103,44 @@ public class ChangesController {
      * @return list of model changes
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<ModelChange> fetchAllChange() {
+    public List<ModelChange> fetchAllChanges() {
         return modelChangeService.fetchAllChanges();
+    }
+
+    @RequestMapping(value = "/fse", method = RequestMethod.GET)
+    public List<ModelChange> fetchAllChangesAnon() {
+        List<ModelChange> modelChanges = null;
+
+        try {
+            modelChanges = modelChangeService.encryptChanges(modelChangeService.fetchAllChanges());
+        } catch (GeneralSecurityException e) {
+            log.error("Failed to anonymize dataset.", e);
+            return Collections.emptyList();
+        }
+
+        return modelChanges;
+    }
+
+    @RequestMapping(value = "/fse/**", method = RequestMethod.GET)
+    public List<ModelChange> fetchChangesByAnonName(WebRequest request) {
+        List<ModelChange> modelChanges = null;
+
+        String fullPath = (String) request.getAttribute(
+                HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, RequestAttributes.SCOPE_REQUEST);
+        String matchedPath = (String ) request.getAttribute(
+
+                HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, RequestAttributes.SCOPE_REQUEST);
+        AntPathMatcher antPathMatcher = new AntPathMatcher();
+        String anonName = antPathMatcher.extractPathWithinPattern(matchedPath, fullPath);
+
+        try {
+            String decryptedName = modelChangeService.decrypt(anonName);
+            modelChanges = modelChangeService.encryptChanges(modelChangeService.fetchChangesByUserName(decryptedName));
+        } catch (GeneralSecurityException e) {
+            log.error("Failed to anonymize dataset.", e);
+            return Collections.emptyList();
+        }
+
+        return modelChanges;
     }
 }
