@@ -7,6 +7,8 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +49,10 @@ public class ModelChangeService {
      */
     public List<ModelChange> fetchAllChanges() {
         return modelChangeRepository.findAll();
+    }
+
+    public List<ModelChange> fetchAllChanges(Pageable pageable) {
+        return modelChangeRepository.findAll(pageable).getContent();
     }
 
     /**
@@ -111,6 +117,10 @@ public class ModelChangeService {
 
     public List<ModelChange> fetchChangesByUserName(String userName) {
         return modelChangeRepository.findByUserName(userName);
+    }
+
+    public List<ModelChange> fetchChangesByUserName(String userName, Pageable pageable) {
+        return modelChangeRepository.findByUserName(userName, pageable);
     }
 
     public String encrypt(String data) throws GeneralSecurityException {
