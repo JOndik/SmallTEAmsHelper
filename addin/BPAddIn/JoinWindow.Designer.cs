@@ -72,7 +72,7 @@
             this.Controls.Add(this.btnConfirmNames);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "JoinWindow";
-            this.Text = "Add your colleague to team";
+            this.Text = "Join your colleague to team";
             this.ResumeLayout(false);
             this.PerformLayout();
 

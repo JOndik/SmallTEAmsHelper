@@ -69,7 +69,6 @@ public class AuthorizationController {
      */
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> checkLogInData(@RequestBody User user) {
-        log.info("tutu");
         String token = authorizationService.checkUserCredentials(user);
 
         if (token != null) {

@@ -36,10 +36,8 @@ public class AuthorizationService {
         if (user == null) {
             return null;
         }
-        log.info("Heslo: " + user.getName() + " " + user.getPassword() + " " + user.getToken());
 
         if (passwordEncoder.matches(authUser.getPassword(), user.getPassword())) {
-            log.info("credentials if");
             String token = generateToken();
 
             log.info("Token " + token + " was generated");
@@ -138,7 +136,7 @@ public class AuthorizationService {
                         log.info("User " + user.getName() + " was inserted to database");
 
                     } else {
-                        log.info("User " + user.getName() + " is in database " + user.getToken() + " " + user.getId());
+                        log.info("User " + user.getName() + " is in database ");
 
                         foundUserByName.setToken(token);
                         authorizationRepository.save(foundUserByName);
