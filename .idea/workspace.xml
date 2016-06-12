@@ -2,17 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4a18d54-28b6-4323-806a-7a79159db46d" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/service/sthService.iml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/SmallTEAmsHelper.iml" afterPath="$PROJECT_DIR$/.idea/SmallTEAmsHelper.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/.idea/workspace.xml" afterPath="$PROJECT_DIR$/service/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/com/sthService/controller/ChangesController.java" afterPath="$PROJECT_DIR$/service/src/main/java/com/sthService/controller/ChangesController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/com/sthService/dataContract/DTOWrapper.java" afterPath="$PROJECT_DIR$/service/src/main/java/com/sthService/dataContract/DTOWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/com/sthService/repository/ModelChangeRepository.java" afterPath="$PROJECT_DIR$/service/src/main/java/com/sthService/repository/ModelChangeRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/com/sthService/service/ModelChangeService.java" afterPath="$PROJECT_DIR$/service/src/main/java/com/sthService/service/ModelChangeService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/service/src/main/resources/application.properties" />
     </list>
     <ignored path="SmallTEAmsHelper.iws" />
@@ -36,7 +25,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ChangesController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ChangesController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/src/main/java/com/sthService/controller/ChangesController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="183">
@@ -46,21 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ModelChangeService.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ModelChangeService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/service/src/main/java/com/sthService/service/ModelChangeService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="523">
               <caret line="132" column="1" selection-start-line="132" selection-start-column="1" selection-end-line="132" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service/src/main/resources/application.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -82,9 +61,9 @@
         <option value="$PROJECT_DIR$/service/src/main/java/com/sthService/SthServiceApplication.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/sthService/dataContract/DTOWrapper.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/sthService/repository/ModelChangeRepository.java" />
-        <option value="$PROJECT_DIR$/service/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/sthService/service/ModelChangeService.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/sthService/controller/ChangesController.java" />
+        <option value="$PROJECT_DIR$/service/src/main/resources/application.properties" />
       </list>
     </option>
   </component>
@@ -729,15 +708,15 @@
       <updated>1465373461909</updated>
       <workItem from="1465373463101" duration="15000" />
       <workItem from="1465717714027" duration="107000" />
-      <workItem from="1465717856530" duration="3815000" />
+      <workItem from="1465717856530" duration="4116000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3937000" />
+    <option name="totallyTimeSpent" value="4238000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -954,14 +933,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/8.0.30/tomcat-embed-core-8.0.30.jar!/org/apache/tomcat/util/codec/binary/Base64.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="452">
@@ -970,18 +941,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/com/sthService/service/ModelChangeService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="132" column="1" selection-start-line="132" selection-start-column="1" selection-end-line="132" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/service/src/main/java/com/sthService/controller/ChangesController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
           <caret line="128" column="47" selection-start-line="128" selection-start-column="47" selection-end-line="128" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/com/sthService/service/ModelChangeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="132" column="1" selection-start-line="132" selection-start-column="1" selection-end-line="132" selection-end-column="1" />
           <folding />
         </state>
       </provider>
