@@ -190,7 +190,7 @@ namespace BPAddIn.SynchronizationPackage
             User user = getLoggedUser();
             if (user == null)
             {
-                MessageBox.Show("First you must log in and add your colleague to team.");
+                MessageBox.Show("First you must log in and join your colleague to team.");
                 return;
             }
             using (WebClient webClient = new WebClient())
@@ -221,7 +221,7 @@ namespace BPAddIn.SynchronizationPackage
                     }
                     else if (code == 400)
                     {
-                        MessageBox.Show("Currently, you are not a member of any team. First, add your colleague to team.");
+                        MessageBox.Show("Currently, you are not a member of any team. First, join your colleague to team.");
                     }
                     else if (code == 405)
                     {
@@ -233,7 +233,7 @@ namespace BPAddIn.SynchronizationPackage
                     }
                     else if (code == 404)
                     {
-                        DialogResult resultWindow = MessageBox.Show("Do you want to synchronise currently opened model? Change of model will not be possible.", "Choice of model for synchronization", MessageBoxButtons.YesNo);
+                        DialogResult resultWindow = MessageBox.Show("Do you want to synchronise currently opened model? Change of synchronized model in team project is not possible.", "Choice of model for synchronization", MessageBoxButtons.YesNo);
                         if (resultWindow == DialogResult.Yes)
                         {
                             SendingDataWindow sendingDataWindow = new SendingDataWindow(repository);
@@ -242,7 +242,7 @@ namespace BPAddIn.SynchronizationPackage
                     }
                     else if (code == 406)
                     {
-                        MessageBox.Show("Your colleague has not been added to your team yet.");
+                        MessageBox.Show("Your colleague has not joined your team yet.");
                     }
                 }
                 catch (Exception ex)
@@ -394,12 +394,12 @@ namespace BPAddIn.SynchronizationPackage
                             webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
                             data = user.token;
                             result = webClient.UploadString(Utils.serviceAddress + "/auth/checkProject", data);
-                            DialogResult dialogResult = MessageBox.Show("Do you want to start new project?", "Start new project", MessageBoxButtons.YesNo);
+                            DialogResult dialogResult = MessageBox.Show("Do you want to start new team project?", "Start new team project", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.Yes)
                             {
                                 webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
                                 result = webClient.UploadString(Utils.serviceAddress + "/delete/start", data);
-                                MessageBox.Show("Now you can start new project.");
+                                MessageBox.Show("Now you can start new team project.");
                             }
                         }
                         catch (WebException ex)

@@ -18,9 +18,9 @@ namespace BPAddIn
         const string menuLoginWindow = "Log in";
         const string menuDbTest = "&Show defects detection window";
         const string menuClassNamesValidation = "&Validácia tried";
-        const string menuJoining = "Add your colleague to team";
+        const string menuJoining = "Join your colleague to team";
         const string menuEndJoining = "Delete your team";
-        const string menuStartNewProject = "Start new project";
+        const string menuStartNewProject = "Start new team project";
         const string menuUpdate = "Check for update";
         const string menuOpenProperties = "&Open Properties";
         const string menuSynchronization = "Start synchronization";

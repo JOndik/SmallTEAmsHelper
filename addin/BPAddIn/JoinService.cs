@@ -144,7 +144,7 @@ namespace BPAddIn
                     else if (code == 405)
                     {
                         joinWindow.closeWindow();
-                        MessageBox.Show("Your colleague has already added you to team. You must click on link in the email in your email address.");
+                        MessageBox.Show("Your colleague has already invited you to team. You must click on link in the email in your email address.");
                     }
                     else if (code == 400)
                     {
