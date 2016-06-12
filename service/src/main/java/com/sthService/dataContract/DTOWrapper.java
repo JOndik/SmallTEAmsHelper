@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class DTOWrapper {
 
     private ModelChange modelChange;
+
     private String userToken;
 
     public ModelChange getModelChange() {
