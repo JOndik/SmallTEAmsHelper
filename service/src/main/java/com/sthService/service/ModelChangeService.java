@@ -2,6 +2,7 @@ package com.sthService.service;
 
 import com.sthService.dataContract.ItemCreation;
 import com.sthService.dataContract.ModelChange;
+import com.sthService.dataContract.PropertyChange;
 import com.sthService.repository.ModelChangeRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -109,6 +110,16 @@ public class ModelChangeService {
             if (modelChange instanceof ItemCreation && ((ItemCreation) modelChange).getAuthor() != null) {
                 String encryptedAuthor = encrypt(((ItemCreation) modelChange).getAuthor());
                 ((ItemCreation) modelChange).setAuthor(encryptedAuthor);
+            }
+
+            if (modelChange instanceof PropertyChange && ((PropertyChange) modelChange).getPropertyType() == 1) {
+                String encryptedBody = encrypt(((PropertyChange) modelChange).getPropertyBody());
+                ((PropertyChange) modelChange).setPropertyBody(encryptedBody);
+
+                if (!((PropertyChange) modelChange).getOldPropertyBody().isEmpty()) {
+                    String encryptedOldBody = encrypt(((PropertyChange) modelChange).getOldPropertyBody());
+                    ((PropertyChange) modelChange).setOldPropertyBody(encryptedOldBody);
+                }
             }
         }
 
