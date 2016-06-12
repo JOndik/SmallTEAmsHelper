@@ -1,6 +1,8 @@
 package com.sthService.repository;
 
 import com.sthService.dataContract.ModelChange;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +21,6 @@ public interface ModelChangeRepository extends MongoRepository<ModelChange, Stri
     List<ModelChange> findByTimestamp(String timestamp);
 
     List<ModelChange> findByUserName(String userName);
+
+    List<ModelChange> findByUserName(String userName, Pageable pageable);
 }
