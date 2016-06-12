@@ -58,14 +58,14 @@ namespace BPAddIn.SynchronizationPackage
 
             EA.Package parentPackage = (EA.Package)Repository.GetPackageByGuid(packageGUID);
             if (parentGUID == "0")
-            {              
-                BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+            {
+                BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInEnglish(elementType) + " '" + name +
                     "' to package '" + parentPackage.Name + "' - author: '" + author + "'");
             }
             else
             {
                 EA.Element parentElement = (EA.Element)Repository.GetElementByGuid(parentGUID);
-                BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+                BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInEnglish(elementType) + " '" + name +
                     "' to element '" + parentElement.Name + "' in package '" + parentPackage.Name + "' - author: '" + author + "'");
             }
 
@@ -115,13 +115,13 @@ namespace BPAddIn.SynchronizationPackage
             EA.Package parentPackage = (EA.Package)Repository.GetPackageByGuid(packageGUID);
             if (parentGUID == "0")
             {
-                BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+                BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInEnglish(elementType) + " '" + name +
                     "' to package '" + parentPackage.Name + "' - author: '" + author + "'");
             }
             else
             {
                 EA.Element parentElement = (EA.Element)Repository.GetElementByGuid(parentGUID);
-                BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+                BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInEnglish(elementType) + " '" + name +
                     "' to element '" + parentElement.Name + "' in package '" + parentPackage.Name + "' - author: '" + author + "'");
             }
                         
@@ -211,7 +211,7 @@ namespace BPAddIn.SynchronizationPackage
             newConnector.Update();
             source.Connectors.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + name +
+            BPAddIn.synchronizationWindow.addToList("Addition of " + itemTypes.getElementTypeInEnglish(elementType) + " '" + name +
                    "' between element '" + source.Name + "' and element '" + target.Name + "'");
 
             return newConnector.ConnectorGUID;
@@ -226,8 +226,8 @@ namespace BPAddIn.SynchronizationPackage
             scenario.Update();
             element.Scenarios.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Addition of scenario '" + name + "' of type '" + type + "' to " 
-                + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
+            BPAddIn.synchronizationWindow.addToList("Addition of scenario '" + name + "' of type '" + type + "' to "
+                + itemTypes.getElementTypeInEnglish(elementType) + " '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
 
             return scenario.ScenarioGUID;
         }

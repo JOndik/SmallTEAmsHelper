@@ -46,7 +46,6 @@ namespace BPAddIn.SynchronizationPackage
             catch (Exception e)
             {
                 BPAddIn.changesAllowed = true;
-                MessageBox.Show(e.Message + "\n" + e.StackTrace + "\n" + e.InnerException);
                 MessageBox.Show("Server is unavailable. Check your internet connection.");
             }
         }
@@ -70,9 +69,9 @@ namespace BPAddIn.SynchronizationPackage
                 int number = Convert.ToInt32(result);
                 if (BPAddIn.synchronizationWindow == null)
                 {
-                    BPAddIn.synchronizationWindow = repository.AddWindow("Synchronizácia", "BPAddIn.SynchronizationPackage.SynchronizationWindow") as SynchronizationWindow;
+                    BPAddIn.synchronizationWindow = repository.AddWindow("Synchronization", "BPAddIn.SynchronizationPackage.SynchronizationWindow") as SynchronizationWindow;
                 }
-                repository.ShowAddinWindow("Synchronizácia");
+                repository.ShowAddinWindow("Synchronization");
                 BPAddIn.synchronizationWindow.removeList();
 
                 DateTime localDate = DateTime.Now;
@@ -106,7 +105,7 @@ namespace BPAddIn.SynchronizationPackage
                             PropertyChange propertyChange = (PropertyChange)modelChange;
                             if (propertyChange.timestamp == "-1")
                             {
-                                repository.ShowAddinWindow("Synchronizácia");
+                                repository.ShowAddinWindow("Synchronization");
                                 repository.RefreshModelView(1);
                                 break;
                             }
@@ -367,6 +366,69 @@ namespace BPAddIn.SynchronizationPackage
                 pack.PackageGUID = guid;
                 pack.Update();
                 Repository.Models.Refresh();
+            }
+        }
+
+        public void startNewProject()
+        {
+            try
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    using (var stream = webClient.OpenRead(Utils.serviceAddress))
+                    {
+                        stream.Close();
+
+                        User user = getLoggedUser();
+                        if (user == null)
+                        {
+                            MessageBox.Show("First, you must log in and create team.");
+                            return;
+                        }
+
+                        string result = "";
+                        string data = "";
+
+                        try
+                        {
+                            webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
+                            data = user.token;
+                            result = webClient.UploadString(Utils.serviceAddress + "/auth/checkProject", data);
+                            DialogResult dialogResult = MessageBox.Show("Do you want to start new project?", "Start new project", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
+                                result = webClient.UploadString(Utils.serviceAddress + "/delete/start", data);
+                                MessageBox.Show("Now you can start new project.");
+                            }
+                        }
+                        catch (WebException ex)
+                        {
+                            var response = ex.Response as HttpWebResponse;
+                            int code = (int)response.StatusCode;
+                            if (code == 401)
+                            {
+                                MessageBox.Show("Please, log in once again.");
+                            }
+                            else if (code == 404)
+                            {
+                                MessageBox.Show("Currently, you are not member of any team.");
+                            }
+                            else if (code == 403)
+                            {
+                                MessageBox.Show("Currently, you do not participate in any project of your team.");
+                            }
+                        }
+                        catch (Exception ex2)
+                        {
+                            MessageBox.Show("Unexpected error has occured.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Server is unavailable. Check your internet connection.");
             }
         }
 

@@ -55,7 +55,7 @@ namespace BPAddIn
             else
             {
                 pfHeslo.Text = "";
-                MessageBox.Show("Fill in both username, and password.");
+                MessageBox.Show("Fill in username and password.");
             }
         }
     }

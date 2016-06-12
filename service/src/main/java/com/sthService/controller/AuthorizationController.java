@@ -69,6 +69,7 @@ public class AuthorizationController {
      */
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> checkLogInData(@RequestBody User user) {
+        log.info("tutu");
         String token = authorizationService.checkUserCredentials(user);
 
         if (token != null) {
@@ -79,7 +80,7 @@ public class AuthorizationController {
         token = authorizationService.checkAISUser(user);
 
         if (token != null) {
-            return new ResponseEntity<Object>(token, HttpStatus.OK);
+            return new ResponseEntity<>(token, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -240,6 +241,24 @@ public class AuthorizationController {
         SmallTeam smallTeam = smallTeamService.getByUserId(user.getId());
         if (smallTeam == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value = "/checkProject", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> checkProject(@RequestBody String token) {
+        User user = authorizationService.getUserByToken(token);
+        if (user == null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        SmallTeam smallTeam = smallTeamService.getByUserId(user.getId());
+        if (smallTeam == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (!user.isAllModelData()){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         else {
             return new ResponseEntity<>(HttpStatus.OK);

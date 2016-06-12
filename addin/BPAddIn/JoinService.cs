@@ -126,7 +126,7 @@ namespace BPAddIn
                 {
                     result = webClient.UploadString(Utils.serviceAddress + "/auth/pair", data);
                     joinWindow.closeWindow();
-                    MessageBox.Show("Potvrdzovacia správa bola odoslaná na AIS vášho kolegu.");                   
+                    MessageBox.Show("Confirmation email has been sent to email address of your colleague.");                   
                 }
                 catch(WebException ex)
                 {
@@ -139,25 +139,25 @@ namespace BPAddIn
                     }
                     else if (code == 403)
                     {
-                        MessageBox.Show("Pridanie samého seba do tímu je zakázané.");
+                        MessageBox.Show("Self-addition to team is forbidden.");
                     }
                     else if (code == 405)
                     {
                         joinWindow.closeWindow();
-                        MessageBox.Show("Váš kolega vás už pridal do tímu. Pre potvrdenie treba kliknúť na link v správe, ktorá prišla do vášho AIS.");
+                        MessageBox.Show("Your colleague has already added you to team. You must click on link in the email in your email address.");
                     }
                     else if (code == 400)
                     {
-                        MessageBox.Show("Váš kolega sa musí prihlásiť do EA alebo zadali ste nesprávne prihlasovacie meno.");
+                        MessageBox.Show("Your colleague must log in or you have filled incorrect username.");
                     }
                     else if (code == 409)
                     {
-                        MessageBox.Show("Zadaný kolega sa už v tíme nachádza.");
+                        MessageBox.Show("Filled colleague is already in your team.");
                     }
                     else if (code == 406)
                     {
                         joinWindow.closeWindow();
-                        MessageBox.Show("Tím môže obsahovať najviac 2 členov.");
+                        MessageBox.Show("Team can have maximally 2 members.");
                     }
                 } 
                 catch (Exception ex2)

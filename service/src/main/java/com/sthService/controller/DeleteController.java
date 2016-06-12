@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -86,6 +87,57 @@ public class DeleteController {
         }
 
         smallTeamService.deleteSmallTeam(smallTeam);
+
+        return new ResponseEntity<>("", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/start", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> startNewProject(@RequestBody String token) {
+        User user = authorizationService.getUserByToken(token);
+        if (user == null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        SmallTeam smallTeam = smallTeamService.getByUserId(user.getId());
+        if (smallTeam == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        User currentUser;
+        List<ModelChange> modelChanges;
+        CorrespondenceNode correspondenceNode;
+        List<ChangesForSynchronization> changesForSynchronizations
+                = changesForSynchronizationService.getChangesForSynchronizationBySmallTeamId(smallTeam.getId());
+        for (ChangesForSynchronization changesForSynchronization : changesForSynchronizations){
+            changesForSynchronization.setChangeIDs(new ArrayList<>());
+            changesForSynchronizationService.updateChangesForSynchronization(changesForSynchronization);
+        }
+
+        List<CorrespondenceNodePart> correspondenceNodeParts
+                = corrNodePartService.getCorrNodePartsBySmallTeamId(smallTeam.getId());
+        for (CorrespondenceNodePart correspondenceNodePart : correspondenceNodeParts){
+
+            correspondenceNode = correspondenceNodeService.getCorrNodeByCorrNodePartId(correspondenceNodePart.getId());
+            if (correspondenceNode != null){
+                correspondenceNodeService.deleteCorrespondenceNode(correspondenceNode);
+            }
+
+            corrNodePartService.deleteCorrNodePart(correspondenceNodePart);
+        }
+
+        for(String id : smallTeam.getTeamMembersId()){
+            currentUser = authorizationService.getUserById(id);
+            modelChanges = modelChangeService.findModelData(currentUser.getModelGUID());
+            for (ModelChange modelChange : modelChanges){
+                modelChangeService.deleteModelChange(modelChange);
+            }
+            currentUser.setModelGUID("");
+            currentUser.setAllModelData(false);
+            authorizationService.updateUser(currentUser);
+        }
+
+        smallTeam.setCorrespondenceModel(false);
+        smallTeam.setSynchronizationAllowed(false);
+        smallTeamService.updateTeam(smallTeam);
 
         return new ResponseEntity<>("", HttpStatus.OK);
     }

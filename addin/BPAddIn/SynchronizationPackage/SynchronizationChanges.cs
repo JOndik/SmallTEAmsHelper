@@ -23,7 +23,7 @@ namespace BPAddIn.SynchronizationPackage
             package.Name = name;
             package.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Change of name of package '" + name + "' - former name: '" + oldName + 
+            BPAddIn.synchronizationWindow.addToList("Change of name of package '" + name + "' - previous name: '" + oldName + 
                 "' (Location of package: " + itemTypes.getLocationOfItem(Repository, package.ParentID, 0));
         }
 
@@ -34,7 +34,7 @@ namespace BPAddIn.SynchronizationPackage
             packageElement.Author = author;
             package.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Change of author of package '" + package.Name + "' - former author: '" + oldAuthor +
+            BPAddIn.synchronizationWindow.addToList("Change of author of package '" + package.Name + "' - previous author: '" + oldAuthor +
                  "', current author: '" + author + "' (Location of package: " + itemTypes.getLocationOfItem(Repository, package.ParentID, 0));
         }
 
@@ -54,8 +54,8 @@ namespace BPAddIn.SynchronizationPackage
             diagram.Name = name;
             diagram.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Change of name of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + 
-                name + "' - former name: '" + oldName +
+            BPAddIn.synchronizationWindow.addToList("Change of name of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+                name + "' - previous name: '" + oldName +
                 "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
@@ -65,8 +65,8 @@ namespace BPAddIn.SynchronizationPackage
             diagram.Author = author;
             diagram.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Change of author " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-              diagram.Name + "' - former author: '" + oldAuthor + "', current autor: '" + author +
+            BPAddIn.synchronizationWindow.addToList("Change of author " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+              diagram.Name + "' - previous author: '" + oldAuthor + "', current autor: '" + author +
               "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
@@ -76,7 +76,7 @@ namespace BPAddIn.SynchronizationPackage
             diagram.Notes = notes;
             diagram.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Change of notes of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + diagram.Name +
+            BPAddIn.synchronizationWindow.addToList("Change of notes of " + itemTypes.getElementTypeInEnglish(elementType) + " '" + diagram.Name +
                  "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
@@ -86,8 +86,8 @@ namespace BPAddIn.SynchronizationPackage
             diagram.Stereotype = stereotype;
             diagram.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Change of stereotype of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + diagram.Name
-                + "' - former stereotype: '" + oldStereotype + "', current stereotype: '" + stereotype +
+            BPAddIn.synchronizationWindow.addToList("Change of stereotype of " + itemTypes.getElementTypeInEnglish(elementType) + " '" + diagram.Name
+                + "' - previous stereotype: '" + oldStereotype + "', current stereotype: '" + stereotype +
                  "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
@@ -97,8 +97,8 @@ namespace BPAddIn.SynchronizationPackage
             element.Name = name;
             element.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Change of name of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + 
-                name + "' - former name: '" + oldName +
+            BPAddIn.synchronizationWindow.addToList("Change of name of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+                name + "' - previous name: '" + oldName +
                  "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
@@ -108,8 +108,8 @@ namespace BPAddIn.SynchronizationPackage
             element.Author = author;
             element.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Change of author of" + itemTypes.getElementTypeInSlovak(elementType) + " '" + 
-                element.Name + "' - former author: '" + oldAuthor + "', current author: '" + author +
+            BPAddIn.synchronizationWindow.addToList("Change of author of" + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+                element.Name + "' - previous author: '" + oldAuthor + "', current author: '" + author +
                   "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
@@ -119,7 +119,7 @@ namespace BPAddIn.SynchronizationPackage
             element.Notes = notes;
             element.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Change of notes of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+            BPAddIn.synchronizationWindow.addToList("Change of notes of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
                 element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
@@ -129,8 +129,8 @@ namespace BPAddIn.SynchronizationPackage
             element.Stereotype = stereotype;
             element.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Change of stereotype of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-                element.Name + "' - former stereotype: '" + oldStereotype + "', current stereotype: '" + stereotype +
+            BPAddIn.synchronizationWindow.addToList("Change of stereotype of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+                element.Name + "' - previous stereotype: '" + oldStereotype + "', current stereotype: '" + stereotype +
                   "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
@@ -143,8 +143,8 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Change of name of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' - former name: '" + oldName + "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
+            BPAddIn.synchronizationWindow.addToList("Change of name of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+               connector.Name + "' - previous name: '" + oldName + "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
         public void changeConnectorNotes(EA.Repository Repository, string connectorGUID, string notes, int elementType)
@@ -156,7 +156,7 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Change of notes of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
+            BPAddIn.synchronizationWindow.addToList("Change of notes of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
                connector.Name + "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
@@ -169,8 +169,8 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Change of stereotype of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' - former stereotype: '" + oldStereotype + "', current stereotype: '" + stereotype +
+            BPAddIn.synchronizationWindow.addToList("Change of stereotype of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+               connector.Name + "' - previous stereotype: '" + oldStereotype + "', current stereotype: '" + stereotype +
                "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
@@ -185,8 +185,8 @@ namespace BPAddIn.SynchronizationPackage
 
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Change of source element of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' - former source element: '" + oldSourceElement.Name + "', current source element: '" + sourceElement.Name +
+            BPAddIn.synchronizationWindow.addToList("Change of source element of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+               connector.Name + "' - previous source element: '" + oldSourceElement.Name + "', current source element: '" + sourceElement.Name +
                "' (Connector between element '" + sourceElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
@@ -201,8 +201,8 @@ namespace BPAddIn.SynchronizationPackage
 
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
 
-            BPAddIn.synchronizationWindow.addToList("Change of target element of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' - former target element: '" + oldTargetElement.Name + "', current target element: '" + targetElement.Name +
+            BPAddIn.synchronizationWindow.addToList("Change of target element of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+               connector.Name + "' - previous target element: '" + oldTargetElement.Name + "', current target element: '" + targetElement.Name +
                "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
@@ -215,8 +215,8 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Change of cardinality of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' at source element - former cardinality: '" + oldCardinality + "', current cardinality: '" + cardinality +
+            BPAddIn.synchronizationWindow.addToList("Change of cardinality of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+               connector.Name + "' at source element - previous cardinality: '" + oldCardinality + "', current cardinality: '" + cardinality +
                "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
@@ -229,8 +229,8 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Change of cardinality of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' at target element - former cardinality: '" + oldCardinality + "', current cardinality: '" + cardinality +
+            BPAddIn.synchronizationWindow.addToList("Change of cardinality of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+               connector.Name + "' at target element - previous cardinality: '" + oldCardinality + "', current cardinality: '" + cardinality +
                "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
@@ -243,8 +243,8 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Change of guard of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' - former guard: '" + oldGuard + "', current guard: '" + guard +
+            BPAddIn.synchronizationWindow.addToList("Change of guard of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+               connector.Name + "' - previous guard: '" + oldGuard + "', current guard: '" + guard +
                "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
@@ -257,8 +257,8 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element srcElement = (EA.Element)Repository.GetElementByID(connector.ClientID);
             EA.Element targetElement = (EA.Element)Repository.GetElementByID(connector.SupplierID);
 
-            BPAddIn.synchronizationWindow.addToList("Change of direction of " + itemTypes.getElementTypeInSlovak(elementType) + " '" +
-               connector.Name + "' - former direction: '" + oldDirection + "', current direction: '" + direction +
+            BPAddIn.synchronizationWindow.addToList("Change of direction of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+               connector.Name + "' - previous direction: '" + oldDirection + "', current direction: '" + direction +
                "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
@@ -268,7 +268,7 @@ namespace BPAddIn.SynchronizationPackage
             element.ExtensionPoints = extensionPoints;
             element.Update();
 
-            BPAddIn.synchronizationWindow.addToList("Change of extension points of " + itemTypes.getElementTypeInSlovak(elementType)
+            BPAddIn.synchronizationWindow.addToList("Change of extension points of " + itemTypes.getElementTypeInEnglish(elementType)
                 + " '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
@@ -281,7 +281,7 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element element = (EA.Element)Repository.GetElementByID(attribute.ParentID);
 
             BPAddIn.synchronizationWindow.addToList("Change of name of attribute '" +
-               attribute.Name + "' - former name: '" + oldName + "', current name: '" + name +
+               attribute.Name + "' - previous name: '" + oldName + "', current name: '" + name +
                "' (Attribute of element '" + element.Name + "', location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
@@ -294,7 +294,7 @@ namespace BPAddIn.SynchronizationPackage
             EA.Element element = (EA.Element)Repository.GetElementByID(attribute.ParentID);
 
             BPAddIn.synchronizationWindow.addToList("Change of scope of attribute '" +
-               attribute.Name + "' - former scope: '" + oldScope + "', current scope: '" + scope +
+               attribute.Name + "' - previous scope: '" + oldScope + "', current scope: '" + scope +
                "' (Attribute of element '" + element.Name + "', location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
@@ -316,7 +316,7 @@ namespace BPAddIn.SynchronizationPackage
             element.Scenarios.Refresh();
 
             BPAddIn.synchronizationWindow.addToList("Change of scenario '" + name + "' of type '" + type + "' "
-                + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(repository, element.PackageID, element.ParentID));
+                + itemTypes.getElementTypeInEnglish(elementType) + " '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(repository, element.PackageID, element.ParentID));
         }
 
         public void addConstraint(EA.Repository repository, string elementGUID, string name, string type, int elementType)
@@ -330,7 +330,7 @@ namespace BPAddIn.SynchronizationPackage
             element.Constraints.Refresh();
 
             BPAddIn.synchronizationWindow.addToList("Addition of constraint '" + name.Substring(0, index - 8) + "' of type '" + type + "' to "
-               + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(repository, element.PackageID, element.ParentID));
+               + itemTypes.getElementTypeInEnglish(elementType) + " '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(repository, element.PackageID, element.ParentID));
         }
     }
 }

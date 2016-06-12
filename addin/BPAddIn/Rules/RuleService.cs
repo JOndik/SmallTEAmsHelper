@@ -217,10 +217,10 @@ namespace BPAddInTry
         {
             if (BPAddIn.BPAddIn.defectsWindow == null)
             {
-                BPAddIn.BPAddIn.defectsWindow = repository.AddWindow("Detekované chyby", "BPAddIn.DefectsWindow") as DefectsWindow;
+                BPAddIn.BPAddIn.defectsWindow = repository.AddWindow("Defects detection", "BPAddIn.DefectsWindow") as DefectsWindow;
             }
 
-            repository.ShowAddinWindow("Detekované chyby");
+            repository.ShowAddinWindow("Defects detection");
         }
 
         private RuleEntry createRuleEntry(Wrapper.Model model, string name, object element, Rule rule)

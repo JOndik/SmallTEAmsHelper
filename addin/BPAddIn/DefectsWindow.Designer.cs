@@ -60,40 +60,43 @@ namespace BPAddIn
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(1, 0);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(691, 212);
+            this.listBox1.Size = new System.Drawing.Size(920, 260);
             this.listBox1.TabIndex = 0;
             this.listBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDown);
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.zvyrazniVDiagrameToolStripMenuItem,
             this.opravChybuToolStripMenuItem,
             this.skryťToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(237, 76);
             // 
             // zvyrazniVDiagrameToolStripMenuItem
             // 
             this.zvyrazniVDiagrameToolStripMenuItem.Name = "zvyrazniVDiagrameToolStripMenuItem";
-            this.zvyrazniVDiagrameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.zvyrazniVDiagrameToolStripMenuItem.Text = "Zvýrazní v diagrame";
+            this.zvyrazniVDiagrameToolStripMenuItem.Size = new System.Drawing.Size(236, 24);
+            this.zvyrazniVDiagrameToolStripMenuItem.Text = "Show defect in diagram";
             this.zvyrazniVDiagrameToolStripMenuItem.Click += new System.EventHandler(this.zvyrazniVDiagrameToolStripMenuItem_Click);
             // 
             // opravChybuToolStripMenuItem
             // 
             this.opravChybuToolStripMenuItem.Name = "opravChybuToolStripMenuItem";
-            this.opravChybuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.opravChybuToolStripMenuItem.Text = "Oprav chybu";
+            this.opravChybuToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
+            this.opravChybuToolStripMenuItem.Text = "Correct defect";
             this.opravChybuToolStripMenuItem.Click += new System.EventHandler(this.opravChybuToolStripMenuItem_Click);
             // 
             // skryťToolStripMenuItem
             // 
             this.skryťToolStripMenuItem.Name = "skryťToolStripMenuItem";
-            this.skryťToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.skryťToolStripMenuItem.Text = "Skryť";
+            this.skryťToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
+            this.skryťToolStripMenuItem.Text = "Hide defect";
             this.skryťToolStripMenuItem.Click += new System.EventHandler(this.skryChybuToolStripMenuItem_Click);
             // 
             // tabControl1
@@ -103,32 +106,35 @@ namespace BPAddIn
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(3, 3);
+            this.tabControl1.Location = new System.Drawing.Point(4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(700, 240);
+            this.tabControl1.Size = new System.Drawing.Size(933, 295);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.listBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(692, 214);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Size = new System.Drawing.Size(925, 266);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Chyby";
+            this.tabPage1.Text = "Detected defects";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.listBox2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(692, 214);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage2.Size = new System.Drawing.Size(925, 266);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Skryté chyby";
+            this.tabPage2.Text = "Hidden defects";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // listBox2
@@ -137,41 +143,45 @@ namespace BPAddIn
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 16;
             this.listBox2.Location = new System.Drawing.Point(1, 0);
+            this.listBox2.Margin = new System.Windows.Forms.Padding(4);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(691, 212);
+            this.listBox2.Size = new System.Drawing.Size(920, 260);
             this.listBox2.TabIndex = 0;
             this.listBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBox2_MouseDown);
             // 
             // contextMenuStrip2
             // 
+            this.contextMenuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.zobraziťToolStripMenuItem,
             this.zobraziťToolStripMenuItem1});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(153, 70);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(173, 52);
             // 
             // zobraziťToolStripMenuItem
             // 
             this.zobraziťToolStripMenuItem.Name = "zobraziťToolStripMenuItem";
-            this.zobraziťToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.zobraziťToolStripMenuItem.Text = "Oprav chybu";
+            this.zobraziťToolStripMenuItem.Size = new System.Drawing.Size(172, 24);
+            this.zobraziťToolStripMenuItem.Text = "Correct defect";
             this.zobraziťToolStripMenuItem.Click += new System.EventHandler(this.opravChybuToolStripMenuItem_Click);
             // 
             // zobraziťToolStripMenuItem1
             // 
             this.zobraziťToolStripMenuItem1.Name = "zobraziťToolStripMenuItem1";
-            this.zobraziťToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.zobraziťToolStripMenuItem1.Text = "Zobraziť";
+            this.zobraziťToolStripMenuItem1.Size = new System.Drawing.Size(172, 24);
+            this.zobraziťToolStripMenuItem1.Text = "Show";
             this.zobraziťToolStripMenuItem1.Click += new System.EventHandler(this.zobrazChybuToolStripMenuItem_Click);
             // 
             // DefectsWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabControl1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DefectsWindow";
-            this.Size = new System.Drawing.Size(706, 246);
+            this.Size = new System.Drawing.Size(941, 303);
             this.contextMenuStrip1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

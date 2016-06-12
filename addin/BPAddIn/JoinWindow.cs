@@ -33,7 +33,7 @@ namespace BPAddIn
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unexpected error in database has occured");
+                MessageBox.Show("Unexpected error in database has occured.");
             }
             
             if (("false").Equals(token))

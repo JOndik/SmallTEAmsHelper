@@ -366,17 +366,146 @@ namespace BPAddIn
             }
         }
 
+        public string getElementTypeInEnglish(int elementType)
+        {
+            switch (elementType)
+            {
+                case 0:
+                    return "class";
+                case 1:
+                    return "activity";
+                case 2:
+                    return "use case";
+                case 3:
+                    return "package";
+                case 4:
+                    return "process";
+                case 5:
+                    return "interface";
+                case 6:
+                    return "state";
+                case 7:
+                    return "initial state";
+                case 8:
+                    return "final state";
+                case 9:
+                    return "activity initial";
+                case 10:
+                    return "activity final";
+                case 11:
+                    return "activity partition";
+                case 12:
+                    return "decision";
+                case 13:
+                    return "merge";
+                case 14:
+                    return "object";
+                case 15:
+                    return "resource";
+                case 16:
+                    return "goal";
+                case 17:
+                    return "information";
+                case 18:
+                    return "receive";
+                case 19:
+                    return "send";
+                case 25:
+                    return "component";
+                case 26:
+                    return "screen";
+                case 30:
+                    return "actor";
+                case 31:
+                    return "list";
+                case 32:
+                    return "table";
+                case 33:
+                    return "text";
+                case 34:
+                    return "label";
+                case 35:
+                    return "form";
+                case 36:
+                    return "panel";
+                case 37:
+                    return "button";
+                case 38:
+                    return "combobox";
+                case 39:
+                    return "checkbox";
+                case 40:
+                    return "left checkbox";
+                case 41:
+                    return "radio";
+                case 42:
+                    return "left radio";
+                case 43:
+                    return "vertical line";
+                case 44:
+                    return "horizontal line";
+                case 45:
+                    return "note";
+                case 47:
+                    return "requirement";
+                case 49:
+                    return "state machine";
+                case 50:
+                    return "class diagram";
+                case 51:
+                    return "activity diagram";
+                case 52:
+                    return "use case diagram";
+                case 53:
+                    return "sequence diagram";
+                case 54:
+                    return "state machine diagram";
+                case 55:
+                    return "analysis diagram";
+                case 56:
+                    return "component diagram";
+                case 57:
+                    return "deployment diagram";
+                case 58:
+                    return "user interface diagram";
+                case 59:
+                    return "requirements diagram";
+                case 70:
+                    return "association";
+                case 71:
+                    return "generalization";
+                case 72:
+                    return "realization";
+                case 73:
+                    return "dependency <<include>>";
+                case 74:
+                    return "dependency <<extend>>";
+                case 75:
+                    return "object flow";
+                case 76:
+                    return "control flow";
+                case 77:
+                    return "transition";
+                case 79:
+                    return "dependency";
+                case 90:
+                    return "attribute";
+                default:
+                    return "";
+            }
+        }
+
         public string getLocationOfItem(EA.Repository repository, int packageID, int parentID)
         {
             EA.Package parentPackage = (EA.Package)repository.GetPackageByID(packageID);
             if (parentID == 0)
             {
-                return " balík '" + parentPackage.Name + "')";
+                return " package '" + parentPackage.Name + "')";
             }
             else
             {
                 EA.Element parentElement = (EA.Element)repository.GetElementByID(parentID);
-                return " element '" + parentElement.Name + "' v balíku '" + parentPackage.Name + "')";
+                return " element '" + parentElement.Name + "' in package '" + parentPackage.Name + "')";
             }
         }
     }

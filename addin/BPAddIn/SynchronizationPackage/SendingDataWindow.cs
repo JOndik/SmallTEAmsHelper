@@ -44,7 +44,7 @@ namespace BPAddIn.SynchronizationPackage
             btnBack.Visible = false;
             lbSend.Visible = false;
             lbWait.Visible = true;            
-            lbWait.Text = "Prosím, počkajte. Prebieha posielanie dát o modeli.";
+            lbWait.Text = "Please, wait. Sending of data about model is in progress.";
             lbWait.Refresh();
 
             synchronizationService.sendDataAboutModel(this, repository);
@@ -52,13 +52,14 @@ namespace BPAddIn.SynchronizationPackage
 
         public void setVisible(bool visible)
         {
-            lbWait.BeginInvoke((MethodInvoker)delegate() { lbWait.Text = "Posielanie dát bolo úspešne dokončené."; });
+            lbWait.BeginInvoke((MethodInvoker)delegate() { lbWait.Text = "Sending of data has been successful."; });
             btnConfirm.BeginInvoke((MethodInvoker)delegate() { btnConfirm.Visible = visible; });
         }
 
         public void showMessage()
         {
-            lbWait.BeginInvoke((MethodInvoker)delegate() { lbWait.Text = "Počas posielania dát sa vyskytol problém s internetovým pripojením."; });
+            lbWait.BeginInvoke((MethodInvoker)delegate() { lbWait.Text = "A problem with internet connection occured during sending of data."; });
+            btnConfirm.BeginInvoke((MethodInvoker)delegate() { btnConfirm.Visible = true; });        
         }
 
         private void btnNo_Click(object sender, EventArgs e)

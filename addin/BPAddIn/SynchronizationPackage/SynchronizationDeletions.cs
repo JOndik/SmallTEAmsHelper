@@ -64,8 +64,8 @@ namespace BPAddIn.SynchronizationPackage
             }
             diagrams.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Deletion of " + itemTypes.getElementTypeInSlovak(elementType) + " '" + 
-                name + "' (Former location of diagram: " +
+            BPAddIn.synchronizationWindow.addToList("Deletion of " + itemTypes.getElementTypeInEnglish(elementType) + " '" +
+                name + "' (Previous location of diagram: " +
                 itemTypes.getLocationOfItem(Repository, packageID, parentID));
         }
 
@@ -97,8 +97,8 @@ namespace BPAddIn.SynchronizationPackage
             }
             elements.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Deletion of " + itemTypes.getElementTypeInSlovak(elementType) + " '" 
-                + name + "' (Former location of element: " +
+            BPAddIn.synchronizationWindow.addToList("Deletion of " + itemTypes.getElementTypeInEnglish(elementType) + " '"
+                + name + "' (Previous location of element: " +
                 itemTypes.getLocationOfItem(Repository, packageID, parentID));
         }
 
@@ -140,7 +140,7 @@ namespace BPAddIn.SynchronizationPackage
             }
             srcElement.Connectors.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Deletion of " + itemTypes.getElementTypeInSlovak(elementType) + " '" 
+            BPAddIn.synchronizationWindow.addToList("Deletion of " + itemTypes.getElementTypeInEnglish(elementType) + " '" 
                 + name + "' between element '" + srcElement.Name +
                 "' and element '" + targetElement.Name + "'");
         }
@@ -162,8 +162,8 @@ namespace BPAddIn.SynchronizationPackage
             }
             element.Scenarios.Refresh();
 
-            BPAddIn.synchronizationWindow.addToList("Deletion of scenario '" + name + "' of type '" + type + 
-                "' from " + itemTypes.getElementTypeInSlovak(elementType) + " '" + element.Name 
+            BPAddIn.synchronizationWindow.addToList("Deletion of scenario '" + name + "' of type '" + type +
+                "' from " + itemTypes.getElementTypeInEnglish(elementType) + " '" + element.Name 
                 + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 

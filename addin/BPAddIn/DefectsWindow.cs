@@ -228,8 +228,8 @@ namespace BPAddIn
         {
             tabControl1.BeginInvoke((MethodInvoker)delegate ()
             {
-                tabControl1.TabPages[0].Name = "Chyby (" + listBox1.Items.Count + ")";
-                tabControl1.TabPages[1].Name = "Skryté chyby (" + listBox2.Items.Count + ")";
+                tabControl1.TabPages[0].Name = "Detected defects (" + listBox1.Items.Count + ")";
+                tabControl1.TabPages[1].Name = "Hidden defects (" + listBox2.Items.Count + ")";
             });
         }
     }

@@ -20,6 +20,7 @@ namespace BPAddIn
         const string menuClassNamesValidation = "&Validácia tried";
         const string menuJoining = "Add your colleague to team";
         const string menuEndJoining = "Delete your team";
+        const string menuStartNewProject = "Start new project";
         const string menuUpdate = "Check for update";
         const string menuOpenProperties = "&Open Properties";
         const string menuSynchronization = "Start synchronization";
@@ -43,7 +44,7 @@ namespace BPAddIn
         public BPAddIn() : base()
         {                                                   
             this.menuHeader = menuName;
-            this.menuOptions = new string[] { menuSynchronization, menuJoining, menuEndJoining, menuSynchronizationWindow, menuDbTest, menuLoginWindow, menuRegistrationWindow, menuUpdate };
+            this.menuOptions = new string[] { menuSynchronization, menuJoining, menuStartNewProject, menuEndJoining, menuSynchronizationWindow, menuDbTest, menuLoginWindow, menuRegistrationWindow, menuUpdate };
             this.dict = new Dictionary();
         }
         /// <summary>
@@ -100,7 +101,10 @@ namespace BPAddIn
                         break;
                     case menuJoining:
                         IsEnabled = true;
-                        break;          
+                        break;
+                    case menuStartNewProject:
+                        IsEnabled = true;
+                        break; 
                     case menuEndJoining:
                         IsEnabled = true;
                         break;
@@ -147,9 +151,9 @@ namespace BPAddIn
                 case menuDbTest:
                     if (defectsWindow == null)
                     {
-                        defectsWindow = Repository.AddWindow("Detekované chyby", "BPAddIn.DefectsWindow") as DefectsWindow;
+                        defectsWindow = Repository.AddWindow("Defects detection", "BPAddIn.DefectsWindow") as DefectsWindow;
                     }
-                    Repository.ShowAddinWindow("Detekované chyby");
+                    Repository.ShowAddinWindow("Defects detection");
                     break;
                 case menuLoginWindow:
                     showLoginWindow();
@@ -159,16 +163,19 @@ namespace BPAddIn
                     break;
                 case menuUpdate:
                     updateService.isConnected();
-                    break;               
+                    break;
+                case menuStartNewProject:
+                    synchronizationService.startNewProject();
+                    break; 
                 case menuSynchronization:
                     synchronizationService.checkInternetConnection(Repository);
                     break;
                 case menuSynchronizationWindow:
                     if (synchronizationWindow == null)
                     {
-                        synchronizationWindow = Repository.AddWindow("Synchronizácia", "BPAddIn.SynchronizationPackage.SynchronizationWindow") as SynchronizationWindow;
+                        synchronizationWindow = Repository.AddWindow("Synchronization", "BPAddIn.SynchronizationPackage.SynchronizationWindow") as SynchronizationWindow;
                     }
-                    Repository.ShowAddinWindow("Synchronizácia");
+                    Repository.ShowAddinWindow("Synchronization");
                     break;
             }
         }

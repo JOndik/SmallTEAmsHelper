@@ -38,7 +38,7 @@ namespace BPAddIn
             }
             else if (("notFilled").Equals(result))
             {
-                MessageBox.Show("Fill in both username, and password.");
+                MessageBox.Show("Fill in username and password.");
             }
             else if (("error").Equals(result))
             {
