@@ -124,6 +124,20 @@ public class ChangesController {
         return modelChanges;
     }
 
+    @RequestMapping(value = "/fse/{from:\\d+}/{to:\\d+}", method = RequestMethod.GET)
+    public List<ModelChange> fetchAllChangesAnon(@PathVariable int from, @PathVariable int to) {
+        List<ModelChange> modelChanges = null;
+
+        try {
+            Pageable pageable = new PageRequest(from, to);
+            modelChanges = modelChangeService.encryptChanges(modelChangeService.fetchAllChanges(pageable));
+        } catch (GeneralSecurityException e) {
+            log.error("Failed to anonymize dataset.", e);
+            return Collections.emptyList();
+        }
+        return modelChanges;
+    }
+
     @RequestMapping(value = "/fse/**", method = RequestMethod.GET)
     public List<ModelChange> fetchChangesByAnonName(WebRequest request) {
         List<ModelChange> modelChanges = null;
