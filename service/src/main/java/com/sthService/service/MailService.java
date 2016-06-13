@@ -53,7 +53,7 @@ public class MailService {
         message.setTo(email);
         message.setFrom(this.sender);
         message.setSubject(this.subject);
-        message.setText("Prosim, kliknite na odkaz dole pre dokoncenie sparovania:\n\n"
+        message.setText("Please, click on the link below for confirmation of your joining to team:\n\n"
                 +"https://ichiban.fiit.stuba.sk:8443/auth/pair/" + token);
         mailSender.send(message);
     }
