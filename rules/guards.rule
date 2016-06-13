@@ -9,9 +9,9 @@ attribute: {
 	     stereotype: '-'
 	   },
 content: {
-		 defectMsg: 'Chybajuci GUARD pre prechod, ktory smeruje do aktivity "{0}".',
+		 defectMsg: 'Missing guard for control flow directed to activity "{0}".',
 	     valid: 'getTransitionGuard',
-	     correct: 'setTransitionGuard(podmienka)',
+	     correct: 'setTransitionGuard(guard)',
 		 cond: 'Connector.getSrcType(Decision)&Connector.getTargetType(Activity)'
 	 }
 }

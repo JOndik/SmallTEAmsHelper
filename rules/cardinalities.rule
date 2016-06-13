@@ -9,7 +9,7 @@ attribute: {
 	     stereotype: '-'
 	   },
 content: {
-		 defectMsg: 'Chybajuce kardinality medzi triedami "{0}" a "{1}".',
+		 defectMsg: 'Missing cardinalities between classes "{0}" a "{1}".',
 	     valid: 'getCardinalities',
 	     correct: 'setCardinalities(*)',
 		 cond: 'Connector.getSrcType(Class)&Connector.getTargetType(Class)'

@@ -9,7 +9,7 @@ attribute: {
 	     stereotype: '-'
 	   },
 content: {
-		 defectMsg: 'Varovanie: Chybajuce body rozsirenia v pripade pouzitia "{0}".',
+		 defectMsg: 'Warning: Missing extension points in use case "{0}".',
 	     valid: 'getExtensionPointsCount=Connector.getStereotypeCount(extend)',
 	     correct: 'setExtensionPointsCount(Connector.getStereotypeCount(extend))'
 	 }

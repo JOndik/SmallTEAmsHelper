@@ -9,7 +9,7 @@ attribute: {
 	     stereotype: '-'
 	   },
 content: {
-		 defectMsg: 'Chybajuci pociatocny uzol v diagrame "{0}".',
+		 defectMsg: 'Missing initial node in diagram "{0}".',
 	     valid: 'checkInitialNode',
 	     correct: 'createInitialNode'
 	 }

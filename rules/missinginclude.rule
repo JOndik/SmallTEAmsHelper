@@ -9,7 +9,7 @@ attribute: {
 	     stereotype: '-'
 	   },
 content: {
-		 defectMsg: 'Chybajuci vztah include z pripadu pouzitia "{0}" na pripad pouzitia "{1}".',
+		 defectMsg: 'Missing include dependency from use case "{0}" to use case "{1}".',
 	     valid: 'checkIncludeDependency',
 	     correct: 'addIncludeDependency',
 		 cond: 'Scenario.hasAny'

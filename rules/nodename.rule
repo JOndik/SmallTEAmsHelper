@@ -9,8 +9,8 @@ attribute: {
 	     stereotype: '-'
 	   },
 content: {
-		 defectMsg: 'Chybajuci nazov uzla.',
+		 defectMsg: 'Missing name of initial node.',
 	     valid: 'getName',
-	     correct: 'setName(pociatocny uzol)',
+	     correct: 'setName(initial node)',
 	 }
 }

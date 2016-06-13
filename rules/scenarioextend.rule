@@ -9,7 +9,7 @@ attribute: {
 	     stereotype: '-'
 	   },
 content: {
-		 defectMsg: 'Chybajuca referencia na vztah extend z pripadu pouzitia "{0}" na pripad pouzitia "{1}".',
+		 defectMsg: 'Missing reference to extend dependency from use case "{0}" to use case "{1}".',
 	     valid: 'checkExtendInScenario',
 	     correct: 'addExtendToScenario',
 		 cond: 'Scenario.hasAny'

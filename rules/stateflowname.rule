@@ -9,9 +9,9 @@ attribute: {
 	     stereotype: '-'
 	   },
 content: {
-		 defectMsg: 'Chybajuci nazov prechodu medzi stavmi "{0}" a "{1}".',
+		 defectMsg: 'Missing name of transition between state nodes "{0}" a "{1}".',
 	     valid: 'getName',
-	     correct: 'setName(prechod)',
+	     correct: 'setName(transition)',
 		 cond: 'Connector.getSrcType(State)&Connector.getTargetType(State)'
 	 }
 }

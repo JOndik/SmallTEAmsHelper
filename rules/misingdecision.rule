@@ -9,7 +9,7 @@ attribute: {
 	     stereotype: '-'
 	   },
 content: {
-		 defectMsg: 'Chybajuci rozhodovaci blok pre prechody aktivity "{0}".',
+		 defectMsg: 'Missing decision node for control flows of activity "{0}".',
 	     valid: 'getSrcControlFlows(1)',
 	     correct: 'createDecisionNode',
 		 cond: 'Connector.getSrcType(Activity)&Connector.getTargetType(Activity)'

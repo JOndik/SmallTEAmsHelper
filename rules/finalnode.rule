@@ -9,7 +9,7 @@ attribute: {
 	     stereotype: '-'
 	   },
 content: {
-		 defectMsg: 'Chybajuci koncovy uzol v diagrame "{0}".',
+		 defectMsg: 'Missing final node in diagram "{0}".',
 	     valid: 'checkFinalNode',
 	     correct: 'createFinalNode'
 	 }

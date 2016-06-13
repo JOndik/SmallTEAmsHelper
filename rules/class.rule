@@ -9,7 +9,7 @@ attribute: {
 	     stereotype: '-'
 	   },
 content: {
-		 defectMsg: 'Nespravny nazov pre triedu "{0}".',
+		 defectMsg: 'Incorrect name for class "{0}".',
 	     valid: 'dict.getWord(Name).isNoun',
 	     correct: 'setName(dict.getBaseNoun(Name))'
 	 }

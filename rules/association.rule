@@ -9,9 +9,9 @@ attribute: {
 	     stereotype: '-'
 	   },
 content: {
-		 defectMsg: 'Chybajuci nazov asociace medzi triedami "{0}" a "{1}".',
+		 defectMsg: 'Missing name of association between classes "{0}" a "{1}".',
 	     valid: 'getName',
-	     correct: 'setName(vztah)',
+	     correct: 'setName(relation)',
 		 cond: 'Connector.getSrcType(Class)&Connector.getTargetType(Class)'
 	 }
 }
