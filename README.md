@@ -5,3 +5,5 @@ https://ichiban.fiit.stuba.sk:8443/FSE/update/installer
 
 Data-set:
 https://ichiban.fiit.stuba.sk:8443/FSE/changes/fse/
+
+ElementType and PropertyType fields are described in element-property-types.txt file

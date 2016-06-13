@@ -1,0 +1,96 @@
+Element types:
+0 - Class
+1 - Activity
+2 - Use case
+3 - Package
+4 - Process
+5 - Interface
+6 - State
+7 - Initial state
+8 - Final state
+9 - Activity initial
+10 - Activity final
+11 - Activity partition
+12 - Decision
+13 - Merge
+14 - Object
+15 - Resource
+16 - Goal
+17 - Information
+18 - Receive
+19 - Send
+25 - Component
+26 - Screen
+30 - Actor
+31 - List
+32 - Table
+33 - Text
+34 - Label
+35 - Form
+36 - Panel
+37 - Button
+38 - Combobox
+39 - Checkbox
+40 - Left checkbox
+41 - Radio
+42 - Left radio
+43 - Vertical line
+44 - Horizontal line
+45 - Note
+47 - Requirement
+49 - State machine
+
+50 - Class diagram
+51 - Activity diagram
+52 - Use case diagram
+53 - Sequence diagram
+54 - State machine diagram
+55 - Analysis diagram
+56 - Component diagram
+57 - Deployment diagram
+58 - User interface diagram
+59 - Requirements diagram
+
+70 - Association
+71 - Generalization
+72 - Realization
+73 - Dependency <<include>>
+74 - Dependency <<extend>>
+75 - Object flow
+76 - Control flow
+77 - Transition
+79 - Dependency
+
+90 - Attribute
+
+700 - Diagram object
+
+Property types:
+0 - Name
+1 - Author
+2 - Notes
+10 - Addition of constraint
+11 - Removal of constraint
+13 - Extension points
+200 - Stereotype
+300 - Scope of attribute
+301 - Target element of connector
+302 - Source element of connector
+303 - Cardinality at source element of connector
+304 - Cardinality at target element of connector
+305 - Guard of connector
+307 - Direction of connector 
+401 - Movement of element or package to package
+402 - Movement of element to element
+403 - Movement of diagram to element
+404 - Movement of diagram to package
+405 - Change of coordinates of element in diagram
+
+
+Scenario status:
+0 - Removal
+1 - Addition
+2 - Change
+
+
+
