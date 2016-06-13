@@ -29,13 +29,13 @@ namespace BPAddIn
             return value;
         }
 
-        public Word getWord(string wordString)
+        public Word getWord(string[] wordString)
         {
-            wordString = wordString.ToLowerInvariant();
+            string wordS = wordString[0].ToLowerInvariant();
             using (LocalDBContext context = new LocalDBContext())
             {
                 var words = from w in context.dictionary
-                            where w.word == wordString
+                            where w.word == wordS
                             select w;
 
                 return words.FirstOrDefault<Word>();
@@ -55,8 +55,6 @@ namespace BPAddIn
                 string flags = words.FirstOrDefault<String>();
 
                 return flags;
-
-                return "";
             }
         }
 
@@ -82,7 +80,7 @@ namespace BPAddIn
 
         public string getBaseNoun(string wordToConvert)
         {
-            string[] splitWord = wordToConvert.Split(" ".ToCharArray());
+            string[] splitWord = wordToConvert.Split(' ');
             string word = "";
 
             if (splitWord.Length == 1)
@@ -110,7 +108,7 @@ namespace BPAddIn
 
                     if (String.IsNullOrEmpty(wordBase))
                     {
-                        MessageBox.Show("Chybu sa nepodarilo opravit.");
+                        MessageBox.Show("Defect could not be corrected.");
                         return "";
                     }
 

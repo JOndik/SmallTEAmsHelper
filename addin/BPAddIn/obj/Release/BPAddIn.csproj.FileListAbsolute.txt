@@ -227,7 +227,6 @@ D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.Relational.Design.dll
 D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.Relational.dll
 D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.Sqlite.dll
 D:\AddIn\BPAddIn\BPAddIn\bin\Release\EntityFramework.SqlServer.dll
-D:\AddIn\BPAddIn\BPAddIn\bin\Release\Interop.EA.dll
 D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.AspNet.Razor.dll
 D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.CodeAnalysis.CSharp.dll
 D:\AddIn\BPAddIn\BPAddIn\bin\Release\Microsoft.CodeAnalysis.dll
@@ -526,3 +525,4 @@ D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.SynchronizationPackage.SendingDataW
 D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.SynchronizationPackage.SynchronizationProgressWindow.resources
 D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.SynchronizationPackage.SynchronizationWindow.resources
 C:\Users\Martin\Documents\Visual Studio 2013\Projects\BakalarskaPraca\SmallTEAmsHelper-master\addin\BPAddIn\obj\Release\BPAddIn.RegistrationWindow.resources
+D:\AddIn\BPAddIn\BPAddIn\obj\Release\BPAddIn.RegistrationWindow.resources

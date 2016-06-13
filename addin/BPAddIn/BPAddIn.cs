@@ -483,7 +483,7 @@ namespace BPAddIn
                 {
                     if (!checkClassName(elem.Name))
                     {
-                        MessageBox.Show(elem.Name + " nie je spravny nazov pre triedu");
+                        MessageBox.Show(elem.Name + " is not correct name for class (Slovak)");
                     }
                 }
             }

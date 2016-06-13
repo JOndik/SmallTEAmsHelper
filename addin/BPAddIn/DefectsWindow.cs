@@ -158,13 +158,16 @@ namespace BPAddIn
         private void zvyrazniVDiagrameToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             try {
-                if (selectedError.rule.elementType == "Class")
+                if (selectedError.rule.elementType == "Class" || selectedError.rule.elementType == "UseCase" || selectedError.rule.elementType == "Activity")
                 {
-                    ElementWrapper elementWrapper = new ElementWrapper(selectedError.model, selectedError.model.getWrappedModel().GetElementByGuid(selectedError.elGUID));
-                    elementWrapper.select();
+                    ElementWrapper elementWrapper = new ElementWrapper(selectedError.model, (EA.Element)selectedError.element);
                     elementWrapper.selectInCurrentDiagram();
                 }
-
+                else
+                {
+                    ConnectorWrapper connectorWrapper = new ConnectorWrapper(selectedError.model, (EA.Connector)selectedError.element);
+                    connectorWrapper.selectInCurrentDiagram();
+                }
             }
             catch (Exception ex) { }
         }
@@ -209,7 +212,9 @@ namespace BPAddIn
                     removeFromHiddenList(selectedError.listBoxObject);
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            {
+            }
         }
 
         private void skryChybuToolStripMenuItem_Click(object sender, System.EventArgs e)

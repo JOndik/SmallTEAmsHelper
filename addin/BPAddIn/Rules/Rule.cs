@@ -57,13 +57,14 @@ namespace BPAddIn
             {
                 try
                 {
+                    string value = "";
                     if (validCall[i] == "dict")
                     {
                         dict = new Dictionary();
                         if (validCall[i + 1].StartsWith("getWord"))
                         {
-                            string value = getStringAttributeValue(element, validCall[i + 1].Split('(', ')')[1]);
-                            word = dict.getWord(value);
+                            value = getStringAttributeValue(element, validCall[i + 1].Split('(', ')')[1]);
+                            word = dict.getWord(value.Split(' '));
                         }
                         i++;
                         continue;
@@ -295,7 +296,17 @@ namespace BPAddIn
                         int numControlFlows = Convert.ToInt32(validCall[i].Split('(', ')')[1]);
                         EA.Collection collection = (EA.Collection)getAttributeValue(getConnectorOwner(element, model, "src"), "Connectors");
 
-                        if (numControlFlows < collection.Count)
+                        int numOutgoing = 0;
+
+                        foreach (EA.Connector con in collection)
+                        {
+                            if (con.ClientID == ((EA.Element)element).ElementID)
+                            {
+                                numOutgoing++;
+                            }
+                        }
+
+                        if (numControlFlows < numOutgoing)
                         {
                             return createDescription(element, getStringAttributeValue(getConnectorOwner(element, model, "src"), "Name"));
                         }
@@ -642,10 +653,11 @@ namespace BPAddIn
 
                                 string extensionPoints = getStringAttributeValue(element, attributeType);
                                 int num = Math.Abs(extensionPoints.Count(c => c == ',') - stereotypeCount);
+                                if (num > 1) num--; 
 
                                 for (int k = 0; k < num; k++)
                                 {
-                                    extensionPoints += "," + k + 1 + " extension point";
+                                    extensionPoints += "," + k + 1 + " extension point,";
                                 }
 
                                 setStringAttributeValue(element, attributeType, extensionPoints);
@@ -713,7 +725,7 @@ namespace BPAddIn
                         foreach (EA.Connector con in (EA.Collection)getAttributeValue(owner, "Connectors"))
                         {
                             con.ClientID = decisionNode.ElementID;
-                            con.TransitionGuard = "podmienka";
+                            con.TransitionGuard = "guard";
                             con.Update();
                         }
 
