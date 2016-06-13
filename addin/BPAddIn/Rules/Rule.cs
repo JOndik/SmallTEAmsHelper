@@ -294,13 +294,14 @@ namespace BPAddIn
                         }
 
                         int numControlFlows = Convert.ToInt32(validCall[i].Split('(', ')')[1]);
-                        EA.Collection collection = (EA.Collection)getAttributeValue(getConnectorOwner(element, model, "src"), "Connectors");
+                        EA.Element connectorOwner = (EA.Element)getConnectorOwner(element, model, "src");
+                        EA.Collection collection = (EA.Collection)getAttributeValue(connectorOwner, "Connectors");
 
                         int numOutgoing = 0;
 
                         foreach (EA.Connector con in collection)
                         {
-                            if (con.ClientID == ((EA.Element)element).ElementID)
+                            if (con.ClientID == connectorOwner.ElementID)
                             {
                                 numOutgoing++;
                             }
@@ -724,9 +725,12 @@ namespace BPAddIn
 
                         foreach (EA.Connector con in (EA.Collection)getAttributeValue(owner, "Connectors"))
                         {
-                            con.ClientID = decisionNode.ElementID;
-                            con.TransitionGuard = "guard";
-                            con.Update();
+                            if (con.ClientID == ((EA.Element)owner).ElementID)
+                            {
+                                con.ClientID = decisionNode.ElementID;
+                                con.TransitionGuard = "guard";
+                                con.Update();
+                            }
                         }
 
                         model.refreshDiagram(new Diagram(model, diagram));
