@@ -121,12 +121,12 @@ public class ChangesController {
         return modelChanges;
     }
 
-    @RequestMapping(value = "/fse/{from:\\d+}/{to:\\d+}", method = RequestMethod.GET)
-    public List<ModelChange> fetchAllChangesAnon(@PathVariable int from, @PathVariable int to) {
+    @RequestMapping(value = "/fse/{pageNumber:\\d+}/{pageSize:\\d+}", method = RequestMethod.GET)
+    public List<ModelChange> fetchAllChangesAnon(@PathVariable int pageNumber, @PathVariable int pageSize) {
         List<ModelChange> modelChanges = null;
 
         try {
-            Pageable pageable = new PageRequest(from, to);
+            Pageable pageable = new PageRequest(pageNumber, pageSize);
             modelChanges = modelChangeService.encryptChanges(modelChangeService.fetchAllChanges(pageable));
         } catch (GeneralSecurityException e) {
             log.error("Failed to anonymize dataset.", e);
@@ -152,10 +152,10 @@ public class ChangesController {
             String[] anonNameSplit = anonName.split("/");
 
             if (anonNameSplit.length > 2) {
-                int to = Integer.parseInt(anonNameSplit[anonNameSplit.length - 1]);
-                int from = Integer.parseInt(anonNameSplit[anonNameSplit.length - 2]);
+                int pageSize = Integer.parseInt(anonNameSplit[anonNameSplit.length - 1]);
+                int pageNumber = Integer.parseInt(anonNameSplit[anonNameSplit.length - 2]);
 
-                Pageable pageable = new PageRequest(from, to);
+                Pageable pageable = new PageRequest(pageNumber, pageSize);
                 modelChanges = modelChangeService.encryptChanges(
                         modelChangeService.fetchChangesByUserName(decryptedName, pageable));
             } else {
