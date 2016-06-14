@@ -2,6 +2,7 @@ package com.sthService.service;
 
 import com.sthService.dataContract.User;
 import com.sthService.repository.AuthorizationRepository;
+import com.sthService.utils.EncryptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +17,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -242,5 +245,16 @@ public class AuthorizationService {
                 return uuid;
             }
         }
+    }
+
+    public List<String> fetchAllEncryptedUsers() throws GeneralSecurityException {
+        List<User> users = authorizationRepository.findAll();
+        List<String> encryptedUsers = new ArrayList<>();
+
+        for (User user : users) {
+            encryptedUsers.add(EncryptionUtils.encrypt(user.getName()));
+        }
+
+        return encryptedUsers;
     }
 }

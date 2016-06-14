@@ -4,6 +4,8 @@ import com.sthService.dataContract.*;
 import com.sthService.service.AuthorizationService;
 import com.sthService.service.ModelChangeService;
 import com.sthService.service.SmallTeamService;
+import com.sthService.utils.EncryptionUtils;
+import com.sthService.utils.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
@@ -148,12 +150,14 @@ public class ChangesController {
         String anonName = antPathMatcher.extractPathWithinPattern(matchedPath, fullPath);
 
         try {
-            String decryptedName = modelChangeService.decrypt(anonName);
+            String decryptedName = EncryptionUtils.decrypt(anonName);
             String[] anonNameSplit = anonName.split("/");
+            String pageSizeS = anonNameSplit[anonNameSplit.length - 1];
+            String pageNumberS = anonNameSplit[anonNameSplit.length - 2];
 
-            if (anonNameSplit.length > 2) {
-                int pageSize = Integer.parseInt(anonNameSplit[anonNameSplit.length - 1]);
-                int pageNumber = Integer.parseInt(anonNameSplit[anonNameSplit.length - 2]);
+            if (anonNameSplit.length > 2 && NumberUtils.areIntegers(pageSizeS, pageNumberS)) {
+                int pageSize = Integer.parseInt(pageSizeS);
+                int pageNumber = Integer.parseInt(pageNumberS);
 
                 Pageable pageable = new PageRequest(pageNumber, pageSize);
                 modelChanges = modelChangeService.encryptChanges(

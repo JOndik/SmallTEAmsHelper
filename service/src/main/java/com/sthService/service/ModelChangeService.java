@@ -4,6 +4,7 @@ import com.sthService.dataContract.ItemCreation;
 import com.sthService.dataContract.ModelChange;
 import com.sthService.dataContract.PropertyChange;
 import com.sthService.repository.ModelChangeRepository;
+import com.sthService.utils.EncryptionUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +31,6 @@ public class ModelChangeService {
 
     @Inject
     private ModelChangeRepository modelChangeRepository;
-
-    @Value("${addin.anonkey}")
-    private String encryptionKey;
 
     /**
      * method saves new change and sets its author
@@ -103,21 +101,21 @@ public class ModelChangeService {
     public List<ModelChange> encryptChanges(List<ModelChange> modelChanges) throws GeneralSecurityException {
         for (ModelChange modelChange : modelChanges) {
             if (modelChange.getUserName() != null) {
-                String encryptedUserName = encrypt(modelChange.getUserName());
+                String encryptedUserName = EncryptionUtils.encrypt(modelChange.getUserName());
                 modelChange.setUserName(encryptedUserName);
             }
 
             if (modelChange instanceof ItemCreation && ((ItemCreation) modelChange).getAuthor() != null) {
-                String encryptedAuthor = encrypt(((ItemCreation) modelChange).getAuthor());
+                String encryptedAuthor = EncryptionUtils.encrypt(((ItemCreation) modelChange).getAuthor());
                 ((ItemCreation) modelChange).setAuthor(encryptedAuthor);
             }
 
             if (modelChange instanceof PropertyChange && ((PropertyChange) modelChange).getPropertyType() == 1) {
-                String encryptedBody = encrypt(((PropertyChange) modelChange).getPropertyBody());
+                String encryptedBody = EncryptionUtils.encrypt(((PropertyChange) modelChange).getPropertyBody());
                 ((PropertyChange) modelChange).setPropertyBody(encryptedBody);
 
                 if (!((PropertyChange) modelChange).getOldPropertyBody().isEmpty()) {
-                    String encryptedOldBody = encrypt(((PropertyChange) modelChange).getOldPropertyBody());
+                    String encryptedOldBody = EncryptionUtils.encrypt(((PropertyChange) modelChange).getOldPropertyBody());
                     ((PropertyChange) modelChange).setOldPropertyBody(encryptedOldBody);
                 }
             }
@@ -132,23 +130,5 @@ public class ModelChangeService {
 
     public List<ModelChange> fetchChangesByUserName(String userName, Pageable pageable) {
         return modelChangeRepository.findByUserName(userName, pageable);
-    }
-
-    public String encrypt(String data) throws GeneralSecurityException {
-        SecretKeySpec key = new SecretKeySpec(encryptionKey.getBytes(), "AES");
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
-        cipher.init(Cipher.ENCRYPT_MODE, key);
-        byte[] encryptedBytes = cipher.doFinal(data.getBytes());
-
-        return Base64.encodeBase64String(encryptedBytes);
-    }
-
-    public String decrypt(String data) throws GeneralSecurityException {
-        SecretKeySpec key = new SecretKeySpec(encryptionKey.getBytes(), "AES");
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
-        cipher.init(Cipher.DECRYPT_MODE, key);
-        byte[] decryptedBytes = cipher.doFinal(Base64.decodeBase64(data));
-
-        return new String(decryptedBytes);
     }
 }

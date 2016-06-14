@@ -19,7 +19,10 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -262,5 +265,19 @@ public class AuthorizationController {
         else {
             return new ResponseEntity<>(HttpStatus.OK);
         }
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public List<String> fetchAllEncryptedUsers() {
+        List<String> users = null;
+
+        try {
+            users = authorizationService.fetchAllEncryptedUsers();
+        } catch (GeneralSecurityException e) {
+            log.error("Failed to anonymize user list.", e);
+            return Collections.emptyList();
+        }
+
+        return users;
     }
 }
