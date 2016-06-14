@@ -67,9 +67,6 @@ public class ChangesController {
                 processChangesController.processChange(newChange.getModelChange(), user);
             }
         } else {
-            if (user.isAllModelData()) {
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
             user.setAllModelData(true);
             user.setModelGUID(newChange.getModelChange().getModelGUID());
             authorizationService.updateUser(user);

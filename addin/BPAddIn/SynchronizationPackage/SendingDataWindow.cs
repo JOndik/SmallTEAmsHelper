@@ -58,8 +58,10 @@ namespace BPAddIn.SynchronizationPackage
 
         public void showMessage()
         {
-            lbWait.BeginInvoke((MethodInvoker)delegate() { lbWait.Text = "A problem with internet connection occured during sending of data."; });
-            btnConfirm.BeginInvoke((MethodInvoker)delegate() { btnConfirm.Visible = true; });        
+            lbSend.BeginInvoke((MethodInvoker)delegate() { lbSend.Visible = true; });  
+            lbSend.BeginInvoke((MethodInvoker)delegate() { lbSend.Text = "A problem with internet connection has occured during sending of data."; });
+            lbWait.BeginInvoke((MethodInvoker)delegate() { lbWait.Text = "Please restart your internet connection, then restart Enterprise Architect and wait a minute."; });
+            btnConfirm.BeginInvoke((MethodInvoker)delegate() { btnConfirm.Visible = true; });       
         }
 
         private void btnNo_Click(object sender, EventArgs e)

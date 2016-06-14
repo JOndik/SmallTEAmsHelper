@@ -48,7 +48,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(98, 111);
+            this.btnStart.Location = new System.Drawing.Point(126, 111);
             this.btnStart.Margin = new System.Windows.Forms.Padding(4);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(208, 28);
@@ -59,7 +59,7 @@
             // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(392, 111);
+            this.btnBack.Location = new System.Drawing.Point(431, 111);
             this.btnBack.Margin = new System.Windows.Forms.Padding(4);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(100, 28);
@@ -70,7 +70,7 @@
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(246, 111);
+            this.btnConfirm.Location = new System.Drawing.Point(278, 111);
             this.btnConfirm.Margin = new System.Windows.Forms.Padding(4);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(100, 28);
@@ -95,7 +95,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(590, 169);
+            this.ClientSize = new System.Drawing.Size(658, 169);
             this.Controls.Add(this.lbSend);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.btnBack);
