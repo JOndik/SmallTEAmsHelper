@@ -17,6 +17,13 @@ namespace BPAddIn.SynchronizationPackage
             this.itemTypes = new ItemTypes(repository);
         }
 
+        /// <summary>
+        /// method changes name of package
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="packageGUID">GUID of changed package</param>
+        /// <param name="name">new name of changed package</param>
+        /// <param name="oldName">previous name of changed package</param>
         public void changePackageName(EA.Repository Repository, string packageGUID, string name, string oldName)
         {
             EA.Package package = (EA.Package)Repository.GetPackageByGuid(packageGUID);
@@ -27,6 +34,13 @@ namespace BPAddIn.SynchronizationPackage
                 "' (Location of package: " + itemTypes.getLocationOfItem(Repository, package.ParentID, 0));
         }
 
+        /// <summary>
+        /// method changes author of package
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="packageGUID">GUID of changed package</param>
+        /// <param name="author">new author of changed package</param>
+        /// <param name="oldAuthor">previous author of changed package</param>
         public void changePackageAuthor(EA.Repository Repository, string packageGUID, string author, string oldAuthor)
         {
             EA.Package package = (EA.Package)Repository.GetPackageByGuid(packageGUID);
@@ -38,6 +52,12 @@ namespace BPAddIn.SynchronizationPackage
                  "', current author: '" + author + "' (Location of package: " + itemTypes.getLocationOfItem(Repository, package.ParentID, 0));
         }
 
+        /// <summary>
+        /// method changes notes of package
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="packageGUID">GUID of changed package</param>
+        /// <param name="notes">new notes of changed package</param>
         public void changePackageNotes(EA.Repository Repository, string packageGUID, string notes)
         {
             EA.Package package = (EA.Package)Repository.GetPackageByGuid(packageGUID);
@@ -48,6 +68,14 @@ namespace BPAddIn.SynchronizationPackage
                 "' (Location of package: " + itemTypes.getLocationOfItem(Repository, package.ParentID, 0));
         }
 
+        /// <summary>
+        /// method changes name of diagram
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="diagramGUID">GUID of changed diagram</param>
+        /// <param name="name">new name of changed diagram</param>
+        /// <param name="oldName">previous name of changed diagram</param>
+        /// <param name="elementType">type of changed diagram</param>
         public void changeDiagramName(EA.Repository Repository, string diagramGUID, string name, string oldName, int elementType)
         {
             EA.Diagram diagram = (EA.Diagram)Repository.GetDiagramByGuid(diagramGUID);
@@ -59,6 +87,14 @@ namespace BPAddIn.SynchronizationPackage
                 "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
+        /// <summary>
+        /// method changes author of diagram
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="diagramGUID">GUID of changed diagram</param>
+        /// <param name="author">new author of changed diagram</param>
+        /// <param name="oldAuthor">previous author of changed diagram</param>
+        /// <param name="elementType">type of changed diagram</param>
         public void changeDiagramAuthor(EA.Repository Repository, string diagramGUID, string author, string oldAuthor, int elementType)
         {
             EA.Diagram diagram = (EA.Diagram)Repository.GetDiagramByGuid(diagramGUID);
@@ -70,6 +106,13 @@ namespace BPAddIn.SynchronizationPackage
               "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
+        /// <summary>
+        /// method changes notes of diagram
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="diagramGUID">GUID of changed diagram</param>
+        /// <param name="notes">new notes of changed diagram</param>
+        /// <param name="elementType">type of changed diagram</param>
         public void changeDiagramNotes(EA.Repository Repository, string diagramGUID, string notes, int elementType)
         {
             EA.Diagram diagram = (EA.Diagram)Repository.GetDiagramByGuid(diagramGUID);
@@ -80,6 +123,14 @@ namespace BPAddIn.SynchronizationPackage
                  "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
+        /// <summary>
+        /// method changes stereotype of diagram
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="diagramGUID">GUID of changed diagram</param>
+        /// <param name="stereotype">new stereotype of changed diagram</param>
+        /// <param name="oldStereotype">previous stereotype of changed diagram</param>
+        /// <param name="elementType">type of changed diagram</param>
         public void changeDiagramStereotype(EA.Repository Repository, string diagramGUID, string stereotype, string oldStereotype, int elementType)
         {
             EA.Diagram diagram = (EA.Diagram)Repository.GetDiagramByGuid(diagramGUID);
@@ -91,6 +142,14 @@ namespace BPAddIn.SynchronizationPackage
                  "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
+        /// <summary>
+        /// method changes name of element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="elementGUID">GUID of changed element</param>
+        /// <param name="name">new name of changed element</param>
+        /// <param name="oldName">previous name of changed element</param>
+        /// <param name="elementType">type of changed element</param>
         public void changeElementName(EA.Repository Repository, string elementGUID, string name, string oldName, int elementType)
         {
             EA.Element element = Repository.GetElementByGuid(elementGUID);
@@ -102,6 +161,14 @@ namespace BPAddIn.SynchronizationPackage
                  "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
+        /// <summary>
+        /// method changes author of element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="elementGUID">GUID of changed element</param>
+        /// <param name="author">new author of changed element</param>
+        /// <param name="oldAuthor">previous author of changed element</param>
+        /// <param name="elementType">type of changed element</param>
         public void changeElementAuthor(EA.Repository Repository, string elementGUID, string author, string oldAuthor, int elementType)
         {
             EA.Element element = Repository.GetElementByGuid(elementGUID);
@@ -113,6 +180,13 @@ namespace BPAddIn.SynchronizationPackage
                   "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
+        /// <summary>
+        /// method changes notes of element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="elementGUID">GUID of changed element</param>
+        /// <param name="notes">new notes of changed element</param>
+        /// <param name="elementType">type of changed element</param>
         public void changeElementNotes(EA.Repository Repository, string elementGUID, string notes, int elementType)
         {
             EA.Element element = Repository.GetElementByGuid(elementGUID);
@@ -123,6 +197,14 @@ namespace BPAddIn.SynchronizationPackage
                 element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
+        /// <summary>
+        /// method changes stereotype of element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="elementGUID">GUID of changed element</param>
+        /// <param name="stereotype">new stereotype of changed element</param>
+        /// <param name="oldStereotype">previous stereotype of changed element</param>
+        /// <param name="elementType">type of changed element</param>
         public void changeElementStereotype(EA.Repository Repository, string elementGUID, string stereotype, string oldStereotype, int elementType)
         {
             EA.Element element = Repository.GetElementByGuid(elementGUID);
@@ -134,6 +216,14 @@ namespace BPAddIn.SynchronizationPackage
                   "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
+        /// <summary>
+        /// method changes name of connector
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="connectorGUID">GUID of changed connector</param>
+        /// <param name="name">new name of changed connector</param>
+        /// <param name="oldName">previous name of changed connector</param>
+        /// <param name="elementType">type of changed connector</param>
         public void changeConnectorName(EA.Repository Repository, string connectorGUID, string name, string oldName, int elementType)
         {
             EA.Connector connector = (EA.Connector)Repository.GetConnectorByGuid(connectorGUID);
@@ -147,6 +237,13 @@ namespace BPAddIn.SynchronizationPackage
                connector.Name + "' - previous name: '" + oldName + "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
+        /// <summary>
+        /// method changes notes of connector
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="connectorGUID">GUID of changed connector</param>
+        /// <param name="notes">new notes of changed connector</param>
+        /// <param name="elementType">type of changed connector</param>
         public void changeConnectorNotes(EA.Repository Repository, string connectorGUID, string notes, int elementType)
         {
             EA.Connector connector = (EA.Connector)Repository.GetConnectorByGuid(connectorGUID);
@@ -160,6 +257,14 @@ namespace BPAddIn.SynchronizationPackage
                connector.Name + "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
+        /// <summary>
+        /// method changes stereotype of connector
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="connectorGUID">GUID of changed connector</param>
+        /// <param name="stereotype">new stereotype of changed connector</param>
+        /// <param name="oldStereotype">previous stereotype of changed connector</param>
+        /// <param name="elementType">type of changed connector</param>
         public void changeConnectorStereotype(EA.Repository Repository, string connectorGUID, string stereotype, string oldStereotype, int elementType)
         {
             EA.Connector connector = (EA.Connector)Repository.GetConnectorByGuid(connectorGUID);
@@ -174,6 +279,14 @@ namespace BPAddIn.SynchronizationPackage
                "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
+        /// <summary>
+        /// method changes source element of connector
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="connectorGUID">GUID of changed connector</param>
+        /// <param name="sourceGUID">GUID of new source element of changed connector</param>
+        /// <param name="oldSourceGUID">GUID of previous source element of changed connector</param>
+        /// <param name="elementType">type of changed connector</param>
         public void changeConnectorSource(EA.Repository Repository, string connectorGUID, string sourceGUID, string oldSourceGUID, int elementType)
         {
             EA.Element sourceElement = (EA.Element)Repository.GetElementByGuid(sourceGUID);
@@ -190,6 +303,14 @@ namespace BPAddIn.SynchronizationPackage
                "' (Connector between element '" + sourceElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
+        /// <summary>
+        /// method changes target element of connector
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="connectorGUID">GUID of changed connector</param>
+        /// <param name="targetGUID">GUID of new target element of changed connector</param>
+        /// <param name="oldTargetGUID">GUID of previous target element of changed connector</param>
+        /// <param name="elementType">type of changed connector</param>
         public void changeConnectorTarget(EA.Repository Repository, string connectorGUID, string targetGUID, string oldTargetGUID, int elementType)
         {
             EA.Element targetElement = (EA.Element)Repository.GetElementByGuid(targetGUID);
@@ -206,6 +327,14 @@ namespace BPAddIn.SynchronizationPackage
                "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
+        /// <summary>
+        /// method changes cardinality of connector at source element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="connectorGUID">GUID of changed connector</param>
+        /// <param name="cardinality">new cardinality of changed connector at source element</param>
+        /// <param name="oldCardinality">previous cardinality of changed connector at source element</param>
+        /// <param name="elementType">type of changed connector</param>
         public void changeConnectorSourceCardinality(EA.Repository Repository, string connectorGUID, string cardinality, string oldCardinality, int elementType)
         {
             EA.Connector connector = (EA.Connector)Repository.GetConnectorByGuid(connectorGUID);
@@ -220,6 +349,14 @@ namespace BPAddIn.SynchronizationPackage
                "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
+        /// <summary>
+        /// method changes cardinality of connector at target element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="connectorGUID">GUID of changed connector at target element</param>
+        /// <param name="cardinality">new cardinality of changed connector at target element</param>
+        /// <param name="oldCardinality">old cardinality of changed connector at target element</param>
+        /// <param name="elementType">type of changed connector</param>
         public void changeConnectorTargetCardinality(EA.Repository Repository, string connectorGUID, string cardinality, string oldCardinality, int elementType)
         {
             EA.Connector connector = (EA.Connector)Repository.GetConnectorByGuid(connectorGUID);
@@ -234,6 +371,14 @@ namespace BPAddIn.SynchronizationPackage
                "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
+        /// <summary>
+        /// method changes guard of connector
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="connectorGUID">GUID of changed connector</param>
+        /// <param name="guard">new guard of changed connector</param>
+        /// <param name="oldGuard">previous guard of changed connector</param>
+        /// <param name="elementType">type of changed connector</param>
         public void changeConnectorGuard(EA.Repository Repository, string connectorGUID, string guard, string oldGuard, int elementType)
         {
             EA.Connector connector = (EA.Connector)Repository.GetConnectorByGuid(connectorGUID);
@@ -248,6 +393,14 @@ namespace BPAddIn.SynchronizationPackage
                "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
+        /// <summary>
+        /// method changes direction of connector
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="connectorGUID">GUID of changed connector</param>
+        /// <param name="direction">new direction of changed connector</param>
+        /// <param name="oldDirection">previous direction of changed connector</param>
+        /// <param name="elementType">type of changed connector</param>
         public void changeConnectorDirection(EA.Repository Repository, string connectorGUID, string direction, string oldDirection, int elementType)
         {
             EA.Connector connector = (EA.Connector)Repository.GetConnectorByGuid(connectorGUID);
@@ -262,6 +415,13 @@ namespace BPAddIn.SynchronizationPackage
                "' (Connector between element '" + srcElement.Name + "' and element '" + targetElement.Name + "')");
         }
 
+        /// <summary>
+        /// method sets extension points of element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="elementGUID">GUID of changed element</param>
+        /// <param name="extensionPoints">new extension points</param>
+        /// <param name="elementType">type of changed element</param>
         public void setExtensionPoints(EA.Repository Repository, string elementGUID, string extensionPoints, int elementType)
         {
             EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
@@ -272,6 +432,13 @@ namespace BPAddIn.SynchronizationPackage
                 + " '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
+        /// <summary>
+        /// method changes name of attribute
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="attributeGUID">GUID of changed attribute</param>
+        /// <param name="name">new name of changed attribute</param>
+        /// <param name="oldName">previous name of changed attribute</param>
         public void changeAttributeName(EA.Repository Repository, string attributeGUID, string name, string oldName)
         {
             EA.Attribute attribute = (EA.Attribute)Repository.GetAttributeByGuid(attributeGUID);
@@ -285,6 +452,13 @@ namespace BPAddIn.SynchronizationPackage
                "' (Attribute of element '" + element.Name + "', location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
+        /// <summary>
+        /// method changes scope of attribute
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="attributeGUID">GUID of changed attribute</param>
+        /// <param name="scope">new scope of changed attribute</param>
+        /// <param name="oldScope">previous scope of changed attribute</param>
         public void changeAttributeVisibility(EA.Repository Repository, string attributeGUID, string scope, string oldScope)
         {
             EA.Attribute attribute = (EA.Attribute)Repository.GetAttributeByGuid(attributeGUID);
@@ -298,6 +472,16 @@ namespace BPAddIn.SynchronizationPackage
                "' (Attribute of element '" + element.Name + "', location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
+        /// <summary>
+        /// method changes scenario of element
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="scenarioGUID">GUID of changed scenario</param>
+        /// <param name="elementGUID">GUID of element</param>
+        /// <param name="name">new name of changed scenario</param>
+        /// <param name="type">new type of changed scenario</param>
+        /// <param name="XMLContent">new steps of changed scenario</param>
+        /// <param name="elementType">type of element</param>
         public void changeScenario(EA.Repository repository, string scenarioGUID, string elementGUID, string name, string type, string XMLContent, int elementType)
         {
             EA.Element element = (EA.Element)repository.GetElementByGuid(elementGUID);
@@ -319,6 +503,14 @@ namespace BPAddIn.SynchronizationPackage
                 + itemTypes.getElementTypeInEnglish(elementType) + " '" + element.Name + "' (Location of element: " + itemTypes.getLocationOfItem(repository, element.PackageID, element.ParentID));
         }
 
+        /// <summary>
+        /// method adds constraint to element
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="elementGUID">GUID of changed element</param>
+        /// <param name="name">name of new constraint</param>
+        /// <param name="type">type of new constraint</param>
+        /// <param name="elementType">type of changed element</param>
         public void addConstraint(EA.Repository repository, string elementGUID, string name, string type, int elementType)
         {
             int index = name.IndexOf("notes:=") + 7;

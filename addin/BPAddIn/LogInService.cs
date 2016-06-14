@@ -10,6 +10,12 @@ namespace BPAddIn
 {
     public class LogInService
     {
+        /// <summary>
+        /// method checks internet connection before uploading log in data
+        /// </summary>
+        /// <param name="name">name of user</param>
+        /// <param name="password">password of user</param>
+        /// <returns></returns>
         public string checkConnection(string name, string password)
         {
             try
@@ -29,7 +35,12 @@ namespace BPAddIn
             }           
         }
 
-
+        /// <summary>
+        /// method uploads data about user gained in log in process
+        /// </summary>
+        /// <param name="name">name of user</param>
+        /// <param name="password">password of user</param>
+        /// <returns></returns>
         public string uploadLogInData(string name, string password)
         {
             LogIn logIn = new LogIn(name, password);
@@ -67,6 +78,11 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method adds new user to local database
+        /// </summary>
+        /// <param name="name">name of new user</param>
+        /// <param name="token">token of new user</param>
         public void saveUserToLocalDatabase(String name, String token)
         {
             List<User> users;
@@ -99,6 +115,11 @@ namespace BPAddIn
             }           
         }
 
+        /// <summary>
+        /// method encodes non ascii characters of param
+        /// </summary>
+        /// <param name="value">string that should be encoded</param>
+        /// <returns>string with encoded non ascii characters</returns>
         static string EncodeNonAsciiCharacters(string value)
         {
             StringBuilder sb = new StringBuilder();

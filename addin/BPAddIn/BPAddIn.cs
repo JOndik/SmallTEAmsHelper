@@ -180,18 +180,27 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method shows window for log in process
+        /// </summary>
         public void showLoginWindow()
         {
             LogInWindow login = new LogInWindow();
             login.ShowDialog();
         }
 
+        /// <summary>
+        /// method shows window for process of joining colleague to team
+        /// </summary>
         public void showJoinWindow()
         {
             JoinWindow join = new JoinWindow();
             join.ShowDialog();
         }
 
+        /// <summary>
+        /// method shows window for sign up process
+        /// </summary>
         public void showRegistrationWindow()
         {
             RegistrationWindow registrationWindow = new RegistrationWindow();

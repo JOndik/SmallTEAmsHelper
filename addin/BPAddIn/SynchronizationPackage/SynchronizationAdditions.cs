@@ -16,6 +16,14 @@ namespace BPAddIn.SynchronizationPackage
             this.itemTypes = new ItemTypes(repository);
         }
 
+        /// <summary>
+        /// method adds a new package into parent package
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="packageGUID">GUID of parent package</param>
+        /// <param name="name">name of new package</param>
+        /// <param name="author">author of new package</param>
+        /// <returns>GUID of new package</returns>
         public String addPackage(EA.Repository Repository, string packageGUID, string name, string author)
         {
             EA.Package parentPackage = (EA.Package)Repository.GetPackageByGuid(packageGUID);
@@ -34,6 +42,16 @@ namespace BPAddIn.SynchronizationPackage
             return newPackage.PackageGUID;
         }
 
+        /// <summary>
+        /// method adds a new diagram into parent element or package
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="parentGUID">GUID of parent element</param>
+        /// <param name="packageGUID">GUID of parent package</param>
+        /// <param name="elementType">type of new diagram</param>
+        /// <param name="name">name of new diagram</param>
+        /// <param name="author">author of new diagram</param>
+        /// <returns>GUID of new diagram</returns>
         public string addDiagram(EA.Repository Repository, string parentGUID, string packageGUID, int elementType, string name, string author)
         {
             if (getDiagramType(elementType) == "")
@@ -72,6 +90,17 @@ namespace BPAddIn.SynchronizationPackage
             return newDiagram.DiagramGUID;           
         }
 
+        /// <summary>
+        /// method adds a new element into parent element or package
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="parentGUID">GUID of parent element</param>
+        /// <param name="packageGUID">GUID of parent package</param>
+        /// <param name="coordinates">coordinates of new element</param>
+        /// <param name="elementType">type of new element</param>
+        /// <param name="name">name of new element</param>
+        /// <param name="author">author of new element</param>
+        /// <returns>GUID of new element</returns>
         public string addElement(EA.Repository Repository, string parentGUID, string packageGUID, string coordinates, 
             int elementType, string name, string author)
         {
@@ -128,6 +157,13 @@ namespace BPAddIn.SynchronizationPackage
             return newElement.ElementGUID;
         }
 
+        /// <summary>
+        /// method adds a new diagram object into diagram
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="elementGUID">GUID of element</param>
+        /// <param name="diagramGUID">GUID of diagram</param>
+        /// <param name="coordinates">coordinates of new diagram object</param>
         public void addDiagramObject(EA.Repository Repository, string elementGUID, string diagramGUID, string coordinates)
         {
             int left, right, top, bottom;
@@ -189,6 +225,15 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method adds a new connector between source and target element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="srcGUID">GUID of source element</param>
+        /// <param name="targetGUID">GUID of target element</param>
+        /// <param name="name">name of new connector</param>
+        /// <param name="elementType">type of new connector</param>
+        /// <returns>GUID of new connector</returns>
         public string addConnector(EA.Repository Repository, string srcGUID, string targetGUID, string name, int elementType)
         {
             EA.Element source = (EA.Element)Repository.GetElementByGuid(srcGUID);
@@ -217,6 +262,16 @@ namespace BPAddIn.SynchronizationPackage
             return newConnector.ConnectorGUID;
         }     
 
+        /// <summary>
+        /// method adds a new scenario into element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="elementGUID">GUID of element</param>
+        /// <param name="name">name of new scenario</param>
+        /// <param name="type">type of new scenario</param>
+        /// <param name="XMLContent">all information about scenario</param>
+        /// <param name="elementType">type of element</param>
+        /// <returns>GUID of new scenario</returns>
         public string addScenario(EA.Repository Repository, string elementGUID, string name, string type, string XMLContent, int elementType)
         {
             EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
@@ -232,6 +287,14 @@ namespace BPAddIn.SynchronizationPackage
             return scenario.ScenarioGUID;
         }
 
+        /// <summary>
+        /// method adds a new attribute into element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="elementGUID">GUID of element</param>
+        /// <param name="name">name of new attribute</param>
+        /// <param name="scope">scope of new attribute</param>
+        /// <returns>GUID of new attribute</returns>
         public string addAttribute(EA.Repository Repository, string elementGUID, string name, string scope)
         {
             EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
@@ -248,6 +311,11 @@ namespace BPAddIn.SynchronizationPackage
             return attribute.AttributeGUID;
         }
 
+        /// <summary>
+        /// method finds element type
+        /// </summary>
+        /// <param name="elementType">type of element</param>
+        /// <returns>string containing type of element</returns>
         public string getElementType(int elementType)
         {
             if (elementType >= 31 && elementType <= 44)
@@ -311,6 +379,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method finds element stereotype
+        /// </summary>
+        /// <param name="elementType">type of element</param>
+        /// <returns>string containing stereotype of element</returns>
         public string getElementStereotype(int elementType)
         {
             switch (elementType)
@@ -356,6 +429,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method finds subtype of element
+        /// </summary>
+        /// <param name="elementType">type of element</param>
+        /// <returns>integer value of element subtype</returns>
         public int getElementSubtype(int elementType)
         {
             switch (elementType)
@@ -377,7 +455,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
-
+        /// <summary>
+        /// method finds diagram type
+        /// </summary>
+        /// <param name="elementType">type of diagram</param>
+        /// <returns>string containing type of diagram</returns>
         public string getDiagramType(int elementType)
         {
             switch (elementType)
@@ -409,6 +491,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method finds connector type
+        /// </summary>
+        /// <param name="elementType">type of connector</param>
+        /// <returns>string containing type of connector</returns>
         public string getConnectorType(int elementType)
         {
             switch (elementType)

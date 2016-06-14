@@ -16,6 +16,11 @@ namespace BPAddIn.SynchronizationPackage
             this.itemTypes = new ItemTypes(repository);
         }
 
+        /// <summary>
+        /// method deletes package
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="packageGUID">GUID of package that should be deleted</param>
         public void deletePackage(EA.Repository Repository, string packageGUID)
         {
             EA.Package packageToDelete = (EA.Package)Repository.GetPackageByGuid(packageGUID);
@@ -36,6 +41,12 @@ namespace BPAddIn.SynchronizationPackage
             BPAddIn.synchronizationWindow.addToList("Deletion of package '" + name + "' from package '" + parentPackage.Name + "'");
         }
 
+        /// <summary>
+        /// method deletes diagram
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="diagramGUID">GUID of diagram that should be deleted</param>
+        /// <param name="elementType">type of diagram that should be deleted</param>
         public void deleteDiagram(EA.Repository Repository, string diagramGUID, int elementType)
         {
             EA.Diagram diagramToDelete = (EA.Diagram)Repository.GetDiagramByGuid(diagramGUID);
@@ -69,6 +80,12 @@ namespace BPAddIn.SynchronizationPackage
                 itemTypes.getLocationOfItem(Repository, packageID, parentID));
         }
 
+        /// <summary>
+        /// method deletes element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="elementGUID">GUID of element that should be deleted</param>
+        /// <param name="elementType">type of element that should be deleted</param>
         public void deleteElement(EA.Repository Repository, string elementGUID, int elementType)
         {
             EA.Element elementToDelete = (EA.Element)Repository.GetElementByGuid(elementGUID);
@@ -102,6 +119,12 @@ namespace BPAddIn.SynchronizationPackage
                 itemTypes.getLocationOfItem(Repository, packageID, parentID));
         }
 
+        /// <summary>
+        /// method deletes diagram object from diagram
+        /// </summary>
+        /// <param name="Repository"></param>
+        /// <param name="elementGUID">GUID of element which diagram object that should be deleted belongs to</param>
+        /// <param name="diagramGUID">GUID of diagram owning diagram object that should be deleted</param>
         public void deleteDiagramObject(EA.Repository Repository, string elementGUID, string diagramGUID)
         {
             EA.Diagram diagram = (EA.Diagram)Repository.GetDiagramByGuid(diagramGUID);
@@ -122,6 +145,13 @@ namespace BPAddIn.SynchronizationPackage
                 "' (Location of diagram: " + itemTypes.getLocationOfItem(Repository, diagram.PackageID, diagram.ParentID));
         }
 
+        /// <summary>
+        /// method deletes connector
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="connectorGUID">GUID of connector that should be deleted</param>
+        /// <param name="diagramGUID">GUID of diagram</param>
+        /// <param name="elementType">type of connector that should be deleted</param>
         public void deleteConnector(EA.Repository Repository, string connectorGUID, string diagramGUID, int elementType)
         {
             EA.Connector connector = (EA.Connector)Repository.GetConnectorByGuid(connectorGUID);
@@ -145,6 +175,13 @@ namespace BPAddIn.SynchronizationPackage
                 "' and element '" + targetElement.Name + "'");
         }
 
+        /// <summary>
+        /// method deletes scenario from element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="scenarioGUID">GUID of scenario that should be deleted</param>
+        /// <param name="elementGUID">GUID of element owning scenario that should be deleted</param>
+        /// <param name="elementType">type of element owning scenario that should be deleted</param>
         public void deleteScenario(EA.Repository Repository, string scenarioGUID, string elementGUID, int elementType)
         {
             EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
@@ -167,6 +204,11 @@ namespace BPAddIn.SynchronizationPackage
                 + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
+        /// <summary>
+        /// method deletes attribute from element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="attributeGUID">GUID of attribute that should be deleted</param>
         public void deleteAttribute(EA.Repository Repository, string attributeGUID)
         {
             EA.Attribute attribute = (EA.Attribute)Repository.GetAttributeByGuid(attributeGUID);
@@ -188,6 +230,13 @@ namespace BPAddIn.SynchronizationPackage
                 + "' (Location of element: " + itemTypes.getLocationOfItem(Repository, element.PackageID, element.ParentID));
         }
 
+        /// <summary>
+        /// method deletes constraint from element
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="elementGUID">GUID of element owning constraint that should be deleted</param>
+        /// <param name="name">name of constraint that should be deleted</param>
+        /// <param name="type">type of constraint that should be deleted</param>
         public void deleteConstraint(EA.Repository repository, string elementGUID, string name, string type)
         {
             EA.Element element = (EA.Element)repository.GetElementByGuid(elementGUID);

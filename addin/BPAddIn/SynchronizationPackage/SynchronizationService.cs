@@ -30,6 +30,10 @@ namespace BPAddIn.SynchronizationPackage
             this.synchronization = new Synchronization(repository);
         }
 
+        /// <summary>
+        /// method checks internet connection before execution of synchronization
+        /// </summary>
+        /// <param name="repository">EA repository</param>
         public void checkConnectionForSynchronization(EA.Repository repository)
         {
             try
@@ -50,6 +54,10 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method executes synchronization process
+        /// </summary>
+        /// <param name="repository">EA repository</param>
         public void executeSynchronization(EA.Repository repository)
         {
             User user = getLoggedUser();
@@ -113,7 +121,7 @@ namespace BPAddIn.SynchronizationPackage
 
                         if (modelChange is ItemCreation)
                         {
-                            ItemCreation itemCreation = (ItemCreation)modelChange;                                  //vytvorenie
+                            ItemCreation itemCreation = (ItemCreation)modelChange;                                  //addition
 
                             NewCorrespondenceNode newCorrNode = new NewCorrespondenceNode();
                             newCorrNode.firstUsername = user.username;
@@ -130,18 +138,18 @@ namespace BPAddIn.SynchronizationPackage
                             PropertyChange propertyChange = (PropertyChange)modelChange;
                             if (propertyChange.elementDeleted == 0)
                             {
-                                synchronization.handleSynchronizationChanges(propertyChange, repository);       //zmena
+                                synchronization.handleSynchronizationChanges(propertyChange, repository);       //change
                             }
                             else
                             {
-                                synchronization.handleSynchronizationDeletions(propertyChange, repository);             //odstranenie
+                                synchronization.handleSynchronizationDeletions(propertyChange, repository);             //deletion
                             }
                         }
-                        else if (modelChange is StepChange)                    //scenare
+                        else if (modelChange is StepChange)                    //scenarios
                         {
                             StepChange scenarioChange = (StepChange)modelChange;
 
-                            if (scenarioChange.status == 1)                            //pridanie
+                            if (scenarioChange.status == 1)                            //addition
                             {
                                 NewCorrespondenceNode newCorrNode = new NewCorrespondenceNode();
                                 newCorrNode.firstUsername = user.username;
@@ -152,7 +160,7 @@ namespace BPAddIn.SynchronizationPackage
                                 webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
                                 result3 = webClient.UploadString(Utils.serviceAddress + "/corrModel/createNode", data);
                             }
-                            else if (scenarioChange.status == 2 || scenarioChange.status == 0)         //zmena alebo odstranenie
+                            else if (scenarioChange.status == 2 || scenarioChange.status == 0)         //change or deletion
                             {
                                 synchronization.handleScenarioChange(scenarioChange, repository);
                             }
@@ -166,6 +174,10 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method checks internet connection before finding out user situation of synchronization process
+        /// </summary>
+        /// <param name="repository">EA repository</param>
         public void checkInternetConnection(EA.Repository repository)
         {
             try
@@ -185,6 +197,10 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method shows window that informs user about current situation of his synchronization process
+        /// </summary>
+        /// <param name="repository">EA repository</param>
         public void showCorrectWindow(EA.Repository repository)
         {
             User user = getLoggedUser();
@@ -252,6 +268,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method sends all data about model
+        /// </summary>
+        /// <param name="sendingDataWindow">window for data sending</param>
+        /// <param name="repository">EA repository</param>
         public void sendDataAboutModel(SendingDataWindow sendingDataWindow, EA.Repository repository)
         {
             try
@@ -289,6 +310,11 @@ namespace BPAddIn.SynchronizationPackage
             }           
         }
 
+        /// <summary>
+        /// method checks if last data about model has been uploaded to server
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="el"></param>
         private void checkLastCreate(Object source, System.Timers.ElapsedEventArgs el)
         {
             bool confirmed = false;
@@ -333,6 +359,10 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method gets currently logged user
+        /// </summary>
+        /// <returns>instance of logged user</returns>
         public User getLoggedUser()
         {
             List<User> users;
@@ -357,6 +387,10 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method changes GUID of model
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
         public void changeModelGUID(EA.Repository Repository)
         {
             String guid = "{" + Guid.NewGuid().ToString().ToUpper() + "}";
@@ -369,6 +403,9 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method for starting new team project
+        /// </summary>
         public void startNewProject()
         {
             try
@@ -432,6 +469,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method encodes non ascii characters of param
+        /// </summary>
+        /// <param name="value">string that should be encoded</param>
+        /// <returns>string with encoded non ascii characters</returns>
         public static string EncodeNonAsciiCharacters(string value)
         {
             StringBuilder sb = new StringBuilder();

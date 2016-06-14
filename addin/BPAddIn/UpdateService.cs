@@ -19,6 +19,9 @@ namespace BPAddIn
 {
     class UpdateService
     {
+        /// <summary>
+        /// method checks internet connection before checking for update
+        /// </summary>
         public void isConnected()
         {
             try
@@ -37,6 +40,9 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method checks for update and executes update of EA extension if update is available
+        /// </summary>
         public void checkUpdate()
         {
             using (WebClient webClient = new WebClient())
@@ -111,6 +117,10 @@ namespace BPAddIn
            
         }
 
+        /// <summary>
+        /// method finds current version of EA extension in local database
+        /// </summary>
+        /// <returns>double value of current version</returns>
         public double findVersion()
         {
             List<Version> versions;
@@ -139,6 +149,10 @@ namespace BPAddIn
             }      
         }
 
+        /// <summary>
+        /// method checks if EA was opened in administrator rights
+        /// </summary>
+        /// <returns>boolean value of result</returns>
         public static bool isAdmin()
         {
             var identity = WindowsIdentity.GetCurrent();
@@ -146,6 +160,9 @@ namespace BPAddIn
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
+        /// <summary>
+        /// method updates structure of local database
+        /// </summary>
         public void compareVersions()
         {
             string addInPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -212,6 +229,10 @@ namespace BPAddIn
             catch(Exception ex) { }
         }
 
+        /// <summary>
+        /// method changes current version of EA extension in local database
+        /// </summary>
+        /// <param name="actualVersion">current version</param>
         public void editVersion(double actualVersion)
         {
             List<Version> versions;

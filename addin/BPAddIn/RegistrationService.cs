@@ -9,6 +9,12 @@ namespace BPAddIn
 {
     public class RegistrationService
     {
+        /// <summary>
+        /// method checks internet connection before uploading sign up data about user
+        /// </summary>
+        /// <param name="name">name of new user</param>
+        /// <param name="password">password of new user</param>
+        /// <returns></returns>
         public string checkConnection(string name, string password)
         {
             try
@@ -28,6 +34,12 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method upload data about user gained in sign up process
+        /// </summary>
+        /// <param name="name">name of new user</param>
+        /// <param name="password">password of new user</param>
+        /// <returns></returns>
         public string uploadRegistrationData(string name, string password)
         {
             LogIn logIn = new LogIn(name, password);
@@ -68,6 +80,11 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method encodes non ascii characters of param
+        /// </summary>
+        /// <param name="value">string that should be encoded</param>
+        /// <returns>string with encoded non ascii characters</returns>
         static string EncodeNonAsciiCharacters(string value)
         {
             StringBuilder sb = new StringBuilder();

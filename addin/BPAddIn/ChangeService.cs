@@ -17,6 +17,10 @@ namespace BPAddIn
         public static string userToken = "";
         public static readonly AutoResetEvent newEvent = new AutoResetEvent(true);
 
+        /// <summary>
+        /// method saves model change into local database
+        /// </summary>
+        /// <param name="change">instance of ModelChange carrying information about model change</param>
         public void saveChange(ModelChange change)
         {
             try
@@ -33,6 +37,9 @@ namespace BPAddIn
             catch (Exception ex) { }
         }
 
+        /// <summary>
+        /// method starts activity of thread that uploads model changes in local database 
+        /// </summary>
         public void startActivityDispatcher()
         {
 
@@ -76,6 +83,9 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method uploads changes saved in local database
+        /// </summary>
         public void uploadChanges()
         {
             List<ModelChange> modelChanges;
@@ -135,6 +145,11 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method encodes non ascii characters of param
+        /// </summary>
+        /// <param name="value">string that should be encoded</param>
+        /// <returns>string with encoded non ascii characters</returns>
         public static string EncodeNonAsciiCharacters(string value)
         {
             StringBuilder sb = new StringBuilder();

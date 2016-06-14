@@ -20,6 +20,13 @@ namespace BPAddIn.SynchronizationPackage
             this.itemTypes = new ItemTypes(repository);
         }
 
+        /// <summary>
+        /// method moves element or package into target package
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="itemGUID">GUID of item that should be moved</param>
+        /// <param name="targetPackageGUID">GUID of target package</param>
+        /// <param name="elementType">type of element</param>
         public void moveElementOrPackageToPackage(EA.Repository repository, string itemGUID, string targetPackageGUID, int elementType)
         {
             EA.Package targetPackage = (EA.Package)repository.GetPackageByGuid(targetPackageGUID);
@@ -53,6 +60,12 @@ namespace BPAddIn.SynchronizationPackage
             }           
         }
 
+        /// <summary>
+        /// method moves element into target element
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="itemGUID">GUID of item that should be moved</param>
+        /// <param name="targetElementGUID">GUID of target element</param>
         public void moveElementToElement(EA.Repository repository, string itemGUID, string targetElementGUID)
         {
             EA.Element targetElement = (EA.Element)repository.GetElementByGuid(targetElementGUID);
@@ -69,6 +82,12 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method moves diagram into target package
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="diagramGUID">GUID of diagram that should be moved</param>
+        /// <param name="packageGUID">GUID of target package</param>
         public void moveDiagramToPackage(EA.Repository Repository, string diagramGUID, string packageGUID)
         {
             EA.Package package = (EA.Package)Repository.GetPackageByGuid(packageGUID);
@@ -81,6 +100,12 @@ namespace BPAddIn.SynchronizationPackage
                package.Name + "'");
         }
 
+        /// <summary>
+        /// method moves diagram into target element
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="diagramGUID">GUID of diagram that should be moved</param>
+        /// <param name="elementGUID">GUID of target element</param>
         public void moveDiagramToElement(EA.Repository Repository, string diagramGUID, string elementGUID)
         {
             EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);
@@ -93,6 +118,13 @@ namespace BPAddIn.SynchronizationPackage
                     element.Name + "'");
         }
 
+        /// <summary>
+        /// method moves diagram object of element in diagram
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
+        /// <param name="elementGUID">GUID of element which diagram object that should be moved belongs to</param>
+        /// <param name="diagramGUID">GUID of diagram</param>
+        /// <param name="coordinates">new coordinates of diagram object that should be moved</param>
         public void moveElementInDiagram(EA.Repository Repository, string elementGUID, string diagramGUID, string coordinates)
         {
             EA.Element element = (EA.Element)Repository.GetElementByGuid(elementGUID);

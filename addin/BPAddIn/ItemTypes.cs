@@ -16,6 +16,11 @@ namespace BPAddIn
             this.model = new Wrapper.Model(repository);
         }
 
+        /// <summary>
+        /// method finds type of element
+        /// </summary>
+        /// <param name="GUID">GUID of element</param>
+        /// <returns>integer value of element type</returns>
         public int getElementType(string GUID)
         {
             EA.Element element = (EA.Element)model.getWrappedModel().GetElementByGuid(GUID);
@@ -162,6 +167,11 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method finds type of diagram
+        /// </summary>
+        /// <param name="GUID">GUID of diagram</param>
+        /// <returns>integer value of diagram type</returns>
         public int getDiagramType(string GUID)
         {
             string type = ((EA.Diagram)model.getWrappedModel().GetDiagramByGuid(GUID)).Type;
@@ -200,6 +210,11 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method finds type of connector
+        /// </summary>
+        /// <param name="GUID">GUID of connector</param>
+        /// <returns>integer value of connector type</returns>
         public int getConnectorType(string GUID)
         {
             EA.Connector connector = (EA.Connector)model.getWrappedModel().GetConnectorByGuid(GUID);
@@ -237,6 +252,11 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method finds type of element in Slovak
+        /// </summary>
+        /// <param name="elementType">integer value of element type</param>
+        /// <returns>string containing type of element in Slovak</returns>
         public string getElementTypeInSlovak(int elementType)
         {
             switch (elementType)
@@ -366,6 +386,11 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method finds type of element in English
+        /// </summary>
+        /// <param name="elementType">integer value of element type</param>
+        /// <returns>string containing type of element in English</returns>
         public string getElementTypeInEnglish(int elementType)
         {
             switch (elementType)

@@ -23,6 +23,12 @@ namespace BPAddIn.SynchronizationPackage
             this.synchronizationChanges = new SynchronizationChanges(repository);
         }
 
+        /// <summary>
+        /// method handles item creations during synchronization
+        /// </summary>
+        /// <param name="itemCreation">instance of item creation carrying information about item creation</param>
+        /// <param name="repository">EA repository</param>
+        /// <returns>GUID of new item</returns>
         public string handleSynchronizationAdditions(ItemCreation itemCreation, EA.Repository repository)
         {
             string GUID = "";
@@ -56,6 +62,11 @@ namespace BPAddIn.SynchronizationPackage
             return GUID;
         }
 
+        /// <summary>
+        /// method handles item changes during synchronization
+        /// </summary>
+        /// <param name="propertyChange">instance of property change carrying information about item change</param>
+        /// <param name="repository">EA repository</param>
         public void handleSynchronizationChanges(PropertyChange propertyChange, EA.Repository repository)
         {
             switch (propertyChange.propertyType)
@@ -175,6 +186,11 @@ namespace BPAddIn.SynchronizationPackage
             }           
         }
 
+        /// <summary>
+        /// method handles item deletions during synchronization
+        /// </summary>
+        /// <param name="propertyChange">instance of property change carrying information about item deletion</param>
+        /// <param name="repository">EA repository</param>
         public void handleSynchronizationDeletions(PropertyChange propertyChange, EA.Repository repository)
         {
             if (propertyChange.elementType == 3)                   //odstranenie
@@ -207,11 +223,22 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method handles scenario addition during synchronization
+        /// </summary>
+        /// <param name="scenarioChange">instance of step change carrying information about scenario addition</param>
+        /// <param name="repository">EA repository</param>
+        /// <returns>GUID of new scenario</returns>
         public string handleScenarioAddition(StepChange scenarioChange, EA.Repository repository)
         {
             return synchronizationAdditions.addScenario(repository, scenarioChange.itemGUID, scenarioChange.name, scenarioChange.stepType, scenarioChange.state, scenarioChange.elementType);
         }
 
+        /// <summary>
+        /// method handles scenario change during synchronization
+        /// </summary>
+        /// <param name="scenarioChange">instance of step change carrying information about scenario change</param>
+        /// <param name="repository">EA repository</param>
         public void handleScenarioChange(StepChange scenarioChange, EA.Repository repository)
         {
             if (scenarioChange.status == 2)

@@ -10,6 +10,9 @@ namespace BPAddIn
 {
     public class JoinService
     {
+        /// <summary>
+        /// method for deletion of team
+        /// </summary>
         public void isConnectedInternet()
         {
             try
@@ -69,6 +72,10 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method gets currently logged user
+        /// </summary>
+        /// <returns>instance of logged user</returns>
         public User getLoggedUser()
         {
             List<User> users;
@@ -93,7 +100,11 @@ namespace BPAddIn
             }
         }
 
-
+        /// <summary>
+        /// method checks internet connection before uploading name of new team member
+        /// </summary>
+        /// <param name="teamPair"></param>
+        /// <param name="joinWindow"></param>
         public void isConnected(TeamPairDTO teamPair, JoinWindow joinWindow)
         {
             try
@@ -113,6 +124,11 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method uploads name of new team member
+        /// </summary>
+        /// <param name="teamPair">instance of TeamPairDTO containing token and new team member name</param>
+        /// <param name="joinWindow">window for joining colleague to team</param>
         public void uploadTeamMemberUsername(TeamPairDTO teamPair, JoinWindow joinWindow)
         {
             using (WebClient webClient = new WebClient())
@@ -167,6 +183,10 @@ namespace BPAddIn
             }
         }
 
+        /// <summary>
+        /// method finds token of currently logged user in local database
+        /// </summary>
+        /// <returns>token of user</returns>
         public string findToken()
         {
             List<User> users;

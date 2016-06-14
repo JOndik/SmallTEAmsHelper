@@ -23,6 +23,10 @@ namespace BPAddIn.SynchronizationPackage
             this.model = new Wrapper.Model(repository);
         }
 
+        /// <summary>
+        /// method creates and saves all data about model
+        /// </summary>
+        /// <param name="Repository">EA repository</param>
         public void sendDataAboutModel(EA.Repository Repository)
         {
             this.connectorGUIDs = new HashSet<string>();
@@ -41,6 +45,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses packages in collection of packages
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="packages">collection of packages</param>
         public void traversePackages(EA.Repository repository, EA.Collection packages)
         {
             for (short i = 0; i < packages.Count; i++)
@@ -73,6 +82,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses all diagrams in model
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="packages">collection of packages</param>
         public void traverseModelForDiagrams(EA.Repository repository, EA.Collection packages)
         {
             for (short i = 0; i < packages.Count; i++)
@@ -99,6 +113,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses all connectors in model
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="packages">collection of packages</param>
         public void traverseModelForConnectors(EA.Repository repository, EA.Collection packages)
         {
             for (short i = 0; i < packages.Count; i++)
@@ -121,6 +140,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses diagrams in all elements
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="elements">collection of elements</param>
         public void traverseDiagramsInElements(EA.Repository repository, EA.Collection elements)
         {
             for (short i = 0; i < elements.Count; i++)
@@ -138,6 +162,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses all elements in model
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="packages">collection of packages</param>
         public void traverseModelForElements(EA.Repository repository, EA.Collection packages)
         {
             for (short i = 0; i < packages.Count; i++)
@@ -160,6 +189,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses all diagram objects in model
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="packages">collection of packages</param>
         public void traverseModelForDiagramObjects(EA.Repository repository, EA.Collection packages)
         {
             for (short i = 0; i < packages.Count; i++)
@@ -186,6 +220,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses diagram objects in diagrams of all elements
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="elements">collection of elements</param>
         public void traverseDiagramsInElementsForDiagramObjects(EA.Repository repository, EA.Collection elements)
         {
             for (short i = 0; i < elements.Count; i++)
@@ -203,6 +242,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses diagram objects in all diagrams
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="diagrams">collection of diagrams</param>
         public void traverseDiagramsForDiagramObjects(EA.Repository repository, EA.Collection diagrams)
         {
             for (short i = 0; i < diagrams.Count; i++)
@@ -216,6 +260,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses diagrams in collection of diagrams
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="diagrams">collection of diagrams</param>
         public void traverseDiagrams(EA.Repository repository, EA.Collection diagrams)
         {
             for (short i = 0; i < diagrams.Count; i++)
@@ -273,6 +322,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses connectors of elements in collection
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="elements">collection of elements</param>
         public void traverseConnectors(EA.Repository repository, EA.Collection elements)
         {
             for (short i = 0; i < elements.Count; i++)
@@ -359,6 +413,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses elements in collection of elements
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="elements">collection of elements</param>
         public void traverseElements(EA.Repository repository, EA.Collection elements)
         {
             for (short i = 0; i < elements.Count; i++)
@@ -456,6 +515,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses constraint of element
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="element">element that may own constraints</param>
         public void traverseConstraints(EA.Repository repository, EA.Element element)
         {
             for (short i = 0; i < element.Constraints.Count; i++)
@@ -473,6 +537,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses attributes of element
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="element">element that may own attributes</param>
         public void traverseAttributes(EA.Repository repository, EA.Element element)
         {
             for (short i = 0; i < element.Attributes.Count; i++)
@@ -502,6 +571,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses scenarios of element
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="element">element that may own scenarios</param>
         public void traverseScenarios(EA.Repository repository, EA.Element element)
         {
             for (short i = 0; i < element.Scenarios.Count; i++)
@@ -521,6 +595,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method traverses diagram objects in diagram
+        /// </summary>
+        /// <param name="repository">EA repository</param>
+        /// <param name="diagram">diagram that may own diagram objects</param>
         public void traverseDiagramObjects(EA.Repository repository, EA.Diagram diagram)
         {
             string coordinates = "";
@@ -557,6 +636,11 @@ namespace BPAddIn.SynchronizationPackage
             }
         }
 
+        /// <summary>
+        /// method adds GUID of model and timestamp to each data about model
+        /// </summary>
+        /// <param name="change">data about model</param>
+        /// <param name="repository">EA repository</param>
         public void saveCreate(ModelChange change, EA.Repository repository)
         {
             change.modelGUID = repository.GetPackageByID(1).PackageGUID;
